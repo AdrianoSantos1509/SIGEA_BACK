@@ -1,4 +1,4 @@
-# Sistema de Turmas — Backend (CEP Taguatinga)
+# Sistema de Turmas — Backend 
 
 API em Node.js + TypeScript + TypeORM + MySQL, para substituir a planilha de
 gestão de turmas.
