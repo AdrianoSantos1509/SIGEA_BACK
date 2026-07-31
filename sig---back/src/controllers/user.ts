@@ -12,7 +12,7 @@ export class UserController{
 
        async checkUser(req: any, res: any) : Promise<any>{
        	     const { email, password } = req.body;
-       	     const user = await userService.checkUser(email, password);
-	     return res.json(user);
+       	     const token = await userService.checkUser(email, password);
+	     return res.json({token: token});
        }
 }

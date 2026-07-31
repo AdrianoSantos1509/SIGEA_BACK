@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
 import { User } from "../entities/user";
 import { encryptData, verifyData } from "../middleware/bcrypt.middleware";
+import { generateToken } from "../middleware/token.middleware";
 
 export class UserService{
        private readonly userRepo : Repository<User>;
@@ -22,18 +23,14 @@ export class UserService{
 	      return await this.userRepo.save(user);
        }
 
-       async listOne(id : number) : Promise<any>{
-       	     
-       }
-
-       async checkUser(_email : string, password : string) : Promise<any>{
+       async checkUser(_email : string, password : string) : Promise<string>{
        	     const user = await this.userRepo.findOne(
 	     	{where:{email: _email}}
 	     );
 
 	     if(user){
 		if(await verifyData(user.password, password)){
-			return user;
+			return generateToken({name: user.name, email: user.email, reg: user.reg_number});
 		}
 	     }
 	     return null;

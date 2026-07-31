@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 app.use("/users", UserRoutes);
 
+import { generateToken, verifyToken } from "./middleware/token.middleware";
+
 AppDataSource.initialize().then(async () => {
 	console.log("database connected");
 }).catch(error => console.log(error))
