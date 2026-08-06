@@ -1,4 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from "typeorm";
+import { Classroom } from "./classroom";
+import { Course } from "./course";
 
 @Entity()
 export class Occupancy {
@@ -10,6 +12,12 @@ export class Occupancy {
 
        @Column({nullable: true})
        details: string;
+
+       @ManyToOne(()=>Classroom)
+       classroom: Classroom;
+
+       @ManyToOne(()=>Course)
+       course: Course;
 
        @CreateDateColumn()
        createdAt: Date;
