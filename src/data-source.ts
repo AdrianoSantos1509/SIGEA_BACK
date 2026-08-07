@@ -8,7 +8,7 @@ import { Occupancy } from "./entities/occupancy"
 import { Coordinator } from "./entities/coordinator"
 import { Building } from "./entities/building"
 
-require("dotenv").config();
+require("dotenv").config({path : __dirname + "/.env"});
 
 export const AppDataSource = new DataSource({
     type: "mysql",
