@@ -10,13 +10,13 @@ export class ClassroomService {
     this.classRepo = AppDataSource.getRepository(Classroom);
   }
 
-  async create(number: number, floor: number, capacity: number, reg_number: number, createdAt: Date): Promise<Classroom> {
+  async create(name: string, number: number, floor: number, capacity: number, reg_number: number): Promise<Classroom> {
     const classroom = this.classRepo.create({
+      name,
       number,
       floor,
       capacity,
-      reg_number,
-      createdAt
+      reg_number
     });
     return await this.classRepo.save(classroom);
   }
@@ -25,14 +25,29 @@ export class ClassroomService {
     return await this.classRepo.find();
   }
 
-  async getOne(number: number): Promise<Classroom | null> {
-    return await this.classRepo.findOneBy({ number });
+  async getPagination(page : number): Promise<Classroom[]>{
+    const results : number = 10;
+    if(!page)
+	page = 0;
+
+    return await this.classRepo.createQueryBuilder().limit(results).offset(results * page).getMany();
+  }
+  
+  async getOne(id: number): Promise<Classroom | null> {
+    return await this.classRepo.findOne({where:{id: id}});
   }
 
   async deleteClass(number:number): Promise<DeleteResult>{
       return await this.classRepo.delete({number})
   }
-  async editClass(<number:number,data:Partial<Classroom>): Promise<UpdateResult> {
-      return await this.classRepo.update({number},data)
+  async editClass(id: number, name: string, number: number, floor: number, capacity: number, reg_number: number): Promise<Classroom> {
+      const classroom = await this.getOne(id);
+      classroom.name = name;
+      classroom.number = number;
+      classroom.floor = floor;
+      classroom.capacity = capacity;
+      classroom.reg_number = reg_number;
+
+      return await this.classRepo.save(classroom);
   }
 }
