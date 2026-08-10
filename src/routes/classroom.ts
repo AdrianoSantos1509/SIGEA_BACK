@@ -1,0 +1,12 @@
+import { Router } from "express";
+import { ClassroomController } from "../controllers/classroom.controller";
+
+const classroomController = new ClassroomController();
+const ClassRoutes = Router();
+
+ClassRoutes.post("/", (req, res) => classroomController.create(req, res));
+ClassRoutes.get("/", (req, res) => classroomController.getPageClassroom(req, res));
+ClassRoutes.put("/", (req, res) => classroomController.editClass(req, res));
+ClassRoutes.delete("/:number", (req, res) => classroomController.deleteClass(req, res));
+
+export { ClassRoutes };

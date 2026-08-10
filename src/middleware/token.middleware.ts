@@ -1,6 +1,6 @@
 import { User } from "../entities/user";
 const jwt = require("jsonwebtoken");
-require("dotenv").config({path : __dirname + "/../.env"});
+require("dotenv").config({path : __dirname + "/../../.env"});
 
 export function generateToken(user : any) : string{
        	return jwt.sign(user, process.env.TK_PASS);

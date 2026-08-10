@@ -6,7 +6,7 @@ export class Classroom {
        id: number;
        
        @Column()
-       name: number;
+       name: string;
        
        @Column()
        number: number;

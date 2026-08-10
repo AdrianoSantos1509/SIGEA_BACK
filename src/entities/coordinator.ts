@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany } from "typeorm";
+import { Course } from "./course";
 
 @Entity()
 export class Coordinator {
@@ -13,7 +14,10 @@ export class Coordinator {
        
        @Column("enum", { enum: ["instrutor, coordenador, assistente"] })
        role: string;
-       
+
+       @ManyToMany(()=>Course)
+       course: Course[];
+
        @CreateDateColumn()
        createdAt: Date;
 }

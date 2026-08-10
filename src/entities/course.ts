@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, JoinTable } from "typeorm";
+import { Coordinator } from "./coordinator";
 
 @Entity()
 export class Course {
@@ -28,6 +29,10 @@ export class Course {
 
        @Column()
        reg_number: number;
+
+       @ManyToMany(()=>Coordinator, (coordinator)=>coordinator.course, {cascade:true})
+       @JoinTable({name:"course_coordinator"})       
+       coordinator: Coordinator[];
 
        @CreateDateColumn()
        createdAt: Date;

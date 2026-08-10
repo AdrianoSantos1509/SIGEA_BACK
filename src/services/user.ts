@@ -21,6 +21,7 @@ export class UserService{
 	      user.password = encPass;
 	      user.reg_number = reg_number;
 	      return await this.userRepo.save(user);
+	      console.log("yalla");
        }
 
        async checkUser(_email : string, password : string) : Promise<string>{
