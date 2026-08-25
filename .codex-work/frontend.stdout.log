@@ -1,0 +1,31 @@
+
+> sigea-login@1.0.0 dev
+> vite --host 127.0.0.1
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m363[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
+[2m11:28:08[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:28:08[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:36:15[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:36:44[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:36:53[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.css[22m
+[2m11:39:15[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:46:06[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:47:01[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:48:26[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:48:49[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.css[22m
+[2m11:58:12[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx[22m
+[2m11:58:14[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login/LoginPage.jsx[22m
+[2m11:59:11[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m11:59:25[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.css[22m
+[2m11:59:31[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx, /src/pages/Login/LoginPage.jsx, /src/pages/Password/PasswordPage.jsx[22m
+[2m13:37:14[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m13:37:34[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m13:38:16[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m13:46:54[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m13:47:31[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m
+[2m13:47:58[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.css[22m
+[2m13:48:08[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.css[22m
+[2m13:48:16[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Home/HomePage.jsx[22m

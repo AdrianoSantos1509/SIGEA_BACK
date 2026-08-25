@@ -1,0 +1,4078 @@
+{
+  "file": "C:\\Users\\paulo\\Downloads\\01. MAPA DE SALAS ENNIUS, FACULDADE E SÃO SEBASTIÃO (1).xlsx",
+  "sheets": [
+    {
+      "title": "PORTIFÓLIO PCA 2026",
+      "state": "hidden",
+      "dimensions": "A1:I263",
+      "max_row": 263,
+      "max_column": 9,
+      "freeze_panes": null,
+      "merged_ranges": [
+        "A1:I1"
+      ],
+      "tables": [],
+      "auto_filter": "A2:I238",
+      "rows": [
+        {
+          "row": 1,
+          "values": [
+            "PORTIFÓLIO PCA 2026"
+          ]
+        },
+        {
+          "row": 2,
+          "values": [
+            "Segmento ",
+            "Modalidade /Tipo",
+            "Titulo - Nome do Curso",
+            "CH",
+            "Cód. SIG",
+            "Processo SEI",
+            "Ambiente Pedagógico ",
+            "Unidade",
+            "Resolução "
+          ]
+        },
+        {
+          "row": 3,
+          "values": [
+            "Artes",
+            "Aperfeiçoamento",
+            "Fotografia de Gastronomia",
+            32,
+            null,
+            "2025.000000709-17",
+            "Laboratórios do Jessé e as aulas práticas nos Laboratórios do Miguel Setembrino - Gastronomia e Turismo",
+            "Jessé Freire e Miguel Setembrino( práticas pedagógicas)"
+          ]
+        },
+        {
+          "row": 4,
+          "values": [
+            "Artes",
+            "Habilitação Técnica",
+            "Técnico em Produção Cultural (Ensino Médio)",
+            800,
+            null,
+            "2024.000003421-87",
+            "Jessé Freire ( sala de aula inovadora e Laboratórios pedagógicos além do de  informática)",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 5,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Alongamento de Unhas ",
+            60,
+            110398,
+            "2023.000001351-23",
+            "Necessário infraestrutura específica: Mesas para cabines e motores",
+            "Talal Abu Allan",
+            "NA"
+          ]
+        },
+        {
+          "row": 6,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Aperfeiçoamento de Corte de Cabelo e Escova ",
+            60,
+            112222,
+            "2023.000001313-06 ",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 7,
+          "values": [
+            "Beleza",
+            "Qualificação Profissional",
+            "Barbeiro ",
+            172,
+            81246,
+            "2023.000001170-61",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 8,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Cabeleireiro ",
+            400,
+            69711,
+            "2023.000000245-69",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 9,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Colorimetria Avançada Aplicada a Cabeleireiros e Barbeiros",
+            100,
+            93147,
+            "2023.000001359-81",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 10,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Colorimetria Capilar: Noções Básicas",
+            40,
+            124460,
+            "2025.000000012-73",
+            "Restrito ao Salão Escola Senac + L'Oréal",
+            "Miguel Setembrino ",
+            "NA"
+          ]
+        },
+        {
+          "row": 11,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Construção de Carreira para Profissionais da Beleza",
+            36,
+            127454,
+            "2025.000000524-21",
+            "Sala Inovadora ou convencional",
+            "Miguel Setembrino, Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 12,
+          "values": [
+            "Beleza",
+            "Qualificação Profissional",
+            "Depilador ",
+            160,
+            110116,
+            "2023.000001148-01",
+            "Necessário infraestrutura específica: Macas",
+            "Jó  Rufino e Carlos Aguiar, Talau Abu-Allan, ",
+            "NA"
+          ]
+        },
+        {
+          "row": 13,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Design de Barba",
+            40,
+            110885,
+            "2023.000001644-92",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 14,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Design de Corte Feminino: Técnicas Avançadas",
+            72,
+            110511,
+            "2023.000001476-44",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 15,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Design de Mechas ",
+            40,
+            110886,
+            "2023.000001422-51",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 16,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Design de Sobrancelhas ",
+            60,
+            110512,
+            "2023.000001256-75",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 17,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Gerenciamento de salões de beleza ",
+            40,
+            null,
+            "2025.000000471-84",
+            "Sala Inovadora ou convencional",
+            "Miguel Setembrino, Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan.",
+            "NA"
+          ]
+        },
+        {
+          "row": 18,
+          "values": [
+            "Beleza",
+            "Qualificação Profissional",
+            "Manicure e Pedicure",
+            160,
+            67555,
+            "2023.000001233-89",
+            "Necessário infraestrutura específica: Cirandinhas ",
+            "Talal Abu Allan",
+            "NA"
+          ]
+        },
+        {
+          "row": 19,
+          "values": [
+            "Beleza",
+            "Qualificação Profissional",
+            "Maquiador ",
+            160,
+            67549,
+            "2023.000000202-29",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 20,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Maquiagem Profissional Avançada",
+            60,
+            110516,
+            "2023.000001366-18",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 21,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Microblading Fio a Fio ",
+            60,
+            111000,
+            "2023.000001475-63",
+            "Necessário infraestrutura específica: Macas",
+            "Talal Abu Allan",
+            "NA"
+          ]
+        },
+        {
+          "row": 22,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Micropigmentação ",
+            80,
+            111001,
+            "2023.000001556-63",
+            "Necessário infraestrutura específica: Macas",
+            "Talal Abu Allan",
+            "NA"
+          ]
+        },
+        {
+          "row": 23,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Penteados Avançados ",
+            40,
+            111003,
+            "2023.000001501-90",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 24,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Penteados Avançados ",
+            40,
+            111003,
+            "2023.000001501-90",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 25,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Penteados e Corte de Cabelos Afro ",
+            40,
+            111004,
+            "2023.000001647-35",
+            "Laboratório de Beleza",
+            "Jó  Rufino e Carlos Aguiar, Joaquim Loiola, Sobradinho, Talau Abu-Allan, Polo São Sebastião.",
+            "NA"
+          ]
+        },
+        {
+          "row": 26,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Práticas de Trabalho do Cabeleireiro ",
+            100,
+            120234,
+            "2024.000003718-70",
+            "Restrito ao Salão Escola Senac + L'Oréal",
+            "Miguel Setembrino ",
+            "NA"
+          ]
+        },
+        {
+          "row": 27,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Técnicas de Depilação",
+            80,
+            115237,
+            "2024.000004912-63",
+            "Necessário infraestrutura específica: Macas",
+            "Jó  Rufino e Carlos Aguiar e Talau Abu-Allan",
+            "NA"
+          ]
+        },
+        {
+          "row": 28,
+          "values": [
+            "Beleza",
+            "Habilitação Técnica",
+            "Técnico em Imagem Pessoal ",
+            800,
+            128860,
+            "2025.000000004-63",
+            "Restrito ao Salão Escola Senac + L'Oréal",
+            "Miguel Setembrino",
+            "1632/2025"
+          ]
+        },
+        {
+          "row": 29,
+          "values": [
+            "Beleza",
+            "Habilitação Técnica",
+            "Técnico em Imagem Pessoal (SEEDF)",
+            800,
+            null,
+            null,
+            "Necessita de laboratório específico",
+            "Necessita de laboratório específico",
+            "1632/2025"
+          ]
+        },
+        {
+          "row": 30,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Tratamento Capilar",
+            40,
+            124459,
+            "2025.000000018-69",
+            "Restrito ao Salão Escola Senac + L'Oréal",
+            "Miguel Setembrino ",
+            "NA"
+          ]
+        },
+        {
+          "row": 31,
+          "values": [
+            "Beleza",
+            "Aperfeiçoamento",
+            "Vivências Práticas em Salão de Beleza",
+            200,
+            128597,
+            "2025.000000988-46",
+            "Restrito ao Salão Escola Senac + L'Oréal",
+            "Miguel Setembrino ",
+            "NA"
+          ]
+        },
+        {
+          "row": 32,
+          "values": [
+            "Comércio",
+            "Aperfeiçoamento",
+            "Analise de Comportamento de Consumo",
+            60,
+            null,
+            "2025.000000625-74",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 33,
+          "values": [
+            "Comércio",
+            "Aperfeiçoamento",
+            "Empreendedorismo Digital",
+            60,
+            null,
+            "2025.000000577-32",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 34,
+          "values": [
+            "Comércio",
+            "Qualificação",
+            "Qualificação Operador de Caixa",
+            "160h",
+            null,
+            "2025.000000536-64",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 35,
+          "values": [
+            "Comércio",
+            "Qualificação",
+            "Qualificação Vendedor",
+            "160h",
+            null,
+            "2025.000000469-60",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 36,
+          "values": [
+            "Comunicação",
+            "Aperfeiçoamento",
+            "Copywriting: Redação Web para Marketing e Vendas ",
+            36,
+            null,
+            "2024.000001066-11",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 37,
+          "values": [
+            "Comunicação",
+            "Aperfeiçoamento",
+            "Oratória experience - Comunique-se com alta performance",
+            42,
+            null,
+            "2024.000005609-23",
+            "Auditório e Laboratório de Informática ou Sala de Aulla",
+            "Todos os Cep´s"
+          ]
+        },
+        {
+          "row": 38,
+          "values": [
+            "Comunicação",
+            "Aperfeiçoamento",
+            "Storytelling para Marcas e Produtos",
+            42,
+            null,
+            "2024.000001095-55",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Todos os Cep´s"
+          ]
+        },
+        {
+          "row": 39,
+          "values": [
+            "Comunicação",
+            "Habilitação Técnica",
+            "Técnico em Publicidade (Ensino Médio)",
+            900,
+            null,
+            "2024.000003151-12",
+            "Jessé Freire ( sala de aula inovadora e Laboratórios pedagógicos além do de  informática)",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 40,
+          "values": [
+            "Eventos",
+            "Aperfeiçoamento",
+            "Produção e Coordenação de Projetos de Cenografia para eventos",
+            36,
+            null,
+            "2024.000002834-07",
+            "Jessé Freire ( sala de aula inovadora e Laboratórios pedagógicos além do de  informática)",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 41,
+          "values": [
+            "Eventos",
+            "Aperfeiçoamento",
+            "Projetos de Cenografia para Shows- produção de Cenários Lúdicos",
+            48,
+            null,
+            "2024.000002837-41",
+            "Jessé Freire ( sala de aula inovadora e Laboratórios pedagógicos além do de  informática)",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 42,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Aperfeiçoamento em Técnicas de Administração e Planejamento de Negócios",
+            60,
+            127108,
+            "2025.000000399-12",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 43,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Aplicação de Inteligência Artificial para Negócios ",
+            16,
+            127093,
+            "2024.000005597-55",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 44,
+          "values": [
+            "Gestão e Negócios",
+            "Aprendizagem",
+            "Aprendizagem Profissional de Qualificação em Serviços Administrativos ",
+            1900,
+            115585,
+            "2023.000001142-15",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 45,
+          "values": [
+            "Gestão e Negócios",
+            "Aprendizagem",
+            "Aprendizagem Profissional Técnica em Administração",
+            2100,
+            127959,
+            "2025.000001365-27",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 46,
+          "values": [
+            "Gestão e Negócios",
+            "Qualificação",
+            "Assistente Administrativo",
+            160,
+            121853,
+            "2023.000001160-99",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 47,
+          "values": [
+            "Gestão e Negócios",
+            "Qualificação",
+            "Assistente de Crédito e Cobrança",
+            160,
+            121856,
+            "2023.000001176-56",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 48,
+          "values": [
+            "Gestão e Negócios",
+            "Qualificação",
+            "Assistente de Logística ",
+            160,
+            69651,
+            "2023.000001949-95",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 49,
+          "values": [
+            "Gestão e Negócios",
+            "Qualificação",
+            "Assistente de Marketing e Vendas",
+            160,
+            122251,
+            "2024.000004494-96",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 50,
+          "values": [
+            "Gestão e Negócios",
+            "Qualificação",
+            "Assistente de Recursos Humanos",
+            160,
+            121853,
+            "2023.000001161-70",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 51,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Excelência em Atendimento e Vendas",
+            40,
+            126134,
+            "2023.000001952-91",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 52,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Ferramentas de inovação e modelos de negócios para empresários e gestores ",
+            60,
+            122258,
+            "2024.000003094-81",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 53,
+          "values": [
+            "Gestão e Negócios",
+            "Programa Instrumental",
+            "Formação em Departamento Pessoal (apenas comercial)",
+            160,
+            126646,
+            "2024.000005490-16",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 54,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Gestão de crise nas redes sociais ",
+            20,
+            119579,
+            "2024.000003775-68",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 55,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Gestão de pequenos negócios em comércio e serviços ",
+            100,
+            119591,
+            "2024.000003896-55",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 56,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Gestão de Redes Sociais e Criação de Conteúdo Digital",
+            80,
+            85459,
+            "2023.000001951-18",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 57,
+          "values": [
+            "Gestão e Negócios",
+            "Programas Socioculturais",
+            "Inteligência Emocional Para Administração de Conflitos (apenas comercial)",
+            15,
+            124734,
+            "2025.000000420-34",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 58,
+          "values": [
+            "Gestão e Negócios",
+            "Programa Instrumental",
+            "Libras  (apenas comercial)",
+            160,
+            124924,
+            "2024.000005300-05",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 59,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Posicionamento: Como sua marca deve se comportar no mercado ",
+            40,
+            118808,
+            "2024.000004196-60",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 60,
+          "values": [
+            "Gestão e Negócios",
+            "Qualificação",
+            "Recepcionista",
+            160,
+            121868,
+            "2024.000004678-00",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 61,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Soft Skills Pro - As competências que o mercado quer",
+            80,
+            132199,
+            "2025.000001863-89",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 62,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Técnicas de Atendimento e Recepção",
+            40,
+            127103,
+            "2024.000005595-93",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 63,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Técnicas de Rapport: negociação e influência ",
+            60,
+            122283,
+            "2024.000003099-96",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 64,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Administração ",
+            800,
+            122329,
+            "2023.000001107-24",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 65,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Administração SEEDF",
+            800,
+            122328,
+            "2023.000001940-57",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 66,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Contabilidade",
+            800,
+            121894,
+            "2023.000001151-06",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 67,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Contabilidade SEEDF",
+            800,
+            121891,
+            "2024.000004724-71",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 68,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Marketing",
+            800,
+            122340,
+            "2024.000005475-87",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 69,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Marketing SEEDF",
+            800,
+            122343,
+            "2024.000005148-16",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 70,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Qualidade",
+            800,
+            126221,
+            "2024.000005489-82",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 71,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Recursos Humanos ",
+            800,
+            121896,
+            "2023.000001167-65",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 72,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Recursos Humanos SEEDF",
+            800,
+            121907,
+            "2024.000004730-10",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 73,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Secretariado ",
+            800,
+            122361,
+            "2023.000001174-94",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 74,
+          "values": [
+            "Gestão e Negócios",
+            "Habilitação Técnica",
+            "Técnico em Secretariado SEEDF",
+            800,
+            122362,
+            "2024.000004731-09",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 75,
+          "values": [
+            "Produção Cultural e Design",
+            "Aperfeiçoamento",
+            "Fotografia e Filmagem com Drone",
+            32,
+            null,
+            "2025.000000569-22",
+            "Laboratório de informática e PARA AS AULAS PRÁTICAS EXTERNAS:\n• Espaço aberto, amplo, livre de obstáculos para decolagens, movimentos de voo e pousos.\n\n• A UO pode utilizar espaço próprio ou buscar espaço parceiro para a realização das aulas.\n\n• Caso os voos sejam executados em espaços públicos, a UO deve verificar com Orgão Público competente se existe a necessidade de autorização para o uso do espaço.\n\n• Em caso de utilização de espaço parceiro, sugere-se que a UO formalize, da forma que couber, a referida parceria.\n\n• À disposição da UO existe o documento “Formulário Simplificado de Ocorrências com Drones” que deve ser utilizado para o monitoramento e registro de acidentes de diversas naturezas durante a execução das aulas práticas. A UO deve registrar os drones no SARPAS (Sistema para solicitação de acesso ao Espaço Aéreo por aeronaves não tripuladas) no endereço digital: https://servicos.decea.mil.br/sarpas/, conforme orientações no documento “CARTILHA REGISTRO ANAC PARA RETA”, disponibilizado na rede H:Unidades/Guia de vendas/Fotografia/Fotografia e filmagem com Drone_13193_AP",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 76,
+          "values": [
+            "Educacional Social",
+            "Aprendizagem",
+            "Aprendizagem Profissional de Qualificação em Comércio de bens, serviços e turismo",
+            1920,
+            null,
+            "2024.000004975-47",
+            "Sala de Aula Inovadora ou Convencional e Laboratório de Informática",
+            "Todos os Cep´s"
+          ]
+        },
+        {
+          "row": 77,
+          "values": [
+            "Comércio",
+            "Aprendizagem",
+            "Aprendizagem Profissional de Qualificação em Serviços de Supermercados",
+            1920,
+            null,
+            "2023.000001394-63",
+            "Sala de Aula Inovadora ou Convencional e Laboratório de Informática",
+            "Todos os Cep´s"
+          ]
+        },
+        {
+          "row": 78,
+          "values": [
+            "Comércio",
+            "Aprendizagem",
+            "Aprendizagem Profissional de Qualificação em Serviços de Vendas",
+            1920,
+            null,
+            "2023.000001376-81",
+            "Sala de Aula Inovadora ou Convencional e Laboratório de Informática",
+            "Todos os Cep´s"
+          ]
+        },
+        {
+          "row": 79,
+          "values": [
+            "Hospedagem",
+            "Aprendizagem",
+            "Aprendizagem Profissional de Qualificação em Serviços Hoteleiros",
+            1920,
+            null,
+            "2023.000000859-41",
+            "Laboratório de Hotelaria e Sala de Aula Inovadora",
+            "Miguel  Setembrino Gastronomia e Turismo"
+          ]
+        },
+        {
+          "row": 80,
+          "values": [
+            "Hospedagem",
+            "Aprendizagem",
+            "Camareiro (a) em Meios de Hospedagem",
+            160,
+            122135,
+            "2024.000004709-32",
+            "Laboratório de Hotelaria e Sala de Aula Inovadora",
+            "Miguel  Setembrino Gastronomia e Turismo"
+          ]
+        },
+        {
+          "row": 81,
+          "values": [
+            "Artes",
+            "Qualificação Profissional",
+            "Florista ",
+            160,
+            121893,
+            "2023.000001427-66",
+            "Laboratório de Florista",
+            "Jô Ruffino e Carlos Aguiar"
+          ]
+        },
+        {
+          "row": 82,
+          "values": [
+            "Design",
+            "Habilitação Técnica",
+            "Técnico em Design de Interiores (ENSINO MÉDIO)",
+            800,
+            122143,
+            "2024.000004708-51",
+            "Laboratório de Informática e Sala de Aula Inovadora",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 83,
+          "values": [
+            "Eventos",
+            "Habilitação Técnica",
+            "Técnico em Eventos (ENSINO MÉDIO)",
+            800,
+            122073,
+            "2023.000000305-34",
+            "Laboratório de Eventos e Sala de Aula Inovadora",
+            "Miguel  Setembrino Gastronomia e Turismo"
+          ]
+        },
+        {
+          "row": 84,
+          "values": [
+            "Comunicação",
+            "Habilitação Técnica",
+            "Técnico em multimídia (800h)",
+            800,
+            127943,
+            "2024.000003152-95",
+            "Laboratórios Economia Criativa",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 85,
+          "values": [
+            "Artes",
+            "Habilitação Técnica",
+            "Técnico em processos fotográficos (800h)",
+            800,
+            128565,
+            "2024.000003149-90",
+            "Laboratórios Economia Criativa",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 86,
+          "values": [
+            "Artes",
+            "Habilitação Técnica",
+            "Técnico em Produção Cultural ( ENSINO MÉDIO)",
+            800,
+            128358,
+            "2024.000003421-87",
+            "Laboratórios Economia Criativa",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 87,
+          "values": [
+            "Comunicação",
+            "Habilitação Técnica",
+            "Técnico em produção de áudio e vídeo (ENSINO MÉDIO)",
+            1200,
+            128434,
+            "2024.000003150-23",
+            "Laboratórios Economia Criativa",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 88,
+          "values": [
+            "Comunicação",
+            "Habilitação Técnica",
+            "Técnico em Publicidade (ENSINO MÉDIO)",
+            900,
+            128704,
+            "2024.000003151-12",
+            "Laboratórios Economia Criativa",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 89,
+          "values": [
+            "Comércio",
+            "Habilitação Técnica",
+            "Técnico em Transações Imobiliárias",
+            800,
+            123066,
+            "2024.000005092-27",
+            "Sala de Aula Inovadora ou Convencional e Laboratório de Informática",
+            "Todos os Cep´s"
+          ]
+        },
+        {
+          "row": 90,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Qualidade Eficiência na Coleta de Sangue Venoso e Capilar",
+            40,
+            65993,
+            "2023.000001408-01",
+            "Laboratório",
+            "Miguel Setembrino"
+          ]
+        },
+        {
+          "row": 91,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Técnicas de Aplicação de Medicamentos Injetáveis",
+            40,
+            70340,
+            "2023.000001279-61",
+            "Laboratório",
+            "Miguel Setembrino"
+          ]
+        },
+        {
+          "row": 92,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Atendente de Farmácia",
+            240,
+            81609,
+            "2023.000001583-36",
+            "Sala Inovadora ou convencional",
+            "Miguel Setembrino",
+            "NA"
+          ]
+        },
+        {
+          "row": 93,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Atendente de Farmácia",
+            240,
+            81609,
+            "2023.000001583-36",
+            "Sala Inovadora ou convencional",
+            "Jó Rufino e Carlos Aguiar",
+            "NA"
+          ]
+        },
+        {
+          "row": 94,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Atendente de Farmácia",
+            240,
+            81609,
+            "2023.000001583-36",
+            "Sala Inovadora ou convencional",
+            "Talal Abu Allan",
+            "NA"
+          ]
+        },
+        {
+          "row": 95,
+          "values": [
+            "Saúde",
+            "Especialização",
+            "Especialização Técnica em Instrumentação Cirúrgica",
+            360,
+            109853,
+            "2023.000001352-12",
+            "Laboratório de Enfermagem e Estágio Supervisionado",
+            "Joaquim Loiola",
+            "1645/2025"
+          ]
+        },
+        {
+          "row": 96,
+          "values": [
+            "Saúde",
+            "Especialização",
+            "Especialização Técnica em Unidade de Terapia Intensiva",
+            380,
+            70458,
+            "2023.000001636-82",
+            "Laboratório de Enfermagem ",
+            "Joaquim Loiola",
+            "1426/2020"
+          ]
+        },
+        {
+          "row": 97,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Faturamento de Serviços de Saúde",
+            96,
+            11089,
+            "2023.000001885-96",
+            "Sala Inovadora ou convencional",
+            "Jó Rufino e Carlos Aguiar",
+            "NA"
+          ]
+        },
+        {
+          "row": 98,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Recepcionista em Serviços de Saúde",
+            null,
+            81531,
+            null,
+            "Sala Inovadora ou convencional",
+            "Jó Rufino e Carlos Aguiar",
+            "NA"
+          ]
+        },
+        {
+          "row": 99,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico de Enfermagem",
+            1400,
+            117615,
+            "2023.000001346-66",
+            "Laboratório de Enfermagem e Estágio Supervisionado",
+            "Joaquim Loiola e Miguel Setembrino",
+            "1644/2025"
+          ]
+        },
+        {
+          "row": 100,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Análises Clínicas",
+            1200,
+            122422,
+            "2023.000000401-73",
+            "Sala Inovadora e Laboratório Análises Clínicas",
+            "Miguel Setembrino ",
+            "1615/2025"
+          ]
+        },
+        {
+          "row": 101,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Estética",
+            1200,
+            121879,
+            "2024.000003233-95",
+            "Sala Inovadora ou convencional",
+            "Miguel Setembrino",
+            "1591/2024"
+          ]
+        },
+        {
+          "row": 102,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Farmácia",
+            1200,
+            70388,
+            "2023.000000818-72",
+            "Sala Inovadora e Laboratório Biodiagnóstico",
+            "Miguel Setembrino ",
+            "1629/2025"
+          ]
+        },
+        {
+          "row": 103,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Hemoterapia",
+            1200,
+            122400,
+            "2023.000000839-05",
+            "Sala Inovadora e Laboratório Biodiagnóstico",
+            "Miguel Setembrino ",
+            "1617/2025"
+          ]
+        },
+        {
+          "row": 104,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Massoterapia",
+            1200,
+            122019,
+            "2023.000001762-37",
+            "Laboratório de Massoterapia",
+            "Miguel Setembrino",
+            "1446/2022"
+          ]
+        },
+        {
+          "row": 105,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Nutrição E Dietética ",
+            1200,
+            121386,
+            "2023.000001146-31",
+            "Sala inovadora/convencional e Cozinha e Laboratório de Avaliação Nutricional",
+            "Miguel Setembrino ",
+            "1625/2025"
+          ]
+        },
+        {
+          "row": 106,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Nutrição E Dietética ",
+            1200,
+            121386,
+            "2023.000001146-31",
+            "Sala inovadora/convencional e Cozinha e Laboratório de Avaliação Nutricional",
+            "Jó  Rufino e Carlos Aguiar",
+            "1625/2025"
+          ]
+        },
+        {
+          "row": 107,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Podologia",
+            1200,
+            117562,
+            "2023.000001570-11",
+            "Laboratório de Podologia",
+            "Miguel Setembrino",
+            "1593/2024"
+          ]
+        },
+        {
+          "row": 108,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Prevenção e Combate a Incêndio",
+            1012,
+            107495,
+            "2023.000000296-17",
+            "Sala inovadora e Campo de Treinamento",
+            "Miguel Setembrino",
+            "1523/2023"
+          ]
+        },
+        {
+          "row": 109,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Radiologia",
+            800,
+            null,
+            "Ainda será aberto no SEI",
+            "Laboratório de Radiologia",
+            "Miguel Setembrino",
+            "Ainda será aberto no SEI"
+          ]
+        },
+        {
+          "row": 110,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Saúde Bucal",
+            1200,
+            null,
+            "Ainda será aberto no SEI",
+            "Laboratório de Saúde bucal/Parceria SESC",
+            "Miguel Setembrino",
+            "Ainda será aberto no SEI"
+          ]
+        },
+        {
+          "row": 111,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Segurança do Trabalho",
+            1200,
+            121950,
+            2023000001631,
+            "Sala Inovadora ou convencional",
+            "Miguel Setembrino",
+            "1541/2024"
+          ]
+        },
+        {
+          "row": 112,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Segurança do Trabalho",
+            1200,
+            121950,
+            2023000001631,
+            "Sala Inovadora ou convencional",
+            "Jó Rufino e Carlos Aguiar",
+            "1541/2024"
+          ]
+        },
+        {
+          "row": 113,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Segurança do Trabalho",
+            1200,
+            121950,
+            2023000001631,
+            "Sala Inovadora ou convencional",
+            "Miguel Setembrino",
+            "1541/2024"
+          ]
+        },
+        {
+          "row": 114,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Segurança do Trabalho",
+            1200,
+            121950,
+            2023000001631,
+            "Sala Inovadora ou convencional",
+            "Sobradinho",
+            "1541/2024"
+          ]
+        },
+        {
+          "row": 115,
+          "values": [
+            "Segurança",
+            "Habilitação Técnica",
+            "Técnico em Meio Ambiente (SEEDF)",
+            1200,
+            121910,
+            "2024.000004827-87",
+            "Sala inovadora e prática no laboratório de Análises Clínicas ",
+            "Miguel Setembrino ",
+            "1614/2025"
+          ]
+        },
+        {
+          "row": 116,
+          "values": [
+            "Segurança",
+            "Habilitação Técnica",
+            "Técnico em Segurança do Trabalho (SEEDF)",
+            1200,
+            132011,
+            "2024.000004881-22",
+            "Sala inovadora e laboratório de Segurança do Trabalho",
+            "Miguel Setembrino, Sobradinho, Jó Rufino e Carlos Aguiar",
+            "1541/2024"
+          ]
+        },
+        {
+          "row": 117,
+          "values": [
+            "Tecnologia e Games",
+            "QUALIFICAÇÃO",
+            "Administrador de Banco de Dados",
+            "200h",
+            86169,
+            "2023.000001316-41 ",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 118,
+          "values": [
+            "Tecnologia e Games",
+            "APRENDIZAGEM",
+            "Aprendizagem Profissional de Qualificação em Desenvolvimento de Softwares",
+            "1000h",
+            101365,
+            "2023.000001128-59",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 119,
+          "values": [
+            "Tecnologia e Games",
+            "QUALIFICAÇÃO",
+            "Assistente de Tecnologias da Informação",
+            "200h",
+            86168,
+            "2023.000000029-13",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 120,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "ChatGPT na Prática",
+            "36h",
+            128502,
+            "2025.000001177-35",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 121,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Construção de Websites com PHP e MySQL",
+            "60h",
+            109529,
+            "2023.000001325-31",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 122,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Excel com Business Intelligence",
+            "40h",
+            null,
+            "2025.000000083-67",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 123,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Formação - programação python",
+            "156h",
+            124941,
+            "2024.000004237-72",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 124,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Front-End: Html, Css, Bootstrap, js e Jquery",
+            "100h",
+            110895,
+            "2023.000001327-01",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 125,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Games 2D - Criando seu Primeiro Jogo",
+            "40h",
+            null,
+            "2025.000000087-91",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 126,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Games 2D - Jogos para dispositivos móveis",
+            "40h",
+            null,
+            "2025.000000088-71",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 127,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Informática Windows e Office Fundamental",
+            "100h",
+            108909,
+            " 2023.000002188-43",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 128,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Inteligência Artificial - Como Fazer a Pergunta Correta",
+            "20h",
+            128520,
+            "2025.000001173-10",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 129,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Inteligência Artificial: Conceitos e Práticas",
+            "20h",
+            null,
+            "2025.000001176-54",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 130,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Jogos com Unreal Engine",
+            "48h",
+            null,
+            "2025.000000086-18",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 131,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Linguagem de Programação Ruby",
+            "36h",
+            null,
+            "2025.000000077-19",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 132,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Lógica de Programação",
+            "40h",
+            116164,
+            "2023.000001761-56",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 133,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Microsoft Power bi - Avançado",
+            "20h",
+            110517,
+            "2023.000001320-27",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 134,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Microsoft Power Bi - Básico",
+            "20h",
+            68064,
+            "2023.000001319-93",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 135,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "PHP com MySQL",
+            "160h",
+            66078,
+            " 2023.000001330-07",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 136,
+          "values": [
+            "Tecnologia e Games",
+            "QUALIFICAÇÃO",
+            "Programador de Sistemas",
+            "200h",
+            105169,
+            " 2023.000001331-80",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 137,
+          "values": [
+            "Tecnologia e Games",
+            "QUALIFICAÇÃO",
+            "Programador Web ",
+            "240h",
+            86172,
+            "2023.000001166-84",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 138,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Python II – desenvolvendo aplicações web",
+            "60h",
+            null,
+            "2025.000000090-96",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 139,
+          "values": [
+            "Tecnologia e Games",
+            "APERFEIÇOAMENTO",
+            "Técnicas Avançadas de Word, Excel e Powerpoint",
+            "60h",
+            66313,
+            "2023.000001155-21",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 140,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Ciências de Dados",
+            "1000h",
+            128588,
+            "2025.000000385-17",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's"
+          ]
+        },
+        {
+          "row": 141,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Computação Gráfica",
+            "1000h",
+            122102,
+            "2023.000001323-70",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's"
+          ]
+        },
+        {
+          "row": 142,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Desenvolvimento de Sistemas",
+            "1200h",
+            122399,
+            "2023.000002099-33",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 143,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Informática",
+            "1200h",
+            122062,
+            "2023.000001328-84",
+            "Laboratorio de Tecnologia ",
+            "Jessé Freire"
+          ]
+        },
+        {
+          "row": 144,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Informática para Internet (Programação Web e Mobile)",
+            "1000h",
+            122097,
+            "2024.000005164-36",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 145,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Inteligência Artificial",
+            "1200h",
+            128411,
+            "2025.000000892-60",
+            "Laboratorio de Tecnologia ",
+            "Jessé Freire e Jó Rufino e Carlos Aguiar"
+          ]
+        },
+        {
+          "row": 146,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Programação de Jogos Digitais",
+            "1000h",
+            122067,
+            "2023.000001329-65",
+            "Laboratorio de Tecnologia ",
+            "Todos os CEP's"
+          ]
+        },
+        {
+          "row": 147,
+          "values": [
+            "Tecnologia e Games",
+            "HABILITAÇÃO TÉCNICA",
+            "Técnico em Segurança Cibernética",
+            "1000h",
+            122193,
+            "2024.000005157-15",
+            "Laboratorio de Tecnologia ",
+            "Jessé Freire e Jó Rufino e Carlos Aguiar"
+          ]
+        },
+        {
+          "row": 148,
+          "values": [
+            "Turismo",
+            "Aperfeiçoamento",
+            "Concierge: o diferencial no atendimento ao cliente",
+            30,
+            null,
+            "2025.000000838-14",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Recomenda-se Miguel Setembrino Turismo e Gastronomia, mas pode ser ministrado em Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 149,
+          "values": [
+            "Turismo",
+            "Aperfeiçoamento",
+            "Excelência no Atendimento em Serviços de Hospitalidade ",
+            24,
+            null,
+            "2025.000000837-33",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Recomenda-se Miguel Setembrino Turismo e Gastronomia, mas pode ser ministrado em Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 150,
+          "values": [
+            "Turismo",
+            "Aperfeiçoamento",
+            "Ferramentas de Marketing Digital para o Turismo ",
+            20,
+            null,
+            "2025.000000938-87",
+            "Sala de Aula Inovadora e Laboratório de Informática",
+            "Recomenda-se Miguel Setembrino Turismo e Gastronomia, mas pode ser ministrado em Todos os CEP´s"
+          ]
+        },
+        {
+          "row": 151,
+          "values": [
+            "Turismo",
+            "Aperfeiçoamento",
+            "Inglês e espanhol para Camareiras, Garçons e Recepcionistas ",
+            108,
+            null,
+            "2025.000000839-03",
+            "Laboratório de Hotelaria e Eventos",
+            "Miguel Setembrino  Gastronomia e Turismo"
+          ]
+        },
+        {
+          "row": 152,
+          "values": [
+            "Gestão e Negócios",
+            "Aperfeiçoamento",
+            "Tráfego Pago Como Anunciar no Instagram e Facebook",
+            24,
+            129347,
+            "2025.000000708-36",
+            "Sala de Aula Inovadora ou Convencional",
+            "Todos os CEP's e Polos"
+          ]
+        },
+        {
+          "row": 153,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Qualidade e Eficiência na Coleta de Sangue Venoso e Capilar",
+            40,
+            65993,
+            "2023.000001408-01",
+            "Sala inovadora/Lab. Biodiagnostico/ Enfermagem",
+            "Miguel Setembrino e Joaquim Loiola"
+          ]
+        },
+        {
+          "row": 154,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Nutrição E Dietética (SEEDF)",
+            1200,
+            null,
+            null,
+            "Sala inovadora/convencional e Cozinha e Laboratório de Avaliação Nutricional"
+          ]
+        },
+        {
+          "row": 155,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Farmácia (ENSINO MÉDIO)",
+            1200,
+            1699,
+            "2025.000000156-57",
+            "Sala de aula/Laboratório",
+            "Miguel Setembrino",
+            "1616/2025"
+          ]
+        },
+        {
+          "row": 156,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Hemoterapia (ENSINO MÉDIO)",
+            1200,
+            31785,
+            "2025.000000154-95",
+            "Sala de aula/Laboratório",
+            "Miguel Setembrino",
+            "1617/2025"
+          ]
+        },
+        {
+          "row": 157,
+          "values": [
+            "Saúde",
+            "Habilitação Técnica",
+            "Técnico em Análises Clínicas (ENSINO MÉDIO)",
+            1200,
+            65968,
+            "2025.000000155-76",
+            "Sala de aula/Laboratório",
+            "Miguel Setembrino",
+            "1615/2025"
+          ]
+        },
+        {
+          "row": 158,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Simulação Realística: Diretrizes para o suporte básico de vida",
+            40,
+            null,
+            "2025.000000934-53",
+            "Sala de aula/Laboratório Pedro Guirra",
+            "Miguel Setembrino ",
+            "NA"
+          ]
+        },
+        {
+          "row": 159,
+          "values": [
+            "Saúde",
+            "Aperfeiçoamento",
+            "Auriculoterapia",
+            32,
+            null,
+            "2025.000000529-35",
+            "Sala inovadora/ Laboratório de Massoterapia",
+            "Miguel Setembrino ",
+            "NA"
+          ]
+        },
+        {
+          "row": 160,
+          "values": [
+            "Saúde ",
+            "Ação extensiva",
+            "Cálculos Utilizados na Dispensação e Manipulação Farmacêutica",
+            16,
+            103284,
+            "2023.000000791-18",
+            "Sala de Aula Inovadora ou Convencional/laboratorio",
+            "Miguel Setembrino",
+            "NA"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "CEP ENNIUS MUNIZ",
+      "state": "visible",
+      "dimensions": "A2:BA26",
+      "max_row": 26,
+      "max_column": 53,
+      "freeze_panes": "C8",
+      "merged_ranges": [
+        "AH9:AH11",
+        "AN9:AN12",
+        "B9:B13",
+        "AP9:AP12",
+        "AT9:AT11",
+        "AH15:AH17",
+        "AP21:AP24",
+        "AT15:AT17",
+        "AJ15:AJ19",
+        "B15:B19",
+        "AZ15:AZ18",
+        "Z21:Z24",
+        "R21:R24",
+        "T21:T24",
+        "AF21:AF24",
+        "AL21:AL24",
+        "AL15:AL17",
+        "AB15:AB17",
+        "AN21:AN24",
+        "AP15:AP18",
+        "AD9:AD11",
+        "AJ9:AJ11",
+        "AD21:AD25",
+        "AH21:AH25",
+        "AR9:AR11",
+        "AJ21:AJ25",
+        "AZ9:AZ11",
+        "AV9:AV12",
+        "AF9:AF11",
+        "AT21:AT24",
+        "B21:B25",
+        "AL9:AL12",
+        "AD15:AD17",
+        "Z15:Z18",
+        "AF15:AF19",
+        "AR15:AR17",
+        "AN15:AN18"
+      ],
+      "tables": [],
+      "auto_filter": null,
+      "rows": [
+        {
+          "row": 3,
+          "values": [
+            null,
+            "Sala/Turno",
+            null,
+            "SI - 2.1\n(Mesa e Cadeira)",
+            null,
+            "SI - 2.2\n(Carteira)",
+            null,
+            "SI - 2.3\n(Mesa e Cadeira)",
+            null,
+            "SI - 2.4\n(Carteira)",
+            null,
+            "SI - 2.5\n(Carteira)",
+            null,
+            "SI - 2.6\n(Mesa e Cadeira)",
+            null,
+            "SI - 2.7\n(Mesa e Cadeira)",
+            null,
+            "SI - 2.8\n(Mesa e Cadeira)",
+            null,
+            "SI - 3.1\n(Mesa e Cadeira)",
+            null,
+            "SI - 3.2\n(Carteira)",
+            null,
+            "AUDITÓRIO ",
+            null,
+            "Lab. TI 3.1\n(iMacs)",
+            null,
+            "Lab. TI 3.2",
+            null,
+            "Lab. TI 3.3",
+            null,
+            "Lab. TI - Desen. Sistemas - 4.1",
+            null,
+            "Lab. TI - Desen. Sistemas - 4.2",
+            null,
+            "Lab. TI - Desen. Sistemas - 4.3",
+            null,
+            "Lab. TI - Desen. Sistemas - 4.4",
+            null,
+            "Lab. TI - Comp. Gráfica - 4.5",
+            null,
+            "Laboratório de Redes - 4.6",
+            null,
+            "Lab. TI - Games - 4.7",
+            null,
+            "Lab. TI - Hardware - 4.8",
+            null,
+            "Lab. Fotografia",
+            null,
+            "Lab. Podcast"
+          ]
+        },
+        {
+          "row": 4,
+          "values": [
+            null,
+            "CAPACIDADE",
+            null,
+            25,
+            null,
+            32,
+            null,
+            24,
+            null,
+            22,
+            null,
+            28,
+            null,
+            28,
+            null,
+            38,
+            null,
+            23,
+            null,
+            31,
+            null,
+            29,
+            null,
+            108,
+            null,
+            27,
+            null,
+            22,
+            null,
+            29,
+            null,
+            30,
+            null,
+            18,
+            null,
+            30,
+            null,
+            26,
+            null,
+            25,
+            null,
+            25,
+            null,
+            25,
+            null,
+            32
+          ]
+        },
+        {
+          "row": 5,
+          "values": [
+            null,
+            "CAPACIDADE 80%",
+            null,
+            "=D4/100*80",
+            null,
+            "=F4/100*80",
+            null,
+            "=H4/100*80",
+            null,
+            "=J4/100*80",
+            null,
+            "=L4/100*80",
+            null,
+            "=N4/100*80",
+            null,
+            "=P4/100*80",
+            null,
+            "=R4/100*80",
+            null,
+            "=T4/100*80",
+            null,
+            "=V4/100*80",
+            null,
+            "=X4/100*80",
+            null,
+            "=Z4/100*80",
+            null,
+            "=AB4/100*80",
+            null,
+            "=AD4/100*80",
+            null,
+            "=AF4/100*80",
+            null,
+            "=AH4/100*80",
+            null,
+            "=AJ4/100*80",
+            null,
+            "=AL4/100*80",
+            null,
+            "=AN4/100*80",
+            null,
+            "=AP4/100*80",
+            null,
+            "=AR4/100*80",
+            null,
+            "=AT4/100*80",
+            null,
+            "=AV4/100*80",
+            null,
+            "=AX4/100*80"
+          ]
+        },
+        {
+          "row": 6,
+          "values": [
+            null,
+            "PROGRAMAS"
+          ]
+        },
+        {
+          "row": 7,
+          "values": [
+            null,
+            "INTERVALO"
+          ]
+        },
+        {
+          "row": 9,
+          "values": [
+            null,
+            "MATUTINO",
+            null,
+            "APZ BST (2ª)\n2025.07.225\n13/10/25 A 21/09/27\nÚLTIMO DIA: 20/09/27\nCAMILA OLIVEIRA\n15 ALUNOS",
+            null,
+            "APZ ADM (2ª)\n2025.07.216\n15/09/25 A 10/09/27\nÚLTIMO DIA: 16/08/27\nLORENA\n14 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2026.07.51\n23/02/26 A 21/02/28\nÚLTIMO DIA: 21/02/28\nRÔNIA\n21 ALUNOS",
+            null,
+            "APZ SUP (2ª)\n2025.07.68\n17/03/25 A 29/09/26\nÚLTIMO DIA: 21/09/26\nCAMILA SILVA\n5 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2025.07.89\n12/05/25 A 10/05/27\nÚLTIMO DIA: 10/05/27\nMOISÉS DELMONDES\n15 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2024.07.451\n04/12/24 A 13/11/26\nÚLTIMO DIA: 09/11/26\nJULIANA MENDES\n7  ALUNOS",
+            null,
+            "2ª – LIVRE",
+            null,
+            "APZ BST (2ª)\n2025.07.108\n12/05/25 A 10/05/27\nÚLTIMO DIA: 10/05/27\nLUNA\n10 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2025.07.175\n21/07/25 A 20/07/27\nÚLTIMO DIA: 19/07/27\nCLÉIA\n20 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2025.07.98\n14/04/25 A 09/04/27\nÚLTIMO DIA: 05/04/27\nMAILA BRAZ\n5 ALUNOS",
+            null,
+            "APRENDIZAGEM (15 DIAS)\n08/09 A 28/09/2026\n\nAPRENDIZAGEM (15 DIAS)\n05/10 A 26/10/2026",
+            null,
+            "TEM | TÉC. EM PUBLICIDADE\n(2ª E 4ª) – 6ªR\n2026.07.36\n09/03/26 A 13/12/27\nLUCAS JANSEN\n20 ALUNOS",
+            null,
+            "2ª – LIVRE\n\n20/07 A 24/07 - CLÉIA\n2025.07.177\n\n27/07 A 31/07 - MAILA\n2025.07.148",
+            null,
+            "TEM | TÉCNICO EM CIÊNCIA DE DADOS\n(2ª A 4ª) – 5ªR\n2026.07.24\n09/03/26 A 01/09/27\nVITÓRIA LISSA\n20 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 4ª) – 5ªR\n2025.07.185\n10/03/25 A 24/11/26\nALEXANDRE MAGNO\n12 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM INTELIGÊNCIA ARTIFICIAL\n(2ª A 4ª) – 5ªR\n2026.07.33\n02/03/26 A 07/12/27\nJOÃO MENDES\n33 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 4ª) – 5ªR\n2026.07.28\n25/02/26 A 01/12/27\nMOISÉS ANDRADE\n27 ALUNOS",
+            null,
+            "TÉCNICO EM CIÊNCIA DE DADOS\n(2ª A 5ª) – 6ªR\n2025.07.132\n18/08/25 A 16/10/26\nARNALDO\n6 ALUNOS",
+            null,
+            "APZ SOFTWARES\n(2ª A 6ª)\n2025.07.143\n01/07/25 A 31/08/26\nÚLTIMO DIA: 24/08/26\nPEDRO RENATO\n8 ALUNOS",
+            null,
+            "TÉCNICO EM SEGURANÇA CIBERNÉTICA\n(2ª A 5ª) – 6ªR\n2026.07.16\n02/03/26 A 10/05/27\nJOSÉ WELLINGTON\n16 ALUNOS",
+            null,
+            "\n\nTEM | TÉCNICO EM PROGRAMAÇÃO DE JOGOS DIGITAIS\n(2ª A 4ª) – 5ªR\n2026.07.44\n09/03/26 A 13/09/27\nMATHEUS\n10 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM SEGURANÇA CIBERNÉTICA\n(2ª A 4ª) – 5ªR\n2026.07.37\n02/03/26 A 01/09/27\nANA PAULA\n15 ALUNOS",
+            null,
+            "TÉCNICO EM PROCESSOS FOTOGRÁFICOS\n(2ª A 5ª) – 6ªR\n2025.07.129\n25/08/25 A 27/08/26\nFELIPE CARVALHO\n5 ALUNOS",
+            null,
+            "2ª – LIVRE\n"
+          ]
+        },
+        {
+          "row": 10,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ BST (3ª)\n2025.07.235\n01/12/25 A 03/11/27\nÚLTIMO DIA: 26/10/27\nCAMILA CUNHA\n19 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2025.07.202\n11/08/25 A 21/07/27\nÚLTIMO DIA: 15/06/27\nTATIANA\n12 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2025.07.168\n16/06/25 A 11/06/27\nÚLTIMO DIA: 01/06/27\nWESLEY ALVES\n13 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM MARKETING\n(3ª, 5ª e 6ªR*)\n2025.07.193\n11/03/25 A 27/10/26\nLUNA\n5 ALUNOS",
+            null,
+            "APZ SUP (3ª)\n2025.07.148\n16/06/25 A 11/12/26\nÚLTIMO DIA: 24/11/26\nMAILA\n9 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM ADM\n(3ª, 5ª e 6ª R*)\n2026.07.21\n03/03/26 A 28/09/27\nJULIANA MENDES\n15 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2026.07.75\n15/06/26 A 08/05/28\nÚLTIMO DIA: 02/05/28\nJOSÉ NILTON\n31 ALUNOS",
+            null,
+            "APZ ADM (3ª)\n2026.07.49\n19/01/26 A 09/12/27\nÚLTIMO DIA: 09/11/27\nCAMILA SILVA\n18 ALUNOS",
+            null,
+            "APZ ADM (3ª)\n2026.07.53\n23/02/26 A 21/02/28\nÚLTIMO DIA: 23/11/27\nANA CLÁUDIA\n23 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2025.07.62\n17/02/25 A 22/12/26\nÚLTIMO DIA: 08/12/26\nRÔNIA\n7 ALUNOS",
+            null,
+            "23/07 - FEIRÃO DO TEM\n\n24/07 - REDE SANTA\n28/08 - REDE SANTA",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n\n15/09/26 - PROVA EAD",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n"
+          ]
+        },
+        {
+          "row": 11,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ BST (4ª)\n2025.07.212\n15/09/25 A 10/09/27\nÚLTIMO DIA: 04/08/27\nWESLEY ALVES\n7 ALUNOS",
+            null,
+            "APZ BST (4ª)\n2026.07.71\n18/05/26 A 30/03/27\nÚLTIMO DIA: 30/03/27\nHERON\n40 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.80\n17/03/25 A 28/08/26\nÚLTIMO DIA: 14/08/26\nTATIANA\n12 ALUNOS",
+            null,
+            "APZ BST (4ª)\n2025.07.83\n14/04/25 A 09/04/27\nÚLTIMO DIA: 17/03/27\nRÔNIA\n6 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.81\n17/03/25 A 28/08/26\nÚLTIMO DIA: 14/08/26\nDOUGLAS RAPHAEL\n17 ALUNOS",
+            null,
+            "4ª – LIVRE",
+            null,
+            "APZ ADM (4ª)\n2026.07.77\n15/06/2026 A 05/05/2028\nÚLTIMO DIA: 29/03/2028\nJOSÉ NILTON\n42 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.65\n17/03/25 A 28/08/26\nÚLTIMO DIA: 17/07/26\nCAMILA SILVA\n8 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.229\n10/11/25 A 05/10/27\nÚLTIMO DIA: 15/09/27\nCAMILA CUNHA\n29 ALUNOS",
+            null,
+            "APZ BST (4ª)\n2026.07.47\n19/01/26 A 09/12/27\nÚLTIMO DIA: 27/10/27\nMAILA\n17 ALUNOS",
+            null,
+            null,
+            null,
+            "TEM | TÉC. EM PUBLICIDADE\n(2ª E 4ª) – 6ªR\n2026.07.36\n09/03/26 A 13/12/27\nLUCAS JANSEN\n20 ALUNOS",
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "4ª – LIVRE"
+          ]
+        },
+        {
+          "row": 12,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ BST (5ª)\n2025.07.231\n10/11/25 A 05/10/27\nÚLTIMO DIA: 16/09/27\nMOISÉS DELMONDES\n4 ALUNOS",
+            null,
+            "APZ ADM (5ª)\n2025.07.206\n11/08/25 A 21/07/27\nÚLTIMO DIA: 10/06/27\nTATIANA\n10 ALUNOS\n23/07/26 – FEIRÃO",
+            null,
+            "APZ BST (5ª)\n2024.07.444\n18/11/24 A 30/10/26\nÚLTIMO DIA: 15/10/26\nJULIANA HOLANDA\n8 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM MARKETING\n(3ª, 5ª e 6ªR*)\n2025.07.193\n11/03/25 A 27/10/26\nLUNA\n5 ALUNOS\n23/07/26 – FEIRÃO",
+            null,
+            "APZ BST (5ª)\n2024.07.447\n18/11/24 A 30/10/26\nÚLTIMO DIA: 15/10/26\nHERON\n4 ALUNOS",
+            null,
+            "TEM | TÉC. EM ADM\n(3ª, 5ª e 6ª R*)\n2026.07.21\n03/03/26 A 28/09/27\nJULIANA MENDES\n15 ALUNOS\n23/07/26 – FEIRÃO",
+            null,
+            "APZ ADM (5ª)\n2025.07.177\n21/07/25 A 21/12/26\nÚLTIMO DIA: 18/12/26\nCLÉIA\n20 ALUNOS\n23/07/26 – FEIRÃO",
+            null,
+            "APZ BST (5ª)\n2025.07.48 \n20/01/25 A 11/12/26\nÚLTIMO DIA: 03/12/26\nMARCELA NUNES\n12 ALUNOS",
+            null,
+            "APZ BST (5ª)\n2025.07.146\n16/06/25 A 11/06/27\nÚLTIMO DIA: 20/05/27\nDOUGLAS RAPHAEL\n12 ALUNOS",
+            null,
+            "APZ BST (5ª)\n2025.07.213\n15/09/25 A 10/09/27\nÚLTIMO DIA: 29/07/27\nLORENA\n10 ALUNOS",
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE\n\nAPZ FLEXÍVEL (5ª)\nMAILA – 2025.07.148\n(PRIMEIRA 5ª DO MÊS: 9)\n30/07 - 2026.07.65\nVISITA TÉCNICA",
+            null,
+            "5ª – LIVRE\n\n23/07/26 – TATIANA",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            "INSTALADOR DE SISTEMAS ELETROELETRÔNICOS E CFTV\n(5ª E 6ª)\n2026.07.85\n06/08/26 A 11/02/27\nINSTRUTOR",
+            null,
+            null,
+            null,
+            "5ª – LIVRE"
+          ]
+        },
+        {
+          "row": 13,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ ADM (6ª)\n2025.07.222\n13/10/25 A 21/09/27\nÚLTIMO DIA: 17/09/27\nMOISÉS DELMONDES\n18 ALUNOS",
+            null,
+            "APZ ADM (6ª)\n2025.07.233\n01/12/25 A 03/11/27\nÚLTIMO DIA: 29/10/27\nANA CLÁUDIA\n16 ALUNOS",
+            null,
+            "APZ FLEXÍVEL (6ª)\n CAMILA SILVA – 2025.07.68\n(PRIMEIRA 6ª DO MÊS: 5)\nKÁTIA – 2025.07.80\n(SEGUNDA 6ª DO MÊS: 12)",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "APZ BST (6ª)\n2025.07.169\n16/06/25 A 11/06/27\nÚLTIMO DIA: 04/06/27\nTATIANA\n7 ALUNOS",
+            null,
+            "APZ BST (6ª)\n2026.07.73\n18/05/26 A 29/03/27\nÚLTIMO DIA: 10/03/27\nHERON\n39 ALUNOS",
+            null,
+            "APZ FLEXÍVEL (6ª)\nDOUGLAS RAPHAEL – 2025.07.81\n(SEGUNDA 6ª DO MÊS: 17)",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE"
+          ]
+        },
+        {
+          "row": 15,
+          "values": [
+            null,
+            "VESPERTINO",
+            null,
+            "APZ BST (2ª)\n2025.07.110\n26/05/25 A 24/05/27\nÚLTIMO DIA: 24/05/27\nCLÉIA\n20 ALUNOS",
+            null,
+            "APZ ADM (2ª)\n2025.07.217\n15/09/25 A 10/09/27\nÚLTIMO DIA: 16/08/27\nDOUGLAS RAPHAEL\n25 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2026.07.52\n23/02/26 A 21/02/28\nÚLTIMO DIA: 21/02/28\nRÔNIA\n21 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2025.07.176\n21/07/25 A 20/07/27\nÚLTIMO DIA: 19/07/27\nANA CLÁUDIA\n20 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2025.07.226\n13/10/25 A 21/09/27\nÚLTIMO DIA: 20/09/27\nMOISÉS DELMONDES\n25 ALUNOS",
+            null,
+            "APZ ADM (2ª)\n2025.07.87\n14/04/25 A 27/11/26\nÚLTIMO DIA: 26/10/26\nJONAS\n8 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2026.07.76\n15/06/26 A 08/05/28\nÚLTIMO DIA: 08/05/28\nHERON\n38 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2026.07.68\n23/02/26 A 21/02/28\nÚLTIMO DIA: 21/02/28\nMAILA\n21 ALUNOS",
+            null,
+            "APZ BST (2ª)\n2026.07.104\n15/06/26 A 08/05/28\nÚLTIMO DIA: 08/05/28\nLAUANNA\n29 ALUNOS",
+            null,
+            "APZ ADM (2ª)\n2025.07.111\n12/05/25 A 21/10/26\nÚLTIMO DIA: 19/10/26\nGUSTAVO\n16 ALUNOS",
+            null,
+            "APRENDIZAGEM (15 DIAS)\n08/09 A 28/09/2026\n\nAPRENDIZAGEM (15 DIAS)\n05/10 A 26/10/2026",
+            null,
+            "TEM | TÉCNICO EM DESIGN DE INTERIORES\n(2ª A 5ª)\n2025.07.42\n11/03/25 A 14/12/26\nEDUARDO SILVA\n6 ALUNOS\n\nOBSERVAÇÃO: 27/07 A 30/07 A TURMA ESTARÁ REMOTA",
+            null,
+            "TEM | TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 5ª) – 4ªR\n2025.07.186\n10/03/25 A 01/12/26\nRICKSON\n15 ALUNOS\n\n• PRIMEIRA 5ª DO MÊS REMOTA DEVIDO AO FLEXÍVEL DA APRENDIZAGEM\n\n• 4ª REMOTA EVENTUALMENTE.",
+            null,
+            "TEM | TÉCNICO EM CIÊNCIA DE DADOS\n(2ª A 4ª) – 5ªR\n2026.07.29\n02/03/26 A 08/09/27\nDOUGLAS ANTERO\n17 ALUNOS\n\n22/07/26 – MAILA",
+            null,
+            "APZ SOFTWARES\n(2ª A 6ª)\n2025.07.144\n01/07/25 A 31/08/26\nÚLTIMO DIA: 11/08/26\nJAMESSON WILLIAM\n14 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 4ª) – 5ªR\n2026.07.27\n25/02/26 A 01/12/27\nJOÃO MENDES\n20 ALUNOS",
+            null,
+            "TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 5ª) – 6ªR\n2026.07.18\n02/03/26 A 12/07/27\nJOCIEL\n14 ALUNOS",
+            null,
+            "\n\nTEM | TÉCNICO EM INTELIGÊNCIA ARTIFICIAL\n(2ª A 4ª) – 5ªR\n2026.07.30\n02/03/26 A 08/12/27\nALEXANDRE MAGNO\n22 ALUNOS\n\n20/07 A 24/07 \nANA CLÁUDIA\n2025.07.150",
+            null,
+            "TEM | TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 5ª) – 4ªR\n2026.07.67\n10/03/25 A 15/12/26\nPEDRO BARBOSA\n19 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM SEGURANÇA CIBERNÉTICA\n(2ª A 5ª)\n2025.07.195\n10/03/25 A 08/09/26\nDAVI GONÇALVES\n9 ALUNOS\n\nALGUMAS 5ª SÃO PRESENCIAIS",
+            null,
+            "\n\nTEM | TÉCNICO EM PROGRAMAÇÃO DE JOGOS DIGITAIS\n(2ª A 4ª) – 5ªR\n2026.07.45\n02/03/26 A 02/09/27\nFÁBIO RAMOS\n20 ALUNOS",
+            null,
+            "TEM | TÉCNICO EM SEGURANÇA CIBERNÉTICA\n(2ª A 4ª) – 5ªR\n2026.07.38\n02/03/26 A 26/08/27\nANA PAULA\n30 ALUNOS",
+            null,
+            "FOTOGRAFIA DE GASTRONOMIA\n2026.07.83\n11/08/26 A 20/08/28\nFELIPE COSTA",
+            null,
+            "2ª – LIVRE\n"
+          ]
+        },
+        {
+          "row": 16,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ ADM (3ª)\n2025.07.63\n17/02/25 A 30/07/26\nÚLTIMO DIA: 21/07/26\nLORENA\n12 ALUNOS",
+            null,
+            "APZ ADM (3ª)\n2026.07.99\n18/05/26 A 30/04/28\nÚLTIMO DIA: 04/04/28\nHERON\n33 ALUNOS",
+            null,
+            "APZ VENDAS (3ª)\n2025.07.224\n13/10/25 A 21/09/27\nÚLTIMO DIA: 24/08/27\nMOISÉS DELMONDES\n7 ALUNOS",
+            null,
+            "APZ VENDAS (3ª)\n2025.07.69\n17/03/25 A 30/09/26\nÚLTIMO DIA: 15/09/26\nDOUGLAS RAPHAEL\n4 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2025.07.236\n01/12/25 A 03/11/27\nÚLTIMO DIA: 26/10/27\nCLÉIA\n27 ALUNOS",
+            null,
+            "APZ ADM (3ª)\n2025.07.207\n11/08/25 A 21/07/27\nÚLTIMO DIA: 08/06/27\nLAUANNA\n11 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2026.07.72\n18/05/26 A 30/04/28\nÚLTIMO DIA: 11/04/26\nCAMILA CUNHA\n38 ALUNOS",
+            null,
+            "APZ ADM (3ª)\n2025.07.53\n17/02/25 A 30/07/26\nÚLTIMO DIA: 28/07/26\nMAILA\n16 ALUNOS ",
+            null,
+            "APZ ADM (3ª)\n2026.07.74\n18/05/26 A 30/04/28\nÚLTIMO DIA: 04/04/28\nRÔNIA\n34 ALUNOS",
+            null,
+            "APZ BST (3ª)\n2025.07.170\n16/06/25 A 11/06/27\nÚLTIMO DIA: 01/06/27\nJONAS\n10 ALUNOS",
+            null,
+            "23/07 - FEIRÃO DO TEM\n\n27/07 A 31/07 - GUSTAVO",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n"
+          ]
+        },
+        {
+          "row": 17,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ ADM (4ª)\n2026.07.78\n15/06/26 A 08/05/28\nÚLTIMO DIA: 29/03/28\nDOUGLAS RAPHAEL\n25 ALUNOS",
+            null,
+            "APZ BST (4ª)\n2025.07.201\n11/08/25 A 21/07/27\nÚLTIMO DIA: 16/06/27\nRÔNIA\n4 ALUNOS",
+            null,
+            "APZ SUP (4ª)\n2025.07.55\n17/02/25 A 30/07/26\nÚLTIMO DIA: 29/07/26\nCAMILA CUNHA\n5 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.66\n17/03/25 A 28/08/26\nÚLTIMO DIA: 22/07/26\nMOISÉS DELMONDES\n20 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.82\n17/03/25 A 28/08/26\nÚLTIMO DIA: 12/08/26\nMAILA\n26 ALUNOS",
+            null,
+            "APZ VENDAS (4ª)\n2025.07.150\n16/06/25 A 11/12/26\nÚLTIMO DIA: 18/11/26\nANA CLÁUDIA\n10 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2025.07.230\n10/11/25 A 05/10/27\nÚLTIMO DIA: 15/09/27\nLORENA\n16 ALUNOS",
+            null,
+            "APZ BST (4ª)\n2025.07.84\n14/04/25 A 09/04/27\nÚLTIMO DIA: 10/03/27\nJONAS\n9 ALUNOS",
+            null,
+            "APZ ADM (4ª)\n2026.07.103\n15/06/26 A 08/05/28\nÚLTIMO DIA: 29/03/28\nTATIANA\n25 ALUNOS",
+            null,
+            "APZ BST (4ª)\n2025.07.99\n14/04/25 A 09/04/27\nÚLTIMO DIA: 17/03/27\nMARCELA NUNES\n9 ALUNOS",
+            null,
+            "TÉCNICO EM PUBLICIDADE E PROPAGANDA \n(2ª A 5ª) – 6ªR\n2025.07.141\n18/08/25 A 10/09/26\nLUCAS JANSEN\n3 ALUNOS (BIBLIOTECA)",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE"
+          ]
+        },
+        {
+          "row": 18,
+          "values": [
+            null,
+            null,
+            null,
+            "5ª – LIVRE\n\n23/07/26 – FEIRÃO",
+            null,
+            "APZ BST (5ª)\n2025.07.232\n10/11/25 A 05/10/27\nÚLTIMO DIA: 16/09/27\nMOISÉS DELMONDES\n26 ALUNOS",
+            null,
+            "APZ FLEXÍVEL (5ª)\nJONAS – 2025.07.85\n(PRIMEIRA 5ª DO MÊS: 8)\n\n23/07/26 – FEIRÃO",
+            null,
+            "APZ ADM (5ª)\n2026.07.56\n19/01/26 A 09/12/27\nÚLTIMO DIA: 28/10/27\nTATIANA VERAS\n20 ALUNOS",
+            null,
+            "APZ BST (5ª)\n2024.07.448\n18/11/24 A 30/10/26\nÚLTIMO DIA: 15/10/26\nCLÉIA\n17 ALUNOS",
+            null,
+            "APZ FLEXÍVEL (5ª)\nDOUGLAS R. – 2025.07.178\n(PRIMEIRA 5ª DO MÊS: 28)\nJONAS – 2025.07.87\n(TERCEIRA 5ª DO MÊS: 8)\n\n23/07/26 – FEIRÃO",
+            null,
+            "APZ ADM (5ª)\n2026.07.54\n23/02/26 A 21/02/28\nÚLTIMO DIA: 11/11/27\nANA CLÁUDIA\n23 ALUNOS\n23/07/26 – FEIRÃO",
+            null,
+            "APZ BST (5ª)\n2024.07.445\n18/11/24 A 30/10/26\nÚLTIMO DIA: 15/10/26\nDANILO\n9 ALUNOS",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "APZ FLEXÍVEL (5ª)\nRICKSON – 2025.07.70\n(PRIMEIRA 5ª DO MÊS: 6)",
+            null,
+            "5ª – LIVRE\n\n17/09/26 - PROVA EAD",
+            null,
+            null,
+            null,
+            "5ª – LIVRE\n\n20/07 A 24/07 \nDOUGLAS RAPHAEL\n2025.07.178",
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            "MONITORAMENTO EM CFTV\n(5ª E 6ª)\n2026.07.86\n05/11/26 A 10/12/26\nINSTRUTOR\n(A CONFIRMAR)",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE"
+          ]
+        },
+        {
+          "row": 19,
+          "values": [
+            null,
+            null,
+            null,
+            "APZ ADM (6ª)\n2025.07.234\n01/12/25 A 03/11/27\nÚLTIMO DIA: 29/10/27\nANA CLÁUDIA\n24 ALUNOS",
+            null,
+            "APZ VENDAS (6ª)\n2025.07.86\n14/04/25 A 27/11/26\nÚLTIMO DIA: 06/11/26\nLAUANNA\n4 ALUNOS",
+            null,
+            "APZ ADM (6ª)\n2026.07.69\n23/02/26 A 21/02/28\nÚLTIMO DIA: 03/12/27\nRÔNIA\n16 ALUNOS",
+            null,
+            "APZ BST (6ª)\n2025.07.171\n16/06/25 A 11/06/27\nÚLTIMO DIA: 11/06/27\nTATIANA\n10 ALUNOS",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "APZ ADM (6ª)\n2025.07.178\n21/07/25 A 21/12/26\nÚLTIMO DIA: 11/12/26\nDOUGLAS RAPHAEL\n28 ALUNOS",
+            null,
+            "APZ SUP (6ª)\n2025.07.85\n14/04/25 A 27/11/26\nÚLTIMO DIA: 06/11/26\nJONAS\n8 ALUNOS",
+            null,
+            "APZ FLEXÍVEL (6ª)\nMAILA – 2025.07.82\n(SEGUNDA 6ª DO MÊS: 26)\nANA CLÁUDIA – 2025.07.150\n(TERCEIRA 6ª DO MÊS: 10)\nGUSTAVO – 2025.07.111\n(QUARTA 6ª DO MÊS 16)",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            "FOTOGRAFIA E FILMAGEM COM DRONE\n(2ª A 6ª)\n2026.07.82\n20/07/26 A 29/07/26\nSANDRO TIBIRIÇÁ",
+            null,
+            "APZ SOFTWARES (6ª)\n2025.07.70\n17/03/25 A 31/08/26\nÚLTIMO DIA: 28/08/26\nRICKSON\n6 ALUNOS",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE"
+          ]
+        },
+        {
+          "row": 21,
+          "values": [
+            null,
+            "NOTURNO ",
+            null,
+            "TÉCNICO EM RECURSOS HUMANOS\n(2ª A 5ª) – 6ªR\n2026.07.90\n03/08/26 A 28/10/27\nINSTRUTOR",
+            null,
+            "TÉCNICO EM SECRETARIADO\n(2ª A 5ª) – 6ªR\n2026.07.91\n03/08/26 A 28/10/27\nINSTRUTOR",
+            null,
+            "2ª – LIVRE\n",
+            null,
+            "2ª – LIVRE\n",
+            null,
+            "2ª – LIVRE\n",
+            null,
+            "2ª – LIVRE\n",
+            null,
+            "TÉCNICO EM ADMINISTRAÇÃO\n(2ª A 5ª) – 6ªR\n2026.07.88\n03/08/26 A 27/10/27\nINSTRUTOR",
+            null,
+            "TÉCNICO EM TRANSAÇÕES IMOBILIÁRIAS\n(2ª A 5ª) – 6ªR\n2026.07.14\n10/03/26 A 11/06/27\nSILVANA SCORSIN\n13 ALUNOS",
+            null,
+            "TÉCNICO EM PRODUÇÃO CULTURAL\n(2ª A 5ª) – 6ªR\n2025.07.139\n18/08/25 A 06/11/26\nMARIA GABRIELA\n10 ALUNOS",
+            null,
+            "2ª – LIVRE\n",
+            null,
+            null,
+            null,
+            "TÉCNICO EM MULTIMÍDIA\n(2ª A 5ª) – 6ªR\n2025.07.131\n2025.07.180\n25/08/25 A 18/11/26\nPAULO VITOR\n6 ALUNOS",
+            null,
+            "TÉCNICO EM DESIGN DE INTERIORES\n(2ª A 5ª) – 6ªR\n2026.07.92\n03/08/26 A 29/06/28\nINSTRUTOR",
+            null,
+            "DESENVOLVEDOR FRONT-END\nTRANSFORME-SE\n(2ª A 6ª)\n2026.07.96\n20/05/26 A 30/09/26\nDOUGLAS ANTERO\n27  ALUNOS",
+            null,
+            "TÉCNICO EM DESENVOLVIMENTO DE SISTEMAS\n(2ª A 5ª) – 6ªR\n2025.07.23\n10/02/25 A 27/11/26\nLUCAS SOUTO\n12 ALUNOS",
+            null,
+            "DESENVOLVEDOR FRONT-END\nTRANSFORME-SE\n(2ª A 6ª)\n2026.07.94\n20/05/26 A 30/09/26\nLEONARDO NEMER\n29 ALUNOS",
+            null,
+            "DESENVOLVEDOR FRONT-END\nTRANSFORME-SE\n(2ª A 6ª)\n2026.07.95\n20/05/26 A 30/09/26\nJOCIEL\n30 ALUNOS",
+            null,
+            "TÉCNICO EM INTELIGÊNCIA ARTIFICIAL\n(2ª A 5ª) – 6ªR\n2025.07.134\n25/08/25 A 19/08/27\nVICTOR AMARAL\n14 ALUNOS",
+            null,
+            "TÉCNICO EM DESIGN DE INTERIORES\n(2ª A 5ª) – 6ªR\n2026.07.19\n02/03/26 A 03/02/28\nEDUARDO SILVA\n16 ALUNOS",
+            null,
+            "TÉCNICO EM SEGURANÇA CIBERNÉTICA\n(2ª A 5ª) – 6ªR\n2025.07.142\n25/08/25 A 15/04/27\nDAVI GONÇALVES\n11 ALUNOS",
+            null,
+            "TÉCNICO EM PROGRAMAÇÃO DE JOGOS DIGITAIS\n(2ª A 5ª) – 6ªR\n2026.07.13\n03/08/26 A 23/03/28\nINSTRUTOR",
+            null,
+            "TÉCNICO EM INFORMÁTICA\n(2ª A 5ª) – 6ªR\n2026.07.20\n02/03/26 A 20/12/27\nLARISSA\n30 ALUNOS",
+            null,
+            "TÉCNICO EM PROCESSOS FOTOGRÁFICOS\n(2ª A 5ª) – 6ªR\n2026.07.89\n03/08/26 A 03/11/27\nINSTRUTOR",
+            null,
+            "PRODUÇÃO DE PODCAST EM VÍDEO\n2026.07.84\n03/08/26 A 31/08/26\nINSTRUTOR\n(A CONFIRMAR)"
+          ]
+        },
+        {
+          "row": 22,
+          "values": [
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n",
+            null,
+            null,
+            null,
+            "3ª – LIVRE\n",
+            null,
+            "3ª – LIVRE\n"
+          ]
+        },
+        {
+          "row": 23,
+          "values": [
+            null,
+            null,
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            "4ª – LIVRE",
+            null,
+            "4ª – LIVRE"
+          ]
+        },
+        {
+          "row": 24,
+          "values": [
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            "5ª – LIVRE\n\n20/08 – SIMPÓSIO ABEA\n24/09 –  SIMPÓSIO ABEA\n(A PARTIR DAS 18H)"
+          ]
+        },
+        {
+          "row": 25,
+          "values": [
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            "6ª – LIVRE\n\n23/09/26 - PROVA EAD",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "POLO FAC 713 SUL",
+      "state": "visible",
+      "dimensions": "A1:BM1048551",
+      "max_row": 1048551,
+      "max_column": 65,
+      "freeze_panes": "C8",
+      "merged_ranges": [
+        "AJ6:AJ10",
+        "AP6:AP10",
+        "AR6:AR10",
+        "Z12:Z16",
+        "A11:B11",
+        "AF12:AF16",
+        "AL12:AL16",
+        "C5:D5",
+        "E5:F5",
+        "K5:L5",
+        "D12:D16",
+        "B6:B10",
+        "M5:N5",
+        "E17:F17",
+        "AH14:AH15",
+        "K11:L11",
+        "M11:N11",
+        "O5:P5",
+        "P12:P16",
+        "AD12:AD16",
+        "Z6:Z10",
+        "AB6:AB10",
+        "H17:I17",
+        "AL6:AL10",
+        "H11:I11",
+        "AN6:AN10",
+        "C11:D11",
+        "E11:F11",
+        "A5:B5",
+        "B12:B16",
+        "BB12:BB16",
+        "A17:B17",
+        "C17:D17",
+        "N12:N16",
+        "K17:L17",
+        "M17:N17",
+        "O17:P17",
+        "O11:P11",
+        "F12:F16",
+        "L12:L16",
+        "BD12:BD16",
+        "H5:I5",
+        "AB12:AB16",
+        "X6:X10",
+        "AN12:AN16",
+        "AF6:AF10",
+        "AD6:AD10"
+      ],
+      "tables": [],
+      "auto_filter": null,
+      "rows": [
+        {
+          "row": 2,
+          "values": [
+            null,
+            "Sala/Turno",
+            null,
+            "1.1",
+            null,
+            "1.2",
+            null,
+            "1.3",
+            null,
+            "1.4",
+            null,
+            "1.5",
+            null,
+            "1.6",
+            null,
+            "1.7",
+            null,
+            "1.8",
+            null,
+            "1.9",
+            null,
+            "LAB1 - 1º SUBSOLO",
+            null,
+            "LAB2/3 - 1º SUBSOLO",
+            null,
+            "2.1",
+            null,
+            "2.2",
+            null,
+            "2.3",
+            null,
+            "2.4",
+            null,
+            "2.5 (LAB TI)",
+            null,
+            "2.6 ",
+            null,
+            "2.7",
+            null,
+            "2.9",
+            null,
+            "2.8 (LAB TI)",
+            null,
+            "2.10 (LAB TI)",
+            null,
+            "3.1",
+            null,
+            "3.2",
+            null,
+            "3.3"
+          ]
+        },
+        {
+          "row": 3,
+          "values": [
+            null,
+            "CAPACIDADE",
+            null,
+            43,
+            null,
+            61,
+            null,
+            70,
+            null,
+            68,
+            null,
+            32,
+            null,
+            28,
+            null,
+            33,
+            null,
+            27,
+            null,
+            28,
+            null,
+            25,
+            null,
+            25,
+            null,
+            43,
+            null,
+            61,
+            null,
+            68,
+            null,
+            32,
+            null,
+            28,
+            null,
+            33,
+            null,
+            27,
+            null,
+            28,
+            null,
+            16,
+            null,
+            20,
+            null,
+            43,
+            null,
+            61,
+            null,
+            68
+          ]
+        },
+        {
+          "row": 4,
+          "values": [
+            null,
+            "CAPACIDADE 80%",
+            null,
+            "=D3/100*80",
+            null,
+            "=F3/100*80",
+            null,
+            "=H3/100*80",
+            null,
+            "=J3/100*80",
+            null,
+            "=L3/100*80",
+            null,
+            "=N3/100*80",
+            null,
+            "=P3/100*80",
+            null,
+            "=R3/100*80",
+            null,
+            "=T3/100*80",
+            null,
+            "=V3/100*80",
+            null,
+            "=X3/100*80",
+            null,
+            "=Z3/100*80",
+            null,
+            "=AB3/100*80",
+            null,
+            "=AD3/100*80",
+            null,
+            "=AF3/100*80",
+            null,
+            "=AH3/100*80",
+            null,
+            "=AJ3/100*80",
+            null,
+            "=AL3/100*80",
+            null,
+            "=AN3/100*80",
+            null,
+            "=AP3/100*80",
+            null,
+            "=AR3/100*80",
+            null,
+            "=AT3/100*80",
+            null,
+            "=AV3/100*80",
+            null,
+            "=AX3/100*80"
+          ]
+        },
+        {
+          "row": 6,
+          "values": [
+            null,
+            "MATUTINO",
+            null,
+            "LIVRE ",
+            null,
+            "LIVRE ",
+            null,
+            "LIVRE ",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO",
+            null,
+            null,
+            null,
+            "APZ ADM (2ª a 6ª)\n2025.07.221\n01/10/25 a 27/11/26\nÚLTIMO DIA: 18/11/26\nKELLY\n10 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.6\n09/02/26 A 24/03/27\nÚLTIMO DIA: 24/03/27\nFABIANA\n26 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.21\n18/05/26 A 07/07/27\nÚLTIMO DIA: 30/06/27\nROSIVANE\n18 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.24\n20/07/26 A 27/08/27\nÚLTIMO DIA: 26/08/27\nKÁTIA\n20 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2025.07.219\n22/09/25 A 13/11/26\nÚLTIMO DIA: 04/11/26\nCÉLIA\n6 ALUNOS",
+            null,
+            null,
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.14\n23/02/26 A 15/04/27\nÚLTIMO DIA: 08/04/27\nJULIANA SILVEIRA\n27 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.1\n20/01/26 A 24/03/27\nÚLTIMO DIA: 17/03/27\nFRANCISCO\n26 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.10\n20/01/26 A 24/03/27\nÚLTIMO DIA: 17/03/27\nRAFAEL BRANDÃO\n18 ALUNOS",
+            null,
+            "APZ SOFTWARES\n(2ª A 6ª)\n2026.38.16\n16/03/2026 A 30/04/27\nÚLTIMO DIA: 23/04/27\nWELLINGTON\n18 ALUNOS",
+            null,
+            "APZ SOFTWARES\n(2ª A 6ª)\n2026.38.16\n16/03/2026 A 30/04/27\nÚLTIMO DIA: 23/04/27\nWELLINGTON\n18 ALUNOS"
+          ]
+        },
+        {
+          "row": 7,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO"
+          ]
+        },
+        {
+          "row": 8,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO"
+          ]
+        },
+        {
+          "row": 9,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO"
+          ]
+        },
+        {
+          "row": 10,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO"
+          ]
+        },
+        {
+          "row": 12,
+          "values": [
+            null,
+            "VESPERTINO",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.13\n23/02/26 A 15/04/27\nÚLTIMO DIA: 08/04/27\nKÁTIA\n 18 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.4\n09/02/26 A 24/03/27\nÚLTIMO DIA: 24/03/27\nFABIANA\n39 ALUNOS",
+            null,
+            "APZ VENDAS (2ª)\n2025.07.208\n11/08/25 A 21/07/27\nÚLTIMO DIA: 28/06/27\nDANILO\n16 ALUNOS",
+            null,
+            "APZ ADM (2ª)\n2025.07.91\n12/05/25 A 21/10/26\nÚLTIMO DIA: 19/10/26\nPAULO JOSÉ\n13 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.12 \n23/02/26 A 15/04/27\nÚLTIMO DIA: 08/04/27\nNATÁLIA\n12 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.15\n09/03/26 A 29/04/27\nÚLTIMO DIA: 22/04/27\nBRUNA PINHEIRO\n20 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.22\n18/05/26 A 07/07/27\nÚLTIMO DIA: 28/06/27\nJOSÉ NILTON\n32 ALUNOS",
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO",
+            null,
+            "2ª – AGENDAMENTO",
+            null,
+            "2ª – LIVRE",
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.9\n20/01/26 A 24/03/27\nÚLTIMO DIA: 17/03/27\nFRANCISCO\n21 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.11\n23/02/26 A 15/04/27\nÚLTIMO DIA: 09/04/27\nJULIANA SILVEIRA\n29 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.2\n20/01/26 A 24/03/27\nÚLTIMO DIA: 18/03/27\nRAFAEL BRANDÃO\n20 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2025.07.220\n22/09/25 A 13/11/26\nÚLTIMO DIA: 04/11/26\nCÉLIA\n14 ALUNOS",
+            null,
+            "TEM | TÉC. JOGOS DIGITAIS\n(2ª A 5ª) – 3ªR*\n2025.07.189\n24/03/25 A 22/09/26\nMATHEUS\n10 ALUNOS",
+            null,
+            "2ª – LIVRE",
+            null,
+            "APZ ADM (2ª A 6ª) \n2026.38.18\n23/03/26 A 11/05/27\nÚLTIMO DIA: 07/05/27\nKELLY ALVES\n28 ALUNOS",
+            null,
+            "APZ ADM (2ª A 6ª)\n2026.38.8\n05/01/26 A 17/12/27\nÚLTIMO DIA: 16/12/27\nCAMILA OLIVEIRA\n15 ALUNOS",
+            null,
+            "2ª – AGENDAMENTO",
+            null,
+            "2ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. EM PUBLICIDADE\n(2ª, 4ª e 6R*)\n2026.07.35\n09/03/26 A 13/12/27\nELLENA\n13 ALUNOS",
+            null,
+            "2ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. ADM\n(2ª, 4ª e 6ªR*)\n2025.07.192\n10/03/25 A 19/10/26\nCAMILA SILVA\n15 ALUNOS"
+          ]
+        },
+        {
+          "row": 13,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "APZ BST (3ª)\n2025.07.214\n15/09/25 A 10/09/27\nÚLTIMO DIA: 27/07/27\nWESLEY ALVES\n13 ALUNOS",
+            null,
+            "3ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO",
+            null,
+            "3ª – AGENDAMENTO",
+            null,
+            "3ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – EVENTUAL REMOTO*",
+            null,
+            "3ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "3ª – AGENDAMENTO",
+            null,
+            "3ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. EM MARKETING\n(3ª, 5ª e 6R*)\n2026.07.34\n 10/03/26 a 05/10/27 \nPAULO VITOR\n12 ALUNOS",
+            null,
+            "3ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. MARKETING\n(3ª, 5ª e 6ªR*)\n2025.07.194\n11/03/25 A 22/10/26\nMARCELA ROCHA\n12 ALUNOS"
+          ]
+        },
+        {
+          "row": 14,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "APZ BST (4ª)\n2026.07.48\n19/01/26 A 09/12/27\nÚLTIMO DIA: 27/10/27\nCLEIA\n36 ALUNOS",
+            null,
+            "APZ FLEXÍVEL (4ª)\n2025.07.91 – PAULO JOSÉ\n(4ª QUARTA DO MÊS: 13)",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO",
+            null,
+            "4ª – AGENDAMENTO",
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "TEM | TÉC. JOGOS DIGITAIS\n(2ª A 5ª) – 3ªR*\n2025.07.189\n24/03/25 A 22/09/26\nMATHEUS\n10 ALUNOS",
+            null,
+            "4ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "4ª – AGENDAMENTO",
+            null,
+            "4ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. EM PUBLICIDADE\n(2ª, 4ª e 6R*)\n2026.07.35\n09/03/26 A 13/12/27\nELLENA\n13 ALUNOS",
+            null,
+            "4ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. ADM\n(2ª, 4ª e 6ªR*)\n2025.07.192\n10/03/25 A 19/10/26\nCAMILA SILVA\n15 ALUNOS"
+          ]
+        },
+        {
+          "row": 15,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "APZ ADM (5ª)\n2026.07.50\n19/01/26 A 09/12/27\nÚLTIMO DIA: 28/10/27\nCAMILA SILVA\n20ALUNOS",
+            null,
+            "APZ BST (5ª)\n2025.07.147\n16/06/25 A 11/06/27\nÚLTIMO DIA: 20/05/27\nPAULO JOSÉ\n9 ALUNOS",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO",
+            null,
+            "5ª – AGENDAMENTO",
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "5ª – AGENDAMENTO",
+            null,
+            "5ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. EM MARKETING\n(3ª, 5ª e 6R*)\n2026.07.34\n 10/03/26 a 05/10/27 \nPAULO VITOR\n12 ALUNOS",
+            null,
+            "5ª – AGENDAMENTO",
+            null,
+            "TEM | TÉC. MARKETING\n(3ª, 5ª e 6ªR*)\n2025.07.194\n11/03/25 A 22/10/26\nMARCELA ROCHA\n12 ALUNOS"
+          ]
+        },
+        {
+          "row": 16,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "APZ FLEXÍVEL (6ª)\n2025.07.149  – BRENO\n(1ª SEXTA DO MÊS: 6)",
+            null,
+            "APZ ADM (6ª)\n2025.07.223\n13/10/25 A 21/09/27\nÚLTIMO DIA: 17/09/27\nCLÉIA\n25 ALUNOS",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "DEPÓSITO",
+            null,
+            "DEPÓSITO",
+            null,
+            "6ª – AGENDAMENTO",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            "6ª – LIVRE",
+            null,
+            "6ª – LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "6ª – AGENDAMENTO",
+            null,
+            "6ª – AGENDAMENTO",
+            null,
+            "ALTERNADO ENTRE AS DUAS TURMAS",
+            null,
+            "6ª – AGENDAMENTO",
+            null,
+            "ALTERNADO ENTRE AS DUAS TURMAS"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "POLO - SÃO SEBASTIÃO",
+      "state": "visible",
+      "dimensions": "A1:O17",
+      "max_row": 17,
+      "max_column": 15,
+      "freeze_panes": null,
+      "merged_ranges": [
+        "J5:K5",
+        "C5:D5",
+        "H6:H7",
+        "E5:F5",
+        "E17:F17",
+        "D14:D16",
+        "J9:K9",
+        "G9:H9",
+        "E13:F13",
+        "H14:H16",
+        "C9:D9",
+        "G13:H13",
+        "E9:F9",
+        "H17:I17",
+        "A5:B5",
+        "G5:H5",
+        "A17:B17",
+        "C17:D17",
+        "B10:B12",
+        "B14:B16",
+        "A13:B13",
+        "C13:D13",
+        "A9:B9",
+        "D6:D7",
+        "F10:F11",
+        "H10:H11",
+        "B6:B8"
+      ],
+      "tables": [],
+      "auto_filter": null,
+      "rows": [
+        {
+          "row": 2,
+          "values": [
+            null,
+            "Sala/Turno",
+            null,
+            "Lab. TI/Gestão",
+            null,
+            "Lab. Beleza",
+            null,
+            "Lab. Moda",
+            null,
+            "Sala de Aula Inovadora"
+          ]
+        },
+        {
+          "row": 3,
+          "values": [
+            null,
+            "CAPACIDADE",
+            null,
+            24,
+            null,
+            12,
+            null,
+            17,
+            null,
+            30
+          ]
+        },
+        {
+          "row": 4,
+          "values": [
+            null,
+            "CAPACIDADE 80%",
+            null,
+            "=D3/100*80",
+            null,
+            "=F3/100*80",
+            null,
+            "=H3/100*80",
+            null,
+            "=J3/100*80"
+          ]
+        },
+        {
+          "row": 6,
+          "values": [
+            null,
+            "MATUTINO",
+            null,
+            "PROGRAMADOR DE SISTEMAS\n(2ª A 6ª)\n2026.25.10\n08/06/26 A 24/08/26\nGUSTAVO TORRES\n7 ALUNOS",
+            null,
+            "CABELEIREIRO\n(2ª A 6ª)\n2026.25.3\n23/02/26 A 05/08/26\nPRISCILA TEIXEIRA\n3 ALUNOS",
+            null,
+            "MODELISTA\n(2ª A 6ª)\n2026.25.1\n01/06/26 A 21/08/26\nCARMELA\n13 ALUNOS",
+            null,
+            "TEM | TÉCNICO ADM\n(2ª, 4ª E 6ªR*)\n2026.25.29\n02/03/26 A 06/10/27\nCÍNTIA MARQUES\n25 ALUNOS"
+          ]
+        },
+        {
+          "row": 7,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            "COLORIMETRIA AVANÇADA APLICADA A CABELEIREIROS E BARBEIROS\n(2ª A 6ª)\n2026.25.34\n08/09/26 A 13/10/26\nINSTRUTOR",
+            null,
+            null,
+            null,
+            "TEM | TÉCNICO ADM\n(3ª, 5ª E 6ªR*)\n2026.25.31\n03/03/26 A 05/10/27\nCÍNTIA MARQUES\n22 ALUNOS",
+            null,
+            null,
+            null,
+            null,
+            " "
+          ]
+        },
+        {
+          "row": 8,
+          "values": [
+            null,
+            null,
+            null,
+            "INFORMÁTICA PARA A TERCEIRA IDADE\n(2ª A 6ª)\n2026.25.37\n08/09/26 A 13/10/26\nINSTRUTOR",
+            null,
+            "APERFEIÇOAMENTO DE CORTE DE CABELO E ESCOVA\n(2ª A 6ª)\n2026.25.35\n10/08/26 A 28/08/26\nINSTRUTOR",
+            null,
+            "COSTURA CRIATIVA\n(2ª A 6ª)\n2026.25.23\n05/10/26 A 03/11/26\nINSTRUTOR",
+            null,
+            "6ª ALTERNADA ENTRE AS DUAS TURMAS"
+          ]
+        },
+        {
+          "row": 10,
+          "values": [
+            null,
+            "VESPERTINO",
+            null,
+            "LIVRE",
+            null,
+            "CABELEIREIRO\n(2ª A 6ª)\n2026.25.7\n18/05/26 A 21/10/26\nPRISCILA TEIXEIRA\n7 ALUNOS",
+            null,
+            "MODELISTA\n(2ª A 6ª)\n2026.25.33\n20/07/26 A 01/10/26\nCARMELA\nX ALUNOS",
+            null,
+            "TEM | TÉCNICO ADM\n(2ª, 4ª E 6ªR*)\n2026.25.30\n25/02/26 A 04/10/27\nCÍNTIA MARQUES\n37 ALUNOS"
+          ]
+        },
+        {
+          "row": 11,
+          "values": [
+            null,
+            null,
+            null,
+            "LIVRE",
+            null,
+            null,
+            null,
+            null,
+            null,
+            "TEM | TÉCNICO ADM\n(3ª, 5ª E 6ªR*)\n2025.25.21\n11/03/25 A 10/12/26\nCÍNTIA MARQUES\n21 ALUNOS"
+          ]
+        },
+        {
+          "row": 12,
+          "values": [
+            null,
+            null,
+            null,
+            "LIVRE",
+            null,
+            "DESIGN DE SOBRANCELHAS\n(2ª A 6ª)\n2026.25.32\n09/11/26 A 01/12/26\nINSTRUTOR",
+            null,
+            "MODELAGEM PARA CORSET \n(2ª A 6ª)\n2026.25.25\n19/10/26 A 24/11/26\nINSTRUTOR",
+            null,
+            "6ª ALTERNADA ENTRE AS DUAS TURMAS"
+          ]
+        },
+        {
+          "row": 14,
+          "values": [
+            null,
+            "NOTURNO",
+            null,
+            "ASSISTENTE DE TI\n(2ª A 6ª)\n2026.25.12\n04/05/26 A 14/08/26\nMÁRCIO HENRIQUE\n14 ALUNOS",
+            null,
+            "LIVRE",
+            null,
+            "ESTILISTA DE MODA\n(2ª A 6ª)\n2026.25.19\n02/03/26 A 08/10/26\nILCIMARA\n7 ALUNOS",
+            null,
+            "LIVRE"
+          ]
+        },
+        {
+          "row": 15,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            "LIVRE",
+            null,
+            null,
+            null,
+            "LIVRE"
+          ]
+        },
+        {
+          "row": 16,
+          "values": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            "LIVRE",
+            null,
+            null,
+            null,
+            "LIVRE"
+          ]
+        }
+      ]
+    }
+  ]
+}

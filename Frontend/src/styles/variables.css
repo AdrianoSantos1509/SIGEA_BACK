@@ -1,0 +1,32 @@
+/**
+ * Tokens de design do SIGEA
+ * Sistema Integrado de Gestão de Espaços Acadêmicos
+ */
+:root {
+  --color-blue: #004a8d;
+  --color-blue-light: #1a63a6;
+  --color-blue-dark: #00365f;
+  --color-orange: #f7941d;
+  --color-orange-light: #fdc180;
+
+  --color-bg: #eff2f6;
+  --color-white: #ffffff;
+  --color-text-primary: #1f2a33;
+  --color-text-secondary: #5b6b7a;
+  --color-text-label: #33414d;
+  --color-border: #d8dee6;
+
+  --color-error-bg: #fdecec;
+  --color-error-border: #f5c2c2;
+  --color-error-text: #a32020;
+
+  --color-success-bg: #eaf7ed;
+  --color-success-border: #b7e0c0;
+  --color-success-text: #1e7a34;
+
+  --font-family-base: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 20px;
+}
