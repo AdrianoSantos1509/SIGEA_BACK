@@ -1,7 +1,0 @@
-
-> sigea-senac-api@0.0.1 start
-> ts-node src/index.ts
-
-◇ injected env (12) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
-◇ injected env (11) from .env.local // tip: ◈ encrypted .env [www.dotenvx.com]
-SIGEA API disponível em http://localhost:3300

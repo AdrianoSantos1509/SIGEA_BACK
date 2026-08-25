@@ -1,7 +1,0 @@
-
-> sigea-senac-api@0.0.1 start
-> ts-node src/index.ts
-
-◇ injected env (12) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
-◇ injected env (11) from .env.local // tip: ⌘ suppress logs { quiet: true }
-SIGEA API disponível em http://localhost:3300
