@@ -2,17 +2,28 @@ import { UserService } from "../services/user";
 
 const userService = new UserService();
 
-export class UserController{
+export class UserController {
+  async create(req: any, res: any) {
+    try {
+      const { name, email, password, regNumber, role } = req.body;
+      return res.status(201).json(await userService.create(name, password, email, regNumber, role));
+    } catch (error: any) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
 
-       async create(req: any, res: any) : Promise<any>{
-       	     const {name, email, password, reg_number} = req.body;
-	     const user = await userService.create(name, password, email, reg_number);
-	     return res.json(user);
-       }
+  async checkUser(req: any, res: any) {
+    const result = await userService.checkUser(req.body.email, req.body.password);
+    if (!result) return res.status(401).json({ message: "E-mail ou senha incorretos" });
+    return res.json(result);
+  }
 
-       async checkUser(req: any, res: any) : Promise<any>{
-       	     const { email, password } = req.body;
-       	     const token = await userService.checkUser(email, password);
-	     return res.json({token: token});
-       }
+  async changePassword(req: any, res: any) {
+    try {
+      const result = await userService.changePassword(Number(req.user.id), req.body.currentPassword, req.body.newPassword);
+      return res.json(result);
+    } catch (error: any) {
+      return res.status(400).json({ message: error.message });
+    }
+  }
 }
