@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Unidade } from "./unidade";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Turma } from "./turma";
 
 @Entity("teachers")
@@ -30,9 +29,6 @@ export class Professor {
 
   @Column({ default: true })
   active: boolean;
-
-  @ManyToOne(() => Unidade, { nullable: true, onDelete: "SET NULL" })
-  building: Unidade | null;
 
   @OneToMany(() => Turma, (turma) => turma.teacher)
   courses: Turma[];

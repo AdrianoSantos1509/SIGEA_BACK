@@ -6,7 +6,7 @@ import { Sala } from "../entities/sala";
 import { Turma } from "../entities/turma";
 import { Alocacao } from "../entities/alocacao";
 import { Professor } from "../entities/professor";
-import { requireManager } from "../middleware/token.middleware";
+import { requireAdmin, requireManager } from "../middleware/token.middleware";
 import { normalizePersonName, normalizePhone, isValidEmail, dateIsValidRange, timeIsValidRange } from "../services/validation";
 
 const ApiRoutes = Router();
@@ -33,6 +33,34 @@ function normalizeDays(value: any): string[] {
 
 function overlapsTime(startA: string, endA: string, startB: string, endB: string) {
   return startA < endB && endA > startB;
+}
+
+async function instructorConflictsFor(payload: any, ignoreId?: number) {
+  const teacherId = Number(payload.instructorId || payload.teacherId || payload.instructor?.id || 0);
+  if (!teacherId) return [];
+  const startDate = dateOnly(payload.startDate);
+  const endDate = dateOnly(payload.endDate);
+  const startTime = timeOnly(payload.startTime);
+  const endTime = timeOnly(payload.endTime);
+  const weekdays = normalizeDays(payload.weekdays);
+  if (!startDate || !endDate || !startTime || !endTime || weekdays.length === 0) return [];
+  const existing = await AppDataSource.getRepository(Alocacao)
+    .createQueryBuilder("occupancy")
+    .leftJoinAndSelect("occupancy.instructor", "instructor")
+    .leftJoinAndSelect("occupancy.course", "course")
+    .leftJoinAndSelect("course.teacher", "courseTeacher")
+    .leftJoinAndSelect("occupancy.classroom", "classroom")
+    .leftJoinAndSelect("classroom.building", "building")
+    .where("occupancy.startDate <= :endDate AND occupancy.endDate >= :startDate", { startDate, endDate })
+    .andWhere("occupancy.status <> 'CANCELADA'")
+    .getMany();
+  return existing.filter((item) => {
+    if (item.id === ignoreId) return false;
+    const effectiveTeacherId = item.instructor?.id || item.course?.teacher?.id;
+    if (effectiveTeacherId !== teacherId) return false;
+    if (!item.weekdays.some((day) => weekdays.includes(day))) return false;
+    return overlapsTime(startTime, endTime, item.startTime, item.endTime);
+  });
 }
 
 async function conflictsFor(payload: any, ignoreId?: number) {
@@ -85,7 +113,7 @@ ApiRoutes.get("/classrooms", asyncRoute(async (req: any, res: any) => {
   res.json(await qb.getMany());
 }));
 
-ApiRoutes.post("/classrooms", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.post("/classrooms", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Sala);
   const building = await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) });
   if (!building) return res.status(400).json({ message: "Unidade inválida" });
@@ -106,7 +134,7 @@ ApiRoutes.post("/classrooms", requireManager, asyncRoute(async (req: any, res: a
   res.status(201).json(await repo.save(item));
 }));
 
-ApiRoutes.put("/classrooms/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.put("/classrooms/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Sala);
   const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { building: true } });
   if (!item) return res.status(404).json({ message: "Sala não encontrada" });
@@ -123,7 +151,7 @@ ApiRoutes.put("/classrooms/:id", requireManager, asyncRoute(async (req: any, res
   res.json(await repo.save(item));
 }));
 
-ApiRoutes.delete("/classrooms/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.delete("/classrooms/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const result = await AppDataSource.getRepository(Sala).delete(Number(req.params.id));
   if (!result.affected) return res.status(404).json({ message: "Sala não encontrada" });
   res.status(204).send();
@@ -132,13 +160,13 @@ ApiRoutes.delete("/classrooms/:id", requireManager, asyncRoute(async (req: any, 
 ApiRoutes.get("/courses", asyncRoute(async (req: any, res: any) => {
   const qb = AppDataSource.getRepository(Turma).createQueryBuilder("course").leftJoinAndSelect("course.building", "building").leftJoinAndSelect("course.teacher", "teacher").leftJoinAndSelect("course.occupancies", "occupancy").leftJoinAndSelect("occupancy.classroom", "classroom").orderBy("course.startDate", "DESC");
   if (req.query.buildingId) qb.andWhere("building.id = :buildingId", { buildingId: Number(req.query.buildingId) });
-  if (req.query.search) qb.andWhere("(course.name LIKE :search OR course.code LIKE :search OR course.instructor LIKE :search)", { search: `%${req.query.search}%` });
+  if (req.query.search) qb.andWhere("(course.name LIKE :search OR course.code LIKE :search OR course.instructor LIKE :search OR teacher.name LIKE :search)", { search: `%${req.query.search}%` });
   if (req.query.status) qb.andWhere("course.status = :status", { status: req.query.status });
   qb.take(Math.min(Number(req.query.limit || 500), 1000));
   res.json(await qb.getMany());
 }));
 
-ApiRoutes.post("/courses", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.post("/courses", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Turma);
   const building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
   const teacher = req.body.teacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.teacherId) }) : null;
@@ -158,7 +186,7 @@ ApiRoutes.post("/courses", requireManager, asyncRoute(async (req: any, res: any)
   res.status(201).json(await repo.save(item));
 }));
 
-ApiRoutes.put("/courses/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Turma);
   const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { building: true, teacher: true } });
   if (!item) return res.status(404).json({ message: "Turma não encontrada" });
@@ -177,24 +205,24 @@ ApiRoutes.put("/courses/:id", requireManager, asyncRoute(async (req: any, res: a
   res.json(await repo.save(item));
 }));
 
-ApiRoutes.delete("/courses/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.delete("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const result = await AppDataSource.getRepository(Turma).delete(Number(req.params.id));
   if (!result.affected) return res.status(404).json({ message: "Turma não encontrada" });
   res.status(204).send();
 }));
 
 ApiRoutes.get("/occupancies", asyncRoute(async (req: any, res: any) => {
-  const qb = AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy").leftJoinAndSelect("occupancy.classroom", "classroom").leftJoinAndSelect("classroom.building", "building").leftJoinAndSelect("occupancy.course", "course").orderBy("occupancy.startDate", "DESC");
+  const qb = AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy").leftJoinAndSelect("occupancy.classroom", "classroom").leftJoinAndSelect("classroom.building", "building").leftJoinAndSelect("occupancy.course", "course").leftJoinAndSelect("course.teacher", "teacher").leftJoinAndSelect("occupancy.instructor", "instructor").orderBy("occupancy.startDate", "DESC");
   if (req.query.buildingId) qb.andWhere("building.id = :buildingId", { buildingId: Number(req.query.buildingId) });
   if (req.query.classroomId) qb.andWhere("classroom.id = :classroomId", { classroomId: Number(req.query.classroomId) });
   if (req.query.date) qb.andWhere("occupancy.startDate <= :date AND occupancy.endDate >= :date", { date: dateOnly(req.query.date) });
   res.json(await qb.take(1000).getMany());
 }));
 
-ApiRoutes.post("/occupancies", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Alocacao);
   const classroom = await AppDataSource.getRepository(Sala).findOne({ where: { id: Number(req.body.classroomId) }, relations: { building: true } });
-  const course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOneBy({ id: Number(req.body.courseId) }) : null;
+  const course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } }) : null;
   if (!classroom) return res.status(400).json({ message: "Sala inválida" });
   const payload = { ...req.body, startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), startTime: timeOnly(req.body.startTime), endTime: timeOnly(req.body.endTime), weekdays: normalizeDays(req.body.weekdays) };
   if (!payload.startDate || !payload.endDate || !payload.startTime || !payload.endTime || !payload.weekdays.length) return res.status(400).json({ message: "Período, horário e dias da semana são obrigatórios" });
@@ -202,24 +230,38 @@ ApiRoutes.post("/occupancies", requireManager, asyncRoute(async (req: any, res: 
   if (payload.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data da alocação não pode ser anterior à data atual" });
   const conflicts = await conflictsFor(payload);
   if (conflicts.length) return res.status(409).json({ message: "A sala já está ocupada nesse período", conflicts });
-  const item = repo.create({ title: payload.title || course?.name || "Reserva", kind: payload.kind || (course ? "TURMA" : "RESERVA"), status: payload.status || "ATIVA", startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, weekdays: payload.weekdays, notes: payload.notes || null, classroom, course });
+  const instructorId = Number(req.body.instructorId || 0);
+  const instructor = instructorId ? await AppDataSource.getRepository(Professor).findOneBy({ id: instructorId }) : (course?.teacher || null);
+  if (instructorId && !instructor) return res.status(400).json({ message: "Instrutor inválido" });
+  if (instructor) {
+    const instructorConflicts = await instructorConflictsFor({ ...payload, instructorId: instructor.id });
+    if (instructorConflicts.length) return res.status(409).json({ message: "O instrutor já está ocupado nesse período", conflicts: instructorConflicts });
+  }
+  const item = repo.create({ title: payload.title || course?.name || "Reserva", kind: payload.kind || (course ? "TURMA" : "RESERVA"), status: payload.status || "ATIVA", startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, weekdays: payload.weekdays, notes: payload.notes || null, classroom, course, instructor });
   res.status(201).json(await repo.save(item));
 }));
 
-ApiRoutes.put("/occupancies/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Alocacao);
-  const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { classroom: true, course: true } });
+  const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { classroom: true, course: { teacher: true }, instructor: true } });
   if (!item) return res.status(404).json({ message: "Alocação não encontrada" });
   const payload = { ...item, ...req.body, classroomId: req.body.classroomId || item.classroom.id, weekdays: req.body.weekdays ? normalizeDays(req.body.weekdays) : item.weekdays };
   const conflicts = await conflictsFor(payload, item.id);
   if (conflicts.length) return res.status(409).json({ message: "A sala já está ocupada nesse período", conflicts });
+  const effectiveInstructorId = Number(req.body.instructorId || item.instructor?.id || item.course?.teacher?.id || 0);
+  if (effectiveInstructorId) {
+    const instructorConflicts = await instructorConflictsFor({ ...payload, instructorId: effectiveInstructorId }, item.id);
+    if (instructorConflicts.length) return res.status(409).json({ message: "O instrutor já está ocupado nesse período", conflicts: instructorConflicts });
+  }
   if (req.body.classroomId) item.classroom = await AppDataSource.getRepository(Sala).findOneByOrFail({ id: Number(req.body.classroomId) });
-  if (req.body.courseId !== undefined) item.course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOneBy({ id: Number(req.body.courseId) }) : null;
+  if (req.body.courseId !== undefined) item.course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } }) : null;
+  if (req.body.instructorId !== undefined) item.instructor = req.body.instructorId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.instructorId) }) : null;
+  else if (!item.instructor && item.course?.teacher) item.instructor = item.course.teacher;
   for (const key of ["title", "kind", "status", "startDate", "endDate", "startTime", "endTime", "weekdays", "notes"]) if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : req.body[key];
   res.json(await repo.save(item));
 }));
 
-ApiRoutes.delete("/occupancies/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+ApiRoutes.delete("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const result = await AppDataSource.getRepository(Alocacao).delete(Number(req.params.id));
   if (!result.affected) return res.status(404).json({ message: "Alocação não encontrada" });
   res.status(204).send();
@@ -242,6 +284,53 @@ ApiRoutes.get("/classrooms/availability", asyncRoute(async (req: any, res: any) 
   res.json(rooms.map(room=>({...room,available:!byRoom.has(room.id),conflicts:byRoom.get(room.id)||[]})));
 }));
 
+ApiRoutes.get("/teachers/availability", asyncRoute(async (req: any, res: any) => {
+  const startDate = dateOnly(req.query.startDate || req.query.date) || currentDateSaoPaulo();
+  const endDate = dateOnly(req.query.endDate || req.query.date || req.query.startDate) || startDate;
+  const requestedStart = req.query.startTime ? timeOnly(req.query.startTime) : null;
+  const requestedEnd = req.query.endTime ? timeOnly(req.query.endTime) : null;
+  const requestedDays = Array.isArray(req.query.weekdays) ? normalizeDays(req.query.weekdays) : normalizeDays(String(req.query.weekdays || "").split(","));
+  if ((requestedStart && !requestedEnd) || (!requestedStart && requestedEnd) || (requestedStart && requestedEnd && !timeIsValidRange(requestedStart, requestedEnd))) return res.status(400).json({ message: "Horário inválido" });
+  if (!dateIsValidRange(startDate, endDate)) return res.status(400).json({ message: "Período inválido" });
+  const dayLabels = requestedDays.length ? requestedDays : [weekdayLabels[new Date(`${startDate}T12:00:00`).getDay()]];
+  const teachers = await AppDataSource.getRepository(Professor).find({ order: { name: "ASC" } });
+  const occupancyQb = AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy")
+    .leftJoinAndSelect("occupancy.course", "course")
+    .leftJoinAndSelect("course.teacher", "courseTeacher")
+    .leftJoinAndSelect("occupancy.instructor", "instructor")
+    .leftJoinAndSelect("occupancy.classroom", "classroom")
+    .leftJoinAndSelect("classroom.building", "building")
+    .where("occupancy.startDate <= :endDate AND occupancy.endDate >= :startDate", { startDate, endDate })
+    .andWhere("occupancy.status <> 'CANCELADA'");
+  const occupancies = await occupancyQb.getMany();
+  const byTeacher = new Map<number, Alocacao[]>();
+  for (const item of occupancies) {
+    if (!item.weekdays.some((day) => dayLabels.includes(day))) continue;
+    if (requestedStart && requestedEnd && !overlapsTime(requestedStart, requestedEnd, item.startTime, item.endTime)) continue;
+    const effectiveTeacher = item.instructor || item.course?.teacher;
+    if (!effectiveTeacher) continue;
+    const list = byTeacher.get(effectiveTeacher.id) || [];
+    list.push(item);
+    byTeacher.set(effectiveTeacher.id, list);
+  }
+  const teacherCourses = await AppDataSource.getRepository(Turma).find({ relations: { teacher: true } });
+  const shiftsByTeacher = new Map<number, Set<string>>();
+  for (const course of teacherCourses) {
+    if (!course.teacher?.id || !course.shift) continue;
+    const set = shiftsByTeacher.get(course.teacher.id) || new Set<string>();
+    set.add(String(course.shift));
+    shiftsByTeacher.set(course.teacher.id, set);
+  }
+  const items = teachers.filter((teacher) => teacher.active).map((teacher) => ({
+    id: teacher.id, registration: teacher.registration, name: teacher.name,
+    segment: teacher.area || "Não informado", specialty: teacher.specialty || null,
+    shifts: Array.from(shiftsByTeacher.get(teacher.id) || []), available: !(byTeacher.get(teacher.id) || []).length,
+    date: startDate, endDate, day: dayLabels.join(" / "), startTime: requestedStart, endTime: requestedEnd,
+    scheduleLabel: requestedStart && requestedEnd ? `${requestedStart.slice(0, 5)} – ${requestedEnd.slice(0, 5)}` : "DIA TODO",
+  }));
+  res.json(items.filter((item) => item.available));
+}));
+
 ApiRoutes.get("/dashboard", asyncRoute(async (req: any, res: any) => {
   const date = dateOnly(req.query.date) || new Date().toISOString().slice(0, 10);
   const buildingId = req.query.buildingId ? Number(req.query.buildingId) : null;
@@ -261,8 +350,11 @@ ApiRoutes.get("/dashboard", asyncRoute(async (req: any, res: any) => {
   if (buildingId) unallocatedQb.andWhere("building.id = :buildingId", { buildingId });
 
   const overviewRooms = await AppDataSource.getRepository(Sala).createQueryBuilder("room").leftJoinAndSelect("room.building", "building").where("room.active = true").getMany();
-  const overviewOccupancies = await AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy").leftJoinAndSelect("occupancy.classroom", "classroom").where("occupancy.startDate <= :date AND occupancy.endDate >= :date", { date }).andWhere("occupancy.status <> 'CANCELADA'").getMany();
+  const overviewOccupancies = await AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy").leftJoinAndSelect("occupancy.classroom", "classroom").leftJoinAndSelect("occupancy.course", "course").leftJoinAndSelect("course.teacher", "teacher").leftJoinAndSelect("occupancy.instructor", "instructor").where("occupancy.startDate <= :date AND occupancy.endDate >= :date", { date }).andWhere("occupancy.status <> 'CANCELADA'").getMany();
   const overviewOccupiedIds = new Set(overviewOccupancies.filter((item) => item.weekdays.includes(day)).map((item) => item.classroom.id));
+  const activeTeachers = await AppDataSource.getRepository(Professor).find({ where: { active: true } });
+  const occupiedTeacherIds = new Set(overviewOccupancies.filter((item) => item.weekdays.includes(day) && (item.instructor?.id || item.course?.teacher?.id)).map((item) => item.instructor?.id || item.course!.teacher!.id));
+  const instructorsAvailable = activeTeachers.filter((teacher) => !occupiedTeacherIds.has(teacher.id)).length;
   const buildings = await AppDataSource.getRepository(Unidade).find({ where: { active: true }, order: { name: "ASC" } });
   const occupancyByUnidade = buildings.map((building) => {
     const buildingRooms = overviewRooms.filter((room) => room.building?.id === building.id);
@@ -278,7 +370,7 @@ ApiRoutes.get("/dashboard", asyncRoute(async (req: any, res: any) => {
 
   res.json({
     date,
-    metrics: { rooms: rooms.length, occupied: occupiedRoomIds.size, available: Math.max(rooms.length - occupiedRoomIds.size, 0), occupancyRate: rooms.length ? Math.round((occupiedRoomIds.size / rooms.length) * 100) : 0, activeTurmas, unallocated: await unallocatedQb.getCount() },
+    metrics: { rooms: rooms.length, occupied: occupiedRoomIds.size, available: Math.max(rooms.length - occupiedRoomIds.size, 0), occupancyRate: rooms.length ? Math.round((occupiedRoomIds.size / rooms.length) * 100) : 0, activeTurmas, instructorsAvailable, unallocated: await unallocatedQb.getCount() },
     schedule,
     roomDetails: rooms.map((room) => {
       const roomOccupancies = schedule.filter((item) => item.classroom.id === room.id).map((item) => ({ id: item.id, title: item.title, startTime: item.startTime, endTime: item.endTime, kind: item.kind, course: item.course ? { id: item.course.id, code: item.course.code, name: item.course.name } : null }));
