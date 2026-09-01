@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Sala } from "./sala";
 import { Turma } from "./turma";
+import { Professor } from "./professor";
 
 @Entity("occupancies")
 export class Alocacao {
@@ -39,6 +40,9 @@ export class Alocacao {
 
   @ManyToOne(() => Turma, (turma) => turma.occupancies, { nullable: true, onDelete: "CASCADE" })
   course: Turma | null;
+
+  @ManyToOne(() => Professor, { nullable: true, onDelete: "SET NULL" })
+  instructor: Professor | null;
 
   @CreateDateColumn()
   createdAt: Date;

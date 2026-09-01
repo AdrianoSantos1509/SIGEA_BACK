@@ -29,9 +29,33 @@ export async function seedDatabase() {
   const userRepo = AppDataSource.getRepository(Usuario);
   const teacherRepo = AppDataSource.getRepository(Professor);
 
+  async function normalizeGlobalInstructors() {
+    const teachers = await teacherRepo.find();
+    const groups = new Map<string, Professor[]>();
+    for (const teacher of teachers) {
+      const key = normalizePersonName(teacher.name).normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const list = groups.get(key) || [];
+      list.push(teacher);
+      groups.set(key, list);
+    }
+    for (const group of groups.values()) {
+      if (group.length < 2) continue;
+      group.sort((a, b) => a.id - b.id);
+      const canonical = group[0];
+      for (const duplicate of group.slice(1)) {
+        const courses = await courseRepo.find({ where: { teacher: { id: duplicate.id } } });
+        for (const course of courses) { course.teacher = canonical; course.instructor = normalizePersonName(canonical.name); }
+        if (courses.length) await courseRepo.save(courses);
+        const allocations = await occupancyRepo.find({ relations: { instructor: true, course: true } });
+        for (const allocation of allocations.filter((item) => item.instructor?.id === duplicate.id)) { allocation.instructor = canonical; await occupancyRepo.save(allocation); }
+        await teacherRepo.remove(duplicate);
+      }
+    }
+  }
+
   async function seedProfessorsFromTurmas() {
     if ((await teacherRepo.count()) > 0) return;
-    const courses = await courseRepo.find({ relations: { building: true, teacher: true } });
+    const courses = await courseRepo.find({ relations: { teacher: true } });
     const groups = new Map<string, Turma[]>();
     for (const course of courses) {
       const name = String(course.instructor || "").trim();
@@ -53,7 +77,6 @@ export async function seedDatabase() {
         specialty: first.type || null,
         notes: "Cadastro importado das turmas existentes; matrícula e contatos precisam ser revisados.",
         active: true,
-        building: first.building || null,
       }));
       for (const course of courseList) course.teacher = teacher;
       await courseRepo.save(courseList);
@@ -77,6 +100,7 @@ export async function seedDatabase() {
   await userRepo.update({ passwordChangedAt: IsNull(), mustChangePassword: false }, { passwordChangedAt: new Date() });
   for (const user of await userRepo.find()) { const name=normalizePersonName(user.name); if(user.name!==name) await userRepo.update(user.id,{name}); }
   for (const teacher of await teacherRepo.find()) { const name=normalizePersonName(teacher.name); if(teacher.name!==name) await teacherRepo.update(teacher.id,{name}); }
+  await normalizeGlobalInstructors();
   for (const course of await courseRepo.find()) { let changed=false; const instructor=course.instructor?normalizePersonName(course.instructor):null; const coordinator=course.coordinator?normalizePersonName(course.coordinator):null; if(course.instructor!==instructor){course.instructor=instructor;changed=true;} if(course.coordinator!==coordinator){course.coordinator=coordinator;changed=true;} if(changed) await courseRepo.save(course); }
 
   if ((await buildingRepo.count()) > 0 || (await courseRepo.count()) > 0) {

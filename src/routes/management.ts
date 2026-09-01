@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { AppDataSource } from "../data-source";
-import { Unidade } from "../entities/unidade";
 import { Professor } from "../entities/professor";
 import { Usuario } from "../entities/usuario";
 import { encryptData } from "../middleware/bcrypt.middleware";
@@ -11,7 +10,6 @@ import { isValidEmail, normalizePersonName, normalizePhone } from "../services/v
 const ManagementRoutes = Router();
 const asyncRoute = (handler: any) => (req: any, res: any, next: any) => Promise.resolve(handler(req, res, next)).catch(next);
 const allowedRoles = new Set(["ADMIN", "COORDENADOR", "CONSULTA"]);
-const canManageTeachers = (req: any) => ["ADMIN", "COORDENADOR"].includes(req.user?.role);
 
 function safeUser(user: Usuario) {
   const { password: _password, ...result } = user;
@@ -76,16 +74,13 @@ ManagementRoutes.delete("/users/:id", requireAdmin, asyncRoute(async (req: any, 
 }));
 
 ManagementRoutes.get("/teachers", asyncRoute(async (req: any, res: any) => {
-  const qb = AppDataSource.getRepository(Professor).createQueryBuilder("teacher").leftJoinAndSelect("teacher.building", "building").orderBy("teacher.name", "ASC");
-  if (req.query.buildingId) qb.andWhere("building.id = :buildingId", { buildingId: Number(req.query.buildingId) });
+  const qb = AppDataSource.getRepository(Professor).createQueryBuilder("teacher").orderBy("teacher.name", "ASC");
   if (req.query.search) qb.andWhere("(teacher.name LIKE :search OR teacher.registration LIKE :search OR teacher.email LIKE :search OR teacher.area LIKE :search)", { search: `%${req.query.search}%` });
   res.json(await qb.getMany());
 }));
 
-ManagementRoutes.post("/teachers", asyncRoute(async (req: any, res: any) => {
-  if (!canManageTeachers(req)) return res.status(403).json({ message: "Seu perfil não permite cadastrar professores" });
+ManagementRoutes.post("/teachers", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Professor);
-  const building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
   if (!req.body.registration || !req.body.name) return res.status(400).json({ message: "Matrícula e nome são obrigatórios" });
   if (req.body.email && !isValidEmail(req.body.email)) return res.status(400).json({ message: "E-mail inválido" });
   let phone: string | null = null;
@@ -94,17 +89,15 @@ ManagementRoutes.post("/teachers", asyncRoute(async (req: any, res: any) => {
     registration: String(req.body.registration).trim().toUpperCase(), name: normalizePersonName(req.body.name),
     email: req.body.email ? String(req.body.email).trim().toLowerCase() : null, phone,
     area: req.body.area ? String(req.body.area).trim() : null, specialty: req.body.specialty ? String(req.body.specialty).trim() : null,
-    notes: req.body.notes || null, active: req.body.active !== false, building,
+    notes: req.body.notes || null, active: req.body.active !== false,
   });
   res.status(201).json(await repo.save(teacher));
 }));
 
-ManagementRoutes.put("/teachers/:id", asyncRoute(async (req: any, res: any) => {
-  if (!canManageTeachers(req)) return res.status(403).json({ message: "Seu perfil não permite editar professores" });
+ManagementRoutes.put("/teachers/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Professor);
-  const teacher = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { building: true } });
-  if (!teacher) return res.status(404).json({ message: "Professor não encontrado" });
-  if (req.body.buildingId !== undefined) teacher.building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
+  const teacher = await repo.findOneBy({ id: Number(req.params.id) });
+  if (!teacher) return res.status(404).json({ message: "Instrutor não encontrado" });
   for (const key of ["registration", "name", "email", "phone", "area", "specialty", "notes"]) {
     if (req.body[key] !== undefined) (teacher as any)[key] = req.body[key] ? String(req.body[key]).trim() : null;
   }
@@ -116,11 +109,10 @@ ManagementRoutes.put("/teachers/:id", asyncRoute(async (req: any, res: any) => {
   res.json(await repo.save(teacher));
 }));
 
-ManagementRoutes.delete("/teachers/:id", asyncRoute(async (req: any, res: any) => {
-  if (!canManageTeachers(req)) return res.status(403).json({ message: "Seu perfil não permite apagar professores" });
+ManagementRoutes.delete("/teachers/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Professor);
   const teacher = await repo.findOneBy({ id: Number(req.params.id) });
-  if (!teacher) return res.status(404).json({ message: "Professor não encontrado" });
+  if (!teacher) return res.status(404).json({ message: "Instrutor não encontrado" });
   await repo.remove(teacher);
   res.status(204).send();
 }));

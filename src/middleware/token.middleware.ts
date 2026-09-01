@@ -57,7 +57,7 @@ export async function requirePasswordCurrent(req: any, res: any, next: any) {
 }
 
 export function requireAdmin(req: any, res: any, next: any) {
-  if (req.user?.role !== "ADMIN") return res.status(403).json({ message: "Apenas administradores podem realizar esta operação" });
+  if (req.user?.role !== "ADMIN") return res.status(403).json({ message: "Acesso negado. Apenas administradores podem realizar esta operação." });
   next();
 }
 
