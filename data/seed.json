@@ -3,47 +3,65 @@
     {
       "code": "ENNIUS",
       "name": "CEP Ennius Muniz",
-      "location": "Distrito Federal"
+      "location": "Distrito Federal",
+      "cnpj": "89083863000183",
+      "zipCode": "72215500"
     },
     {
       "code": "FAC",
       "name": "Faculdade Senac / Polo 713 Sul",
-      "location": "Brasília - DF"
+      "location": "Brasília - DF",
+      "cnpj": "03413164000139",
+      "zipCode": "70200003"
     },
     {
       "code": "SAO_SEBASTIAO",
       "name": "Polo São Sebastião",
-      "location": "São Sebastião - DF"
+      "location": "São Sebastião - DF",
+      "cnpj": "19600133000127",
+      "zipCode": "71690000"
     },
     {
       "code": "TAGUATINGA",
       "name": "CEP Taguatinga",
-      "location": "Taguatinga - DF"
+      "location": "Taguatinga - DF",
+      "cnpj": "10433218000193",
+      "zipCode": "72015900"
     },
     {
       "code": "BRAZL_NDIA",
       "name": "Brazlândia",
-      "location": "Distrito Federal"
+      "location": "Distrito Federal",
+      "cnpj": "23511615000188",
+      "zipCode": "72701001"
     },
     {
       "code": "BIL_NGUE",
       "name": "Bilíngue",
-      "location": "Distrito Federal"
+      "location": "Distrito Federal",
+      "cnpj": "59407816000187",
+      "zipCode": "70390100"
     },
     {
       "code": "CEM_03",
       "name": "CEM 03",
-      "location": "Distrito Federal"
+      "location": "Distrito Federal",
+      "cnpj": "79402654000100",
+      "zipCode": "72020030"
     },
     {
       "code": "INCRA_8",
       "name": "INCRA 8",
-      "location": "Distrito Federal"
+      "location": "Distrito Federal",
+      "cnpj": "18495931000173",
+      "zipCode": "72710080"
     },
     {
       "code": "CEMTN",
       "name": "CEMTN",
-      "location": "Distrito Federal"
+      "location": "Distrito Federal",
+      "cnpj": "75255341000107",
+      "zipCode": "72025140"
     }
   ],
   "rooms": [
