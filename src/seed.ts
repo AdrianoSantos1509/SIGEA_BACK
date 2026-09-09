@@ -114,9 +114,10 @@ export async function seedDatabase() {
 
   for (const item of data.buildings) {
     const saved = await buildingRepo.save(buildingRepo.create({
-      code: String(item.code),
+      code: String(item.cnpj || item.code),
       name: String(item.name),
       location: item.location || null,
+      zipCode: item.zipCode || null,
       active: true,
     }));
     buildings.set(item.code, saved);

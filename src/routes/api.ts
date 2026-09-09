@@ -7,7 +7,7 @@ import { Turma } from "../entities/turma";
 import { Alocacao } from "../entities/alocacao";
 import { Professor } from "../entities/professor";
 import { requireAdmin, requireManager } from "../middleware/token.middleware";
-import { normalizePersonName, normalizePhone, isValidEmail, dateIsValidRange, timeIsValidRange } from "../services/validation";
+import { normalizePersonName, normalizePhone, isValidEmail, dateIsValidRange, timeIsValidRange, onlyDigits, isValidCNPJ, isValidCEP, normalizeInstitutionName, normalizeAddress } from "../services/validation";
 
 const ApiRoutes = Router();
 const asyncRoute = (handler: any) => (req: any, res: any, next: any) => Promise.resolve(handler(req, res, next)).catch(next);
@@ -101,9 +101,63 @@ ApiRoutes.get("/buildings", asyncRoute(async (_req: any, res: any) => {
 
 ApiRoutes.post("/buildings", requireManager, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Unidade);
-  const item = repo.create({ code: String(req.body.code || "").trim().toUpperCase(), name: String(req.body.name || "").trim(), location: req.body.location || null, active: req.body.active !== false });
-  if (!item.code || !item.name) return res.status(400).json({ message: "Código e nome da unidade são obrigatórios" });
+  const cnpjDigits = onlyDigits(req.body.cnpj ?? req.body.code);
+  const name = normalizeInstitutionName(req.body.name);
+  const location = normalizeAddress(req.body.location);
+  const zipCode = onlyDigits(req.body.zipCode ?? req.body.cep);
+  if (!cnpjDigits || !name || !location) return res.status(400).json({ message: "CNPJ, nome da instituição e endereço são obrigatórios" });
+  if (!isValidCNPJ(cnpjDigits)) return res.status(400).json({ message: "CNPJ inválido" });
+  if (zipCode && !isValidCEP(zipCode)) return res.status(400).json({ message: "CEP inválido" });
+  const duplicate = await repo.findOneBy({ code: cnpjDigits });
+  if (duplicate) return res.status(409).json({ message: "Já existe uma unidade cadastrada com esse CNPJ" });
+  const item = repo.create({ code: cnpjDigits, name, location, zipCode: zipCode || null, active: req.body.active !== false });
   res.status(201).json(await repo.save(item));
+}));
+
+ApiRoutes.put("/buildings/:id", requireManager, asyncRoute(async (req: any, res: any) => {
+  const repo = AppDataSource.getRepository(Unidade);
+  const item = await repo.findOneBy({ id: Number(req.params.id) });
+  if (!item) return res.status(404).json({ message: "Unidade não encontrada" });
+  if (req.body.cnpj !== undefined || req.body.code !== undefined) {
+    const cnpjDigits = onlyDigits(req.body.cnpj ?? req.body.code);
+    if (!cnpjDigits) return res.status(400).json({ message: "CNPJ é obrigatório" });
+    if (cnpjDigits !== item.code) {
+      if (!isValidCNPJ(cnpjDigits)) return res.status(400).json({ message: "CNPJ inválido" });
+      const duplicate = await repo.findOneBy({ code: cnpjDigits });
+      if (duplicate) return res.status(409).json({ message: "Já existe uma unidade cadastrada com esse CNPJ" });
+      item.code = cnpjDigits;
+    }
+  }
+  if (req.body.name !== undefined) {
+    const name = normalizeInstitutionName(req.body.name);
+    if (!name) return res.status(400).json({ message: "Nome da instituição é obrigatório" });
+    item.name = name;
+  }
+  if (req.body.location !== undefined) {
+    const location = normalizeAddress(req.body.location);
+    if (!location) return res.status(400).json({ message: "Endereço da unidade é obrigatório" });
+    item.location = location;
+  }
+  if (req.body.zipCode !== undefined || req.body.cep !== undefined) {
+    const zipCode = onlyDigits(req.body.zipCode ?? req.body.cep);
+    if (zipCode && !isValidCEP(zipCode)) return res.status(400).json({ message: "CEP inválido" });
+    item.zipCode = zipCode || null;
+  }
+  if (req.body.active !== undefined) item.active = Boolean(req.body.active);
+  res.json(await repo.save(item));
+}));
+
+ApiRoutes.delete("/buildings/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
+  const id = Number(req.params.id);
+  const item = await AppDataSource.getRepository(Unidade).findOneBy({ id });
+  if (!item) return res.status(404).json({ message: "Unidade não encontrada" });
+  const [roomCount, courseCount] = await Promise.all([
+    AppDataSource.getRepository(Sala).count({ where: { building: { id } } }),
+    AppDataSource.getRepository(Turma).count({ where: { building: { id } } }),
+  ]);
+  if (roomCount || courseCount) return res.status(409).json({ message: "Esta unidade possui registros vinculados e não pode ser excluída. Inative a unidade em vez de excluí-la." });
+  await AppDataSource.getRepository(Unidade).remove(item);
+  res.status(204).send();
 }));
 
 ApiRoutes.get("/classrooms", asyncRoute(async (req: any, res: any) => {
@@ -117,6 +171,7 @@ ApiRoutes.post("/classrooms", requireAdmin, asyncRoute(async (req: any, res: any
   const repo = AppDataSource.getRepository(Sala);
   const building = await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) });
   if (!building) return res.status(400).json({ message: "Unidade inválida" });
+  if (!building.active) return res.status(400).json({ message: "Não é possível cadastrar uma sala em uma unidade inativa" });
   const capacity = Math.max(0, Number(req.body.capacity || 0));
   const item = repo.create({
     building,
@@ -169,6 +224,8 @@ ApiRoutes.get("/courses", asyncRoute(async (req: any, res: any) => {
 ApiRoutes.post("/courses", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Turma);
   const building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
+  if (req.body.buildingId && !building) return res.status(400).json({ message: "Unidade inválida" });
+  if (building && !building.active) return res.status(400).json({ message: "Não é possível cadastrar uma turma em uma unidade inativa" });
   const teacher = req.body.teacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.teacherId) }) : null;
   const item = repo.create({
     code: String(req.body.code || "").trim(), name: String(req.body.name || "").trim(), abbreviation: req.body.abbreviation || null,
