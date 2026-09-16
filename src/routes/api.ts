@@ -72,10 +72,6 @@ async function conflictsFor(payload: any, ignoreId?: number) {
   const endTime = timeOnly(payload.endTime);
   const weekdays = normalizeDays(payload.weekdays);
   if (!startDate || !endDate || !startTime || !endTime || weekdays.length === 0) return [];
-  const requestedCourse = payload.courseId
-    ? await AppDataSource.getRepository(Turma).findOneBy({ id: Number(payload.courseId) })
-    : null;
-  const requestedShift = requestedCourse?.shift ? String(requestedCourse.shift).trim().toUpperCase() : null;
   const existing = await AppDataSource.getRepository(Alocacao)
     .createQueryBuilder("occupancy")
     .leftJoinAndSelect("occupancy.classroom", "classroom")
@@ -86,11 +82,9 @@ async function conflictsFor(payload: any, ignoreId?: number) {
     .getMany();
   return existing.filter((item) => {
     if (item.id === ignoreId) return false;
-    const sameDays = item.weekdays.some((day) => weekdays.includes(day));
+    const sameDays = normalizeDays(item.weekdays).some((day) => weekdays.includes(day));
     if (!sameDays) return false;
-    const existingShift = item.course?.shift ? String(item.course.shift).trim().toUpperCase() : null;
-    const sameShift = Boolean(requestedShift && existingShift && requestedShift === existingShift);
-    return sameShift || overlapsTime(startTime, endTime, item.startTime, item.endTime);
+    return overlapsTime(startTime, endTime, item.startTime, item.endTime);
   });
 }
 
@@ -196,6 +190,7 @@ ApiRoutes.put("/classrooms/:id", requireAdmin, asyncRoute(async (req: any, res: 
   if (req.body.buildingId) {
     const building = await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) });
     if (!building) return res.status(400).json({ message: "Unidade inválida" });
+    if (!building.active) return res.status(400).json({ message: "Não é possível mover uma sala para uma unidade inativa" });
     item.building = building;
   }
   for (const key of ["code", "name", "floor", "type"]) if (req.body[key] !== undefined) (item as any)[key] = req.body[key] ? String(req.body[key]).trim() : null;
@@ -227,6 +222,7 @@ ApiRoutes.post("/courses", requireAdmin, asyncRoute(async (req: any, res: any) =
   if (req.body.buildingId && !building) return res.status(400).json({ message: "Unidade inválida" });
   if (building && !building.active) return res.status(400).json({ message: "Não é possível cadastrar uma turma em uma unidade inativa" });
   const teacher = req.body.teacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.teacherId) }) : null;
+  if (req.body.teacherId && !teacher) return res.status(400).json({ message: "Instrutor inválido" });
   const item = repo.create({
     code: String(req.body.code || "").trim(), name: String(req.body.name || "").trim(), abbreviation: req.body.abbreviation || null,
     workload: Number(req.body.workload || 0), segment: req.body.segment || null, type: req.body.type || "Turma",
@@ -247,14 +243,23 @@ ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any
   const repo = AppDataSource.getRepository(Turma);
   const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { building: true, teacher: true } });
   if (!item) return res.status(404).json({ message: "Turma não encontrada" });
-  if (req.body.buildingId !== undefined) item.building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
+  if (req.body.buildingId !== undefined) {
+    const building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
+    if (req.body.buildingId && !building) return res.status(400).json({ message: "Unidade inválida" });
+    if (building && !building.active) return res.status(400).json({ message: "Não é possível mover uma turma para uma unidade inativa" });
+    item.building = building;
+  }
   for (const key of ["code", "name", "abbreviation", "workload", "segment", "type", "startDate", "endDate", "shift", "startTime", "endTime", "weekdays", "students", "status", "notes"]) {
     if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : req.body[key];
   }
   item.students = Number(item.students || 0); item.workload = Number(item.workload || 0);
   if (!Number.isFinite(item.students) || item.students < 0 || !Number.isFinite(item.workload) || item.workload < 0) return res.status(400).json({ message: "Alunos e carga horária inválidos" });
-  if (req.body.teacherId !== undefined) { item.teacher = req.body.teacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.teacherId) }) : null; if (item.teacher) item.instructor = normalizePersonName(item.teacher.name); }
-  if (req.body.instructor !== undefined) item.instructor = normalizePersonName(req.body.instructor) || null;
+  if (req.body.teacherId !== undefined) {
+    item.teacher = req.body.teacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.teacherId) }) : null;
+    if (req.body.teacherId && !item.teacher) return res.status(400).json({ message: "Instrutor inválido" });
+    item.instructor = item.teacher ? normalizePersonName(item.teacher.name) : null;
+  }
+  if (req.body.instructor !== undefined && req.body.teacherId === undefined) item.instructor = normalizePersonName(req.body.instructor) || null;
   if (req.body.coordinator !== undefined) item.coordinator = normalizePersonName(req.body.coordinator) || null;
   if (item.startDate && item.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data inicial da turma não pode ser anterior à data atual" });
   if (item.startDate && item.endDate && !dateIsValidRange(item.startDate,item.endDate)) return res.status(400).json({ message: "A data inicial deve ser anterior ou igual à data final" });
@@ -279,8 +284,10 @@ ApiRoutes.get("/occupancies", asyncRoute(async (req: any, res: any) => {
 ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: any) => {
   const repo = AppDataSource.getRepository(Alocacao);
   const classroom = await AppDataSource.getRepository(Sala).findOne({ where: { id: Number(req.body.classroomId) }, relations: { building: true } });
-  const course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } }) : null;
-  if (!classroom) return res.status(400).json({ message: "Sala inválida" });
+  const course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true, building: true } }) : null;
+  if (!classroom || !classroom.active || !classroom.building?.active) return res.status(400).json({ message: "Sala inválida ou inativa" });
+  if (req.body.courseId && !course) return res.status(400).json({ message: "Turma inválida" });
+  if (course && course.building && course.building.id !== classroom.building.id) return res.status(400).json({ message: "A sala deve pertencer à mesma unidade da turma" });
   const payload = { ...req.body, startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), startTime: timeOnly(req.body.startTime), endTime: timeOnly(req.body.endTime), weekdays: normalizeDays(req.body.weekdays) };
   if (!payload.startDate || !payload.endDate || !payload.startTime || !payload.endTime || !payload.weekdays.length) return res.status(400).json({ message: "Período, horário e dias da semana são obrigatórios" });
   if (payload.startDate > payload.endDate || payload.startTime >= payload.endTime) return res.status(400).json({ message: "O período ou horário informado é inválido" });
@@ -302,7 +309,18 @@ ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res:
   const repo = AppDataSource.getRepository(Alocacao);
   const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { classroom: true, course: { teacher: true }, instructor: true } });
   if (!item) return res.status(404).json({ message: "Alocação não encontrada" });
-  const payload = { ...item, ...req.body, classroomId: req.body.classroomId || item.classroom.id, weekdays: req.body.weekdays ? normalizeDays(req.body.weekdays) : item.weekdays };
+  const payload = {
+    ...item,
+    ...req.body,
+    classroomId: req.body.classroomId || item.classroom.id,
+    startDate: dateOnly(req.body.startDate ?? item.startDate),
+    endDate: dateOnly(req.body.endDate ?? item.endDate),
+    startTime: timeOnly(req.body.startTime ?? item.startTime),
+    endTime: timeOnly(req.body.endTime ?? item.endTime),
+    weekdays: req.body.weekdays !== undefined ? normalizeDays(req.body.weekdays) : normalizeDays(item.weekdays),
+  };
+  if (!payload.startDate || !payload.endDate || !payload.startTime || !payload.endTime || !payload.weekdays.length) return res.status(400).json({ message: "Período, horário e dias da semana são obrigatórios" });
+  if (payload.startDate > payload.endDate || payload.startTime >= payload.endTime) return res.status(400).json({ message: "O período ou horário informado é inválido" });
   const conflicts = await conflictsFor(payload, item.id);
   if (conflicts.length) return res.status(409).json({ message: "A sala já está ocupada nesse período", conflicts });
   const effectiveInstructorId = Number(req.body.instructorId || item.instructor?.id || item.course?.teacher?.id || 0);
@@ -327,8 +345,6 @@ ApiRoutes.delete("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, r
 ApiRoutes.get("/classrooms/availability", asyncRoute(async (req: any, res: any) => {
   const startDate=dateOnly(req.query.startDate || req.query.date), endDate=dateOnly(req.query.endDate || req.query.date || req.query.startDate);
   const startTime=timeOnly(req.query.startTime), endTime=timeOnly(req.query.endTime);
-  const requestedCourse = req.query.courseId ? await AppDataSource.getRepository(Turma).findOneBy({ id: Number(req.query.courseId) }) : null;
-  const requestedShift = requestedCourse?.shift ? String(requestedCourse.shift).trim().toUpperCase() : null;
   const requestedDays=Array.isArray(req.query.weekdays)?normalizeDays(req.query.weekdays):normalizeDays(String(req.query.weekdays || "").split(","));
   if(!startDate||!endDate||!startTime||!endTime||!requestedDays.length) return res.status(400).json({message:"Período, horário e dias da semana são obrigatórios"});
   if(!dateIsValidRange(startDate,endDate)||!timeIsValidRange(startTime,endTime)) return res.status(400).json({message:"Período ou horário inválido"});
@@ -337,8 +353,8 @@ ApiRoutes.get("/classrooms/availability", asyncRoute(async (req: any, res: any) 
   const rooms=await roomQb.orderBy("room.name","ASC").getMany();
   const occupancies=await AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy").leftJoinAndSelect("occupancy.classroom","classroom").leftJoinAndSelect("occupancy.course","course").where("occupancy.startDate <= :endDate AND occupancy.endDate >= :startDate",{startDate,endDate}).andWhere("occupancy.status <> 'CANCELADA'").getMany();
   const byRoom=new Map<number,Alocacao[]>();
-  for(const item of occupancies.filter(item=>item.weekdays.some(day=>requestedDays.includes(day))&&(overlapsTime(startTime,endTime,item.startTime,item.endTime)||(requestedShift&&item.course?.shift&&String(item.course.shift).trim().toUpperCase()===requestedShift)))){const list=byRoom.get(item.classroom.id)||[];list.push(item);byRoom.set(item.classroom.id,list);}
-  res.json(rooms.map(room=>({...room,available:!byRoom.has(room.id),conflicts:byRoom.get(room.id)||[]})));
+  for(const item of occupancies.filter(item=>normalizeDays(item.weekdays).some(day=>requestedDays.includes(day))&&overlapsTime(startTime,endTime,item.startTime,item.endTime))){const list=byRoom.get(item.classroom.id)||[];list.push(item);byRoom.set(item.classroom.id,list);}
+  res.json({ rooms: rooms.map(room=>({...room,available:!byRoom.has(room.id),conflicts:byRoom.get(room.id)||[]})), meta: { buildingId: req.query.buildingId ? Number(req.query.buildingId) : null, totalActiveRooms: rooms.length } });
 }));
 
 ApiRoutes.get("/teachers/availability", asyncRoute(async (req: any, res: any) => {
