@@ -7,7 +7,7 @@ import { Turma } from "../entities/turma";
 import { Alocacao } from "../entities/alocacao";
 import { Professor } from "../entities/professor";
 import { requireAdmin, requireManager } from "../middleware/token.middleware";
-import { normalizePersonName, normalizePhone, isValidEmail, dateIsValidRange, timeIsValidRange, onlyDigits, isValidCNPJ, isValidCEP, normalizeInstitutionName, normalizeAddress } from "../services/validation";
+import { normalizePersonName, normalizePhone, isValidEmail, dateIsValidRange, timeIsValidRange, onlyDigits, isValidCNPJ, isValidCEP, normalizeInstitutionName, normalizeAddress, normalizeText } from "../services/validation";
 
 const ApiRoutes = Router();
 const asyncRoute = (handler: any) => (req: any, res: any, next: any) => Promise.resolve(handler(req, res, next)).catch(next);
@@ -169,12 +169,12 @@ ApiRoutes.post("/classrooms", requireAdmin, asyncRoute(async (req: any, res: any
   const capacity = Math.max(0, Number(req.body.capacity || 0));
   const item = repo.create({
     building,
-    code: String(req.body.code || "").trim(),
-    name: String(req.body.name || req.body.code || "").trim(),
-    floor: req.body.floor || null,
+    code: normalizeText(req.body.code),
+    name: normalizeText(req.body.name || req.body.code),
+    floor: req.body.floor ? normalizeText(req.body.floor) : null,
     capacity,
     recommendedCapacity: Number(req.body.recommendedCapacity || Math.floor(capacity * 0.8)),
-    type: req.body.type || "Sala de aula",
+    type: normalizeText(req.body.type || "SALA DE AULA"),
     resources: Array.isArray(req.body.resources) ? req.body.resources : [],
     active: req.body.active !== false,
   });
@@ -193,7 +193,7 @@ ApiRoutes.put("/classrooms/:id", requireAdmin, asyncRoute(async (req: any, res: 
     if (!building.active) return res.status(400).json({ message: "Não é possível mover uma sala para uma unidade inativa" });
     item.building = building;
   }
-  for (const key of ["code", "name", "floor", "type"]) if (req.body[key] !== undefined) (item as any)[key] = req.body[key] ? String(req.body[key]).trim() : null;
+  for (const key of ["code", "name", "floor", "type"]) if (req.body[key] !== undefined) (item as any)[key] = req.body[key] ? normalizeText(req.body[key]) : null;
   for (const key of ["capacity", "recommendedCapacity"]) if (req.body[key] !== undefined) (item as any)[key] = Math.max(0, Number(req.body[key] || 0));
   if (req.body.resources !== undefined) item.resources = Array.isArray(req.body.resources) ? req.body.resources : [];
   if (!Number.isFinite(item.capacity) || item.capacity < 0 || !Number.isFinite(item.recommendedCapacity) || item.recommendedCapacity < 0 || item.recommendedCapacity > item.capacity) return res.status(400).json({ message: "Capacidades inválidas" });
@@ -224,12 +224,12 @@ ApiRoutes.post("/courses", requireAdmin, asyncRoute(async (req: any, res: any) =
   const teacher = req.body.teacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.teacherId) }) : null;
   if (req.body.teacherId && !teacher) return res.status(400).json({ message: "Instrutor inválido" });
   const item = repo.create({
-    code: String(req.body.code || "").trim(), name: String(req.body.name || "").trim(), abbreviation: req.body.abbreviation || null,
-    workload: Number(req.body.workload || 0), segment: req.body.segment || null, type: req.body.type || "Turma",
-    startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), shift: req.body.shift || null,
+    code: normalizeText(req.body.code), name: normalizeText(req.body.name), abbreviation: req.body.abbreviation ? normalizeText(req.body.abbreviation) : null,
+    workload: Number(req.body.workload || 0), segment: req.body.segment ? normalizeText(req.body.segment) : null, type: normalizeText(req.body.type || "TURMA"),
+    startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), shift: req.body.shift ? normalizeText(req.body.shift) : null,
     startTime: timeOnly(req.body.startTime), endTime: timeOnly(req.body.endTime), weekdays: normalizeDays(req.body.weekdays),
-    students: Number(req.body.students || 0), status: req.body.status || "Em andamento", instructor: normalizePersonName(teacher?.name || req.body.instructor || "") || null, teacher,
-    coordinator: normalizePersonName(req.body.coordinator || "") || null, notes: req.body.notes || null, building,
+    students: Number(req.body.students || 0), status: normalizeText(req.body.status || "EM ANDAMENTO"), instructor: normalizePersonName(teacher?.name || req.body.instructor || "") || null, teacher,
+    coordinator: normalizePersonName(req.body.coordinator || "") || null, notes: req.body.notes ? normalizeText(req.body.notes) : null, building,
   });
   if (!item.code || !item.name) return res.status(400).json({ message: "Código e nome da turma são obrigatórios" });
   if (item.startDate && item.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data inicial da turma não pode ser anterior à data atual" });
@@ -250,7 +250,7 @@ ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any
     item.building = building;
   }
   for (const key of ["code", "name", "abbreviation", "workload", "segment", "type", "startDate", "endDate", "shift", "startTime", "endTime", "weekdays", "students", "status", "notes"]) {
-    if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : req.body[key];
+    if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : ["code", "name", "abbreviation", "segment", "type", "shift", "status", "notes"].includes(key) ? (req.body[key] ? normalizeText(req.body[key]) : null) : req.body[key];
   }
   item.students = Number(item.students || 0); item.workload = Number(item.workload || 0);
   if (!Number.isFinite(item.students) || item.students < 0 || !Number.isFinite(item.workload) || item.workload < 0) return res.status(400).json({ message: "Alunos e carga horária inválidos" });
@@ -288,7 +288,10 @@ ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: an
   if (!classroom || !classroom.active || !classroom.building?.active) return res.status(400).json({ message: "Sala inválida ou inativa" });
   if (req.body.courseId && !course) return res.status(400).json({ message: "Turma inválida" });
   if (course && course.building && course.building.id !== classroom.building.id) return res.status(400).json({ message: "A sala deve pertencer à mesma unidade da turma" });
-  const payload = { ...req.body, startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), startTime: timeOnly(req.body.startTime), endTime: timeOnly(req.body.endTime), weekdays: normalizeDays(req.body.weekdays) };
+  const shiftTimes: Record<string, { startTime: string; endTime: string }> = { MATUTINO: { startTime: "08:00:00", endTime: "12:00:00" }, VESPERTINO: { startTime: "14:00:00", endTime: "18:00:00" }, NOTURNO: { startTime: "19:00:00", endTime: "22:00:00" } };
+  const requestedShift = normalizeText(req.body.shift || "MATUTINO");
+  const selectedShiftTimes = shiftTimes[requestedShift] || null;
+  const payload = { ...req.body, shift: requestedShift, startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), startTime: selectedShiftTimes ? selectedShiftTimes.startTime : timeOnly(req.body.startTime), endTime: selectedShiftTimes ? selectedShiftTimes.endTime : timeOnly(req.body.endTime), weekdays: normalizeDays(req.body.weekdays) };
   if (!payload.startDate || !payload.endDate || !payload.startTime || !payload.endTime || !payload.weekdays.length) return res.status(400).json({ message: "Período, horário e dias da semana são obrigatórios" });
   if (payload.startDate > payload.endDate || payload.startTime >= payload.endTime) return res.status(400).json({ message: "O período ou horário informado é inválido" });
   if (payload.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data da alocação não pode ser anterior à data atual" });
@@ -301,7 +304,7 @@ ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: an
     const instructorConflicts = await instructorConflictsFor({ ...payload, instructorId: instructor.id });
     if (instructorConflicts.length) return res.status(409).json({ message: "O instrutor já está ocupado nesse período", conflicts: instructorConflicts });
   }
-  const item = repo.create({ title: payload.title || course?.name || "Reserva", kind: payload.kind || (course ? "TURMA" : "RESERVA"), status: payload.status || "ATIVA", startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, weekdays: payload.weekdays, notes: payload.notes || null, classroom, course, instructor });
+  const item = repo.create({ title: normalizeText(payload.title || course?.name || "RESERVA"), kind: normalizeText(payload.kind || (course ? "TURMA" : "RESERVA")), status: normalizeText(payload.status || "ATIVA"), shift: payload.shift, startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, weekdays: payload.weekdays, notes: payload.notes ? normalizeText(payload.notes) : null, classroom, course, instructor });
   res.status(201).json(await repo.save(item));
 }));
 
@@ -318,7 +321,10 @@ ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res:
     startTime: timeOnly(req.body.startTime ?? item.startTime),
     endTime: timeOnly(req.body.endTime ?? item.endTime),
     weekdays: req.body.weekdays !== undefined ? normalizeDays(req.body.weekdays) : normalizeDays(item.weekdays),
+    shift: normalizeText(req.body.shift ?? item.shift ?? "MATUTINO"),
   };
+  const shiftTimes: Record<string, { startTime: string; endTime: string }> = { MATUTINO: { startTime: "08:00:00", endTime: "12:00:00" }, VESPERTINO: { startTime: "14:00:00", endTime: "18:00:00" }, NOTURNO: { startTime: "19:00:00", endTime: "22:00:00" } };
+  if (shiftTimes[payload.shift]) { payload.startTime = shiftTimes[payload.shift].startTime; payload.endTime = shiftTimes[payload.shift].endTime; }
   if (!payload.startDate || !payload.endDate || !payload.startTime || !payload.endTime || !payload.weekdays.length) return res.status(400).json({ message: "Período, horário e dias da semana são obrigatórios" });
   if (payload.startDate > payload.endDate || payload.startTime >= payload.endTime) return res.status(400).json({ message: "O período ou horário informado é inválido" });
   const conflicts = await conflictsFor(payload, item.id);
@@ -332,7 +338,8 @@ ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res:
   if (req.body.courseId !== undefined) item.course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } }) : null;
   if (req.body.instructorId !== undefined) item.instructor = req.body.instructorId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.instructorId) }) : null;
   else if (!item.instructor && item.course?.teacher) item.instructor = item.course.teacher;
-  for (const key of ["title", "kind", "status", "startDate", "endDate", "startTime", "endTime", "weekdays", "notes"]) if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : req.body[key];
+  for (const key of ["title", "kind", "status", "shift", "startDate", "endDate", "startTime", "endTime", "weekdays", "notes"]) if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : ["title", "kind", "status", "shift", "notes"].includes(key) ? (req.body[key] ? normalizeText(req.body[key]) : null) : req.body[key];
+  item.shift = payload.shift; item.startTime = payload.startTime; item.endTime = payload.endTime;
   res.json(await repo.save(item));
 }));
 
@@ -352,8 +359,9 @@ ApiRoutes.get("/classrooms/availability", asyncRoute(async (req: any, res: any) 
   if(req.query.buildingId) roomQb.andWhere("building.id = :buildingId",{buildingId:Number(req.query.buildingId)});
   const rooms=await roomQb.orderBy("room.name","ASC").getMany();
   const occupancies=await AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy").leftJoinAndSelect("occupancy.classroom","classroom").leftJoinAndSelect("occupancy.course","course").where("occupancy.startDate <= :endDate AND occupancy.endDate >= :startDate",{startDate,endDate}).andWhere("occupancy.status <> 'CANCELADA'").getMany();
+  const excludeOccupancyId = Number(req.query.excludeOccupancyId || 0);
   const byRoom=new Map<number,Alocacao[]>();
-  for(const item of occupancies.filter(item=>normalizeDays(item.weekdays).some(day=>requestedDays.includes(day))&&overlapsTime(startTime,endTime,item.startTime,item.endTime))){const list=byRoom.get(item.classroom.id)||[];list.push(item);byRoom.set(item.classroom.id,list);}
+  for(const item of occupancies.filter(item=>item.id !== excludeOccupancyId && normalizeDays(item.weekdays).some(day=>requestedDays.includes(day))&&overlapsTime(startTime,endTime,item.startTime,item.endTime))){const list=byRoom.get(item.classroom.id)||[];list.push(item);byRoom.set(item.classroom.id,list);}
   res.json({ rooms: rooms.map(room=>({...room,available:!byRoom.has(room.id),conflicts:byRoom.get(room.id)||[]})), meta: { buildingId: req.query.buildingId ? Number(req.query.buildingId) : null, totalActiveRooms: rooms.length } });
 }));
 
@@ -376,8 +384,10 @@ ApiRoutes.get("/teachers/availability", asyncRoute(async (req: any, res: any) =>
     .where("occupancy.startDate <= :endDate AND occupancy.endDate >= :startDate", { startDate, endDate })
     .andWhere("occupancy.status <> 'CANCELADA'");
   const occupancies = await occupancyQb.getMany();
+  const excludeOccupancyId = Number(req.query.excludeOccupancyId || 0);
   const byTeacher = new Map<number, Alocacao[]>();
   for (const item of occupancies) {
+    if (item.id === excludeOccupancyId) continue;
     if (!item.weekdays.some((day) => dayLabels.includes(day))) continue;
     if (requestedStart && requestedEnd && !overlapsTime(requestedStart, requestedEnd, item.startTime, item.endTime)) continue;
     const effectiveTeacher = item.instructor || item.course?.teacher;

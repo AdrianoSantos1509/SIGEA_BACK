@@ -9,7 +9,7 @@ import { Usuario } from "./entities/usuario";
 import { Professor } from "./entities/professor";
 import { encryptData } from "./middleware/bcrypt.middleware";
 import { IsNull } from "typeorm";
-import { normalizePersonName } from "./services/validation";
+import { normalizePersonName, normalizeText } from "./services/validation";
 
 type SeedData = {
   buildings: any[];
@@ -19,6 +19,15 @@ type SeedData = {
 
 function normalizeRoom(value: string) {
   return String(value || "").toUpperCase().replace(/SALA|LABORATÓRIO|LAB\.?|SI|TI/g, "").replace(/[^A-Z0-9]/g, "");
+}
+
+function shiftFromTimes(startTime: string | null | undefined, endTime: string | null | undefined) {
+  const start = String(startTime || "").slice(0, 5);
+  const end = String(endTime || "").slice(0, 5);
+  if (start === "08:00" && end === "12:00") return "MATUTINO";
+  if (start === "14:00" && end === "18:00") return "VESPERTINO";
+  if (start === "19:00" && end === "22:00") return "NOTURNO";
+  return "MATUTINO";
 }
 
 export async function seedDatabase() {
@@ -99,9 +108,13 @@ export async function seedDatabase() {
 
   await userRepo.update({ passwordChangedAt: IsNull(), mustChangePassword: false }, { passwordChangedAt: new Date() });
   for (const user of await userRepo.find()) { const name=normalizePersonName(user.name); if(user.name!==name) await userRepo.update(user.id,{name}); }
-  for (const teacher of await teacherRepo.find()) { const name=normalizePersonName(teacher.name); if(teacher.name!==name) await teacherRepo.update(teacher.id,{name}); }
+  for (const teacher of await teacherRepo.find()) { const name=normalizePersonName(teacher.name); const area=teacher.area?normalizeText(teacher.area):null; const specialty=teacher.specialty?normalizeText(teacher.specialty):null; const notes=teacher.notes?normalizeText(teacher.notes):null; if(teacher.name!==name||teacher.area!==area||teacher.specialty!==specialty||teacher.notes!==notes) await teacherRepo.update(teacher.id,{name,area,specialty,notes}); }
   await normalizeGlobalInstructors();
-  for (const course of await courseRepo.find()) { let changed=false; const instructor=course.instructor?normalizePersonName(course.instructor):null; const coordinator=course.coordinator?normalizePersonName(course.coordinator):null; if(course.instructor!==instructor){course.instructor=instructor;changed=true;} if(course.coordinator!==coordinator){course.coordinator=coordinator;changed=true;} if(changed) await courseRepo.save(course); }
+  for (const building of await buildingRepo.find()) { const name=normalizeText(building.name); const location=building.location?normalizeText(building.location):null; if(building.name!==name||building.location!==location) await buildingRepo.update(building.id,{name,location}); }
+  for (const room of await roomRepo.find()) { room.code=normalizeText(room.code); room.name=normalizeText(room.name); room.floor=room.floor?normalizeText(room.floor):null; room.type=normalizeText(room.type); room.resources=room.resources?.map(normalizeText) || []; await roomRepo.save(room); }
+  for (const course of await courseRepo.find()) { let changed=false; const values:any={code:normalizeText(course.code),name:normalizeText(course.name),abbreviation:course.abbreviation?normalizeText(course.abbreviation):null,segment:course.segment?normalizeText(course.segment):null,type:normalizeText(course.type),shift:course.shift?normalizeText(course.shift):null,status:normalizeText(course.status),instructor:course.instructor?normalizePersonName(course.instructor):null,coordinator:course.coordinator?normalizePersonName(course.coordinator):null,notes:course.notes?normalizeText(course.notes):null}; for(const key of Object.keys(values)){if((course as any)[key]!==values[key]){(course as any)[key]=values[key];changed=true;}} if(changed) await courseRepo.save(course); }
+  for (const allocation of await occupancyRepo.find()) { allocation.title=normalizeText(allocation.title); allocation.kind=normalizeText(allocation.kind); allocation.status=normalizeText(allocation.status); allocation.shift=allocation.shift && ["MATUTINO", "VESPERTINO", "NOTURNO"].includes(normalizeText(allocation.shift)) ? normalizeText(allocation.shift) : shiftFromTimes(allocation.startTime, allocation.endTime);
+    if (allocation.shift === "MATUTINO" && shiftFromTimes(allocation.startTime, allocation.endTime) !== "MATUTINO") allocation.shift = shiftFromTimes(allocation.startTime, allocation.endTime); allocation.notes=allocation.notes?normalizeText(allocation.notes):null; await occupancyRepo.save(allocation); }
 
   if ((await buildingRepo.count()) > 0 || (await courseRepo.count()) > 0) {
     await seedProfessorsFromTurmas();
@@ -133,7 +146,7 @@ export async function seedDatabase() {
       name: item.name,
       capacity: item.capacity || 0,
       recommendedCapacity: item.recommendedCapacity || Math.floor((item.capacity || 0) * 0.8),
-      type: item.type || "Sala de aula",
+      type: normalizeText(item.type || "SALA DE AULA"),
       resources: [],
       active: true,
       floor: null,
@@ -151,7 +164,7 @@ export async function seedDatabase() {
       abbreviation: item.abbreviation || null,
       workload: item.workload || 0,
       segment: item.segment || null,
-      type: item.type || "Turma",
+      type: normalizeText(item.type || "TURMA"),
       startDate: item.startDate,
       endDate: item.endDate,
       shift: item.shift || null,
@@ -159,7 +172,7 @@ export async function seedDatabase() {
       endTime: item.endTime,
       weekdays: item.weekdays || [],
       students: item.students || 0,
-      status: item.status || "Em andamento",
+      status: normalizeText(item.status || "EM ANDAMENTO"),
       instructor: item.instructor || null,
       coordinator: item.coordinator || null,
       notes: item.notes || null,
@@ -174,9 +187,10 @@ export async function seedDatabase() {
     });
     if (!room) continue;
     await occupancyRepo.save(occupancyRepo.create({
-      title: `${course.code} · ${course.name}`.slice(0, 180),
+      title: normalizeText(`${course.code} · ${course.name}`).slice(0, 180),
       kind: "TURMA",
       status: "ATIVA",
+      shift: normalizeText(item.shift || "MATUTINO"),
       startDate: item.startDate,
       endDate: item.endDate,
       startTime: item.startTime,

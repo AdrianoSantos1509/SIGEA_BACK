@@ -5,7 +5,7 @@ import { Usuario } from "../entities/usuario";
 import { encryptData } from "../middleware/bcrypt.middleware";
 import { requireAdmin } from "../middleware/token.middleware";
 import { getPasswordExpiresAt } from "../services/password-policy";
-import { isValidEmail, normalizePersonName, normalizePhone } from "../services/validation";
+import { isValidEmail, normalizePersonName, normalizePhone, normalizeText } from "../services/validation";
 
 const ManagementRoutes = Router();
 const asyncRoute = (handler: any) => (req: any, res: any, next: any) => Promise.resolve(handler(req, res, next)).catch(next);
@@ -88,8 +88,8 @@ ManagementRoutes.post("/teachers", requireAdmin, asyncRoute(async (req: any, res
   const teacher = repo.create({
     registration: String(req.body.registration).trim().toUpperCase(), name: normalizePersonName(req.body.name),
     email: req.body.email ? String(req.body.email).trim().toLowerCase() : null, phone,
-    area: req.body.area ? String(req.body.area).trim() : null, specialty: req.body.specialty ? String(req.body.specialty).trim() : null,
-    notes: req.body.notes || null, active: req.body.active !== false,
+    area: req.body.area ? normalizeText(req.body.area) : null, specialty: req.body.specialty ? normalizeText(req.body.specialty) : null,
+    notes: req.body.notes ? normalizeText(req.body.notes) : null, active: req.body.active !== false,
   });
   res.status(201).json(await repo.save(teacher));
 }));
@@ -101,6 +101,9 @@ ManagementRoutes.put("/teachers/:id", requireAdmin, asyncRoute(async (req: any, 
   for (const key of ["registration", "name", "email", "phone", "area", "specialty", "notes"]) {
     if (req.body[key] !== undefined) (teacher as any)[key] = req.body[key] ? String(req.body[key]).trim() : null;
   }
+  if (req.body.area !== undefined) teacher.area = req.body.area ? normalizeText(req.body.area) : null;
+  if (req.body.specialty !== undefined) teacher.specialty = req.body.specialty ? normalizeText(req.body.specialty) : null;
+  if (req.body.notes !== undefined) teacher.notes = req.body.notes ? normalizeText(req.body.notes) : null;
   if (req.body.name !== undefined) teacher.name = normalizePersonName(req.body.name);
   if (req.body.email !== undefined) { const email=String(req.body.email || "").trim(); if(email && !isValidEmail(email)) return res.status(400).json({ message: "E-mail inválido" }); teacher.email=email?email.toLowerCase():null; }
   if (req.body.phone !== undefined) { try { teacher.phone=normalizePhone(req.body.phone); } catch(error:any) { return res.status(400).json({ message: error.message }); } }

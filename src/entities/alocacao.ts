@@ -14,6 +14,9 @@ export class Alocacao {
   @Column({ length: 30, default: "TURMA" })
   kind: string;
 
+  @Column({ length: 20, default: "MATUTINO" })
+  shift: string;
+
   @Column({ length: 30, default: "ATIVA" })
   status: string;
 
