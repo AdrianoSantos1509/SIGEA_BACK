@@ -32,9 +32,13 @@ export function isValidCEP(value: unknown): boolean {
 }
 
 export function normalizeInstitutionName(value: unknown): string {
-  return String(value ?? "").trim().replace(/\s+/g, " ");
+  return String(value ?? "").trim().replace(/\s+/g, " ").toLocaleUpperCase("pt-BR");
+}
+
+export function normalizeText(value: unknown): string {
+  return String(value ?? "").trim().replace(/\s+/g, " ").toLocaleUpperCase("pt-BR");
 }
 
 export function normalizeAddress(value: unknown): string {
-  return String(value ?? "").trim().replace(/\s+/g, " ");
+  return String(value ?? "").trim().replace(/\s+/g, " ").toLocaleUpperCase("pt-BR");
 }
