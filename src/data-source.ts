@@ -7,6 +7,7 @@ import { Turma } from "./entities/turma";
 import { Alocacao } from "./entities/alocacao";
 import { Usuario } from "./entities/usuario";
 import { Professor } from "./entities/professor";
+import { Substituicao } from "./entities/substituicao";
 
 const envPath = require("path").resolve(__dirname, "../.env");
 const localEnvPath = require("path").resolve(__dirname, "../.env.local");
@@ -23,7 +24,7 @@ export const AppDataSource = new DataSource({
   synchronize: process.env.DB_SYNC !== "false",
   logging: process.env.DB_LOGGING === "true",
   charset: "utf8mb4",
-  entities: [Usuario, Sala, Turma, Alocacao, Coordenador, Unidade, Professor],
+  entities: [Usuario, Sala, Turma, Alocacao, Coordenador, Unidade, Professor, Substituicao],
   migrations: [],
   subscribers: [],
 });
