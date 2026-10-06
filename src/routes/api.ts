@@ -6,6 +6,7 @@ import { Sala } from "../entities/sala";
 import { Turma } from "../entities/turma";
 import { Alocacao } from "../entities/alocacao";
 import { Professor } from "../entities/professor";
+import { Substituicao } from "../entities/substituicao";
 import { requireAdmin, requireManager } from "../middleware/token.middleware";
 import { normalizePersonName, normalizePhone, isValidEmail, dateIsValidRange, timeIsValidRange, onlyDigits, isValidCNPJ, isValidCEP, normalizeInstitutionName, normalizeAddress, normalizeText } from "../services/validation";
 
@@ -232,7 +233,8 @@ ApiRoutes.post("/courses", requireAdmin, asyncRoute(async (req: any, res: any) =
     coordinator: normalizePersonName(req.body.coordinator || "") || null, notes: req.body.notes ? normalizeText(req.body.notes) : null, building,
   });
   if (!item.code || !item.name) return res.status(400).json({ message: "Código e nome da turma são obrigatórios" });
-  if (item.startDate && item.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data inicial da turma não pode ser anterior à data atual" });
+  // Validação de "data não pode ser anterior à data atual" removida — o sistema
+  // agora aceita turmas com datas de anos anteriores.
   if (item.startDate && item.endDate && !dateIsValidRange(item.startDate,item.endDate)) return res.status(400).json({ message: "A data inicial deve ser anterior ou igual à data final" });
   if (item.startTime && item.endTime && !timeIsValidRange(item.startTime,item.endTime)) return res.status(400).json({ message: "O horário inicial deve ser anterior ao horário final" });
   if (!Number.isFinite(item.students) || item.students < 0 || !Number.isFinite(item.workload) || item.workload < 0) return res.status(400).json({ message: "Alunos e carga horária inválidos" });
@@ -261,7 +263,8 @@ ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any
   }
   if (req.body.instructor !== undefined && req.body.teacherId === undefined) item.instructor = normalizePersonName(req.body.instructor) || null;
   if (req.body.coordinator !== undefined) item.coordinator = normalizePersonName(req.body.coordinator) || null;
-  if (item.startDate && item.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data inicial da turma não pode ser anterior à data atual" });
+  // Validação de "data não pode ser anterior à data atual" removida — o sistema
+  // agora aceita turmas com datas de anos anteriores.
   if (item.startDate && item.endDate && !dateIsValidRange(item.startDate,item.endDate)) return res.status(400).json({ message: "A data inicial deve ser anterior ou igual à data final" });
   if (item.startTime && item.endTime && !timeIsValidRange(item.startTime,item.endTime)) return res.status(400).json({ message: "O horário inicial deve ser anterior ao horário final" });
   res.json(await repo.save(item));
@@ -294,7 +297,8 @@ ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: an
   const payload = { ...req.body, shift: requestedShift, startDate: dateOnly(req.body.startDate), endDate: dateOnly(req.body.endDate), startTime: selectedShiftTimes ? selectedShiftTimes.startTime : timeOnly(req.body.startTime), endTime: selectedShiftTimes ? selectedShiftTimes.endTime : timeOnly(req.body.endTime), weekdays: normalizeDays(req.body.weekdays) };
   if (!payload.startDate || !payload.endDate || !payload.startTime || !payload.endTime || !payload.weekdays.length) return res.status(400).json({ message: "Período, horário e dias da semana são obrigatórios" });
   if (payload.startDate > payload.endDate || payload.startTime >= payload.endTime) return res.status(400).json({ message: "O período ou horário informado é inválido" });
-  if (payload.startDate < currentDateSaoPaulo()) return res.status(400).json({ message: "A data da alocação não pode ser anterior à data atual" });
+  // Validação de "data não pode ser anterior à data atual" removida — o sistema
+  // agora aceita alocações com datas de anos anteriores.
   const conflicts = await conflictsFor(payload);
   if (conflicts.length) return res.status(409).json({ message: "A sala já está ocupada nesse período", conflicts });
   const instructorId = Number(req.body.instructorId || 0);
@@ -461,6 +465,79 @@ ApiRoutes.get("/dashboard", asyncRoute(async (req: any, res: any) => {
     }),
     occupancyByUnidade,
   });
+}));
+
+ApiRoutes.get("/substitutions", asyncRoute(async (req: any, res: any) => {
+  const qb = AppDataSource.getRepository(Substituicao)
+    .createQueryBuilder("substitution")
+    .leftJoinAndSelect("substitution.course", "course")
+    .leftJoinAndSelect("substitution.originalTeacher", "originalTeacher")
+    .leftJoinAndSelect("substitution.substituteTeacher", "substituteTeacher")
+    .orderBy("substitution.date", "DESC");
+  if (req.query.courseId) qb.andWhere("course.id = :courseId", { courseId: Number(req.query.courseId) });
+  if (req.query.date) qb.andWhere("substitution.date = :date", { date: dateOnly(req.query.date) });
+  res.json(await qb.take(1000).getMany());
+}));
+
+ApiRoutes.post("/substitutions", requireAdmin, asyncRoute(async (req: any, res: any) => {
+  const course = await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } });
+  if (!course) return res.status(400).json({ message: "Turma inválida" });
+
+  const date = dateOnly(req.body.date);
+  if (!date) return res.status(400).json({ message: "Informe a data da substituição" });
+  if (course.startDate && date < course.startDate) return res.status(400).json({ message: "A data da substituição é anterior ao início da turma" });
+  if (course.endDate && date > course.endDate) return res.status(400).json({ message: "A data da substituição é posterior ao término da turma" });
+
+  const weekday = weekdayLabels[new Date(`${date}T12:00:00`).getDay()];
+  if (course.weekdays?.length && !course.weekdays.includes(weekday)) {
+    return res.status(400).json({ message: `A turma não tem aula nesse dia da semana (${weekday})` });
+  }
+
+  const substituteTeacher = await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.substituteTeacherId) });
+  if (!substituteTeacher) return res.status(400).json({ message: "Professor substituto inválido" });
+  if (!substituteTeacher.active) return res.status(400).json({ message: "O professor substituto selecionado está inativo" });
+
+  const originalTeacherId = req.body.originalTeacherId ? Number(req.body.originalTeacherId) : course.teacher?.id || null;
+  if (originalTeacherId && originalTeacherId === substituteTeacher.id) {
+    return res.status(400).json({ message: "O substituto não pode ser o mesmo professor titular" });
+  }
+
+  // Verifica se o substituto já não está ocupado nesse dia e horário em outra turma/alocação
+  if (course.startTime && course.endTime) {
+    const conflicts = await instructorConflictsFor({
+      instructorId: substituteTeacher.id,
+      startDate: date,
+      endDate: date,
+      startTime: course.startTime,
+      endTime: course.endTime,
+      weekdays: [weekday],
+    });
+    if (conflicts.length) {
+      return res.status(409).json({ message: "O professor substituto já está ocupado nesse dia e horário", conflicts });
+    }
+  }
+
+  const duplicate = await AppDataSource.getRepository(Substituicao).findOne({ where: { course: { id: course.id }, date }, relations: { course: true } });
+  if (duplicate) return res.status(409).json({ message: "Já existe uma substituição registrada para esta turma nesta data" });
+
+  const originalTeacher = originalTeacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: originalTeacherId }) : null;
+
+  const repo = AppDataSource.getRepository(Substituicao);
+  const item = repo.create({
+    course,
+    date,
+    originalTeacher,
+    substituteTeacher,
+    reason: req.body.reason ? normalizeText(req.body.reason) : null,
+    notes: req.body.notes ? normalizeText(req.body.notes) : null,
+  });
+  res.status(201).json(await repo.save(item));
+}));
+
+ApiRoutes.delete("/substitutions/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
+  const result = await AppDataSource.getRepository(Substituicao).delete(Number(req.params.id));
+  if (!result.affected) return res.status(404).json({ message: "Substituição não encontrada" });
+  res.status(204).send();
 }));
 
 export { ApiRoutes };
