@@ -2,3 +2,6 @@
 .env.example
 .env.local
 node_modules
+# Dados (nunca versionar)
+data/
+*.sql

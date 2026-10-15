@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { AppDataSource } from "./data-source";
 import { Unidade } from "./entities/unidade";
 import { Sala } from "./entities/sala";
@@ -10,16 +8,6 @@ import { Professor } from "./entities/professor";
 import { encryptData } from "./middleware/bcrypt.middleware";
 import { IsNull } from "typeorm";
 import { normalizePersonName, normalizeText } from "./services/validation";
-
-type SeedData = {
-  buildings: any[];
-  rooms: any[];
-  classes: any[];
-};
-
-function normalizeRoom(value: string) {
-  return String(value || "").toUpperCase().replace(/SALA|LABORATÓRIO|LAB\.?|SI|TI/g, "").replace(/[^A-Z0-9]/g, "");
-}
 
 function shiftFromTimes(startTime: string | null | undefined, endTime: string | null | undefined) {
   const start = String(startTime || "").slice(0, 5);
@@ -116,90 +104,7 @@ export async function seedDatabase() {
   for (const allocation of await occupancyRepo.find()) { allocation.title=normalizeText(allocation.title); allocation.kind=normalizeText(allocation.kind); allocation.status=normalizeText(allocation.status); allocation.shift=allocation.shift && ["MATUTINO", "VESPERTINO", "NOTURNO"].includes(normalizeText(allocation.shift)) ? normalizeText(allocation.shift) : shiftFromTimes(allocation.startTime, allocation.endTime);
     if (allocation.shift === "MATUTINO" && shiftFromTimes(allocation.startTime, allocation.endTime) !== "MATUTINO") allocation.shift = shiftFromTimes(allocation.startTime, allocation.endTime); allocation.notes=allocation.notes?normalizeText(allocation.notes):null; await occupancyRepo.save(allocation); }
 
-  if ((await buildingRepo.count()) > 0 || (await courseRepo.count()) > 0) {
-    await seedProfessorsFromTurmas();
-    return;
-  }
-  const seedPath = path.resolve(__dirname, "../data/seed.json");
-  if (!fs.existsSync(seedPath)) return;
-  const data = JSON.parse(fs.readFileSync(seedPath, "utf8")) as SeedData;
-  const buildings = new Map<string, Unidade>();
-
-  for (const item of data.buildings) {
-    const saved = await buildingRepo.save(buildingRepo.create({
-      code: String(item.cnpj || item.code),
-      name: String(item.name),
-      location: item.location || null,
-      zipCode: item.zipCode || null,
-      active: true,
-    }));
-    buildings.set(item.code, saved);
-  }
-
-  const roomMap = new Map<string, Sala[]>();
-  for (const item of data.rooms) {
-    const building = buildings.get(item.buildingCode);
-    if (!building) continue;
-    const room = await roomRepo.save(roomRepo.create({
-      building,
-      code: item.code,
-      name: item.name,
-      capacity: item.capacity || 0,
-      recommendedCapacity: item.recommendedCapacity || Math.floor((item.capacity || 0) * 0.8),
-      type: normalizeText(item.type || "SALA DE AULA"),
-      resources: [],
-      active: true,
-      floor: null,
-    }));
-    const list = roomMap.get(item.buildingCode) || [];
-    list.push(room);
-    roomMap.set(item.buildingCode, list);
-  }
-
-  for (const item of data.classes) {
-    const building = buildings.get(item.buildingCode) || null;
-    const course = await courseRepo.save(courseRepo.create({
-      code: item.code,
-      name: item.name,
-      abbreviation: item.abbreviation || null,
-      workload: item.workload || 0,
-      segment: item.segment || null,
-      type: normalizeText(item.type || "TURMA"),
-      startDate: item.startDate,
-      endDate: item.endDate,
-      shift: item.shift || null,
-      startTime: item.startTime,
-      endTime: item.endTime,
-      weekdays: item.weekdays || [],
-      students: item.students || 0,
-      status: normalizeText(item.status || "EM ANDAMENTO"),
-      instructor: item.instructor || null,
-      coordinator: item.coordinator || null,
-      notes: item.notes || null,
-      building,
-    }));
-    if (!building || !item.classroomCode || !item.startDate || !item.endDate || !item.startTime || !item.endTime || !item.weekdays?.length) continue;
-    const target = normalizeRoom(item.classroomCode);
-    const rooms = roomMap.get(item.buildingCode) || [];
-    const room = rooms.find((candidate) => {
-      const normalized = normalizeRoom(candidate.code);
-      return normalized === target || normalized.includes(target) || target.includes(normalized);
-    });
-    if (!room) continue;
-    await occupancyRepo.save(occupancyRepo.create({
-      title: normalizeText(`${course.code} · ${course.name}`).slice(0, 180),
-      kind: "TURMA",
-      status: "ATIVA",
-      shift: normalizeText(item.shift || "MATUTINO"),
-      startDate: item.startDate,
-      endDate: item.endDate,
-      startTime: item.startTime,
-      endTime: item.endTime,
-      weekdays: item.weekdays,
-      notes: item.notes || null,
-      classroom: room,
-      course,
-    }));
-  }
+  // O código-fonte não carrega dados cadastrados: unidades, salas, turmas etc. são criados pelo sistema.
+  // Só o usuário ADMIN inicial (definido no .env) é criado automaticamente.
   await seedProfessorsFromTurmas();
 }
