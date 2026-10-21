@@ -60,7 +60,7 @@ async function instructorConflictsFor(payload: any, ignoreId?: number) {
     const effectiveTeacherId = item.instructor?.id || item.course?.teacher?.id;
     if (effectiveTeacherId !== teacherId) return false;
     if (!item.weekdays.some((day) => weekdays.includes(day))) return false;
-    return overlapsTime(startTime, endTime, item.startTime, item.endTime);
+    return overlapsTime(startTime, endTime, item.startTime, item.endTime) || sameShift(payload.shift, item.shift);
   });
 }
 
@@ -87,6 +87,78 @@ async function conflictsFor(payload: any, ignoreId?: number) {
     if (!sameDays) return false;
     return overlapsTime(startTime, endTime, item.startTime, item.endTime);
   });
+}
+
+const finishedCourseStatuses = ["CANCELADA", "CONCLUÍDA", "CONCLUIDA"];
+
+function courseIsActive(status: any) {
+  return !finishedCourseStatuses.includes(String(status || "").trim().toUpperCase());
+}
+
+// Turno INTEGRAL ocupa o dia todo; nos demais vale o horário informado.
+function effectiveCourseTimes(shift: any, startTime: any, endTime: any) {
+  if (String(shift || "").trim().toUpperCase() === "INTEGRAL") return { start: "08:00:00", end: "22:00:00" };
+  return { start: timeOnly(startTime), end: timeOnly(endTime) };
+}
+
+// Nome sem acento, maiúsculo e sem espaços repetidos, para comparar instrutores.
+const nameKey = (value: any) => String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
+
+function sameShift(a: any, b: any) {
+  const x = String(a || "").trim().toUpperCase();
+  return Boolean(x) && x === String(b || "").trim().toUpperCase();
+}
+
+// Mesmo instrutor: se os dois estão vinculados a um cadastro, vale o cadastro;
+// se algum só tem o nome digitado ("Instrutor exibido"), vale o nome.
+function sameInstructor(a: any, b: any) {
+  const aId = a.teacher?.id || null;
+  const bId = b.teacher?.id || null;
+  if (aId && bId) return aId === bId;
+  const aName = nameKey(a.teacher?.name || a.instructor);
+  return Boolean(aName) && aName === nameKey(b.teacher?.name || b.instructor);
+}
+
+// REGRA: um instrutor não pode estar em duas turmas ao mesmo tempo, em nenhuma unidade.
+// Há conflito quando: é o mesmo instrutor, os períodos se cruzam, há pelo menos um dia
+// da semana em comum E (os horários se sobrepõem OU o turno é o mesmo).
+// Turnos diferentes (ex.: manhã e noite) continuam permitidos.
+// Turmas canceladas ou concluídas não contam.
+export function courseTeacherClash(a: any, b: any) {
+  if (a.id && a.id === b.id) return false;
+  if (!courseIsActive(a.status) || !courseIsActive(b.status)) return false;
+  if (!sameInstructor(a, b)) return false;
+  const aStart = dateOnly(a.startDate), aEnd = dateOnly(a.endDate), bStart = dateOnly(b.startDate), bEnd = dateOnly(b.endDate);
+  if (!aStart || !aEnd || !bStart || !bEnd) return false;
+  if (!(aStart <= bEnd && aEnd >= bStart)) return false;
+  const bDays = normalizeDays(b.weekdays);
+  if (!normalizeDays(a.weekdays).some((day) => bDays.includes(day))) return false;
+  const at = effectiveCourseTimes(a.shift, a.startTime, a.endTime);
+  const bt = effectiveCourseTimes(b.shift, b.startTime, b.endTime);
+  const timesOverlap = Boolean(at.start && at.end && bt.start && bt.end && overlapsTime(at.start, at.end, bt.start, bt.end));
+  return timesOverlap || sameShift(a.shift, b.shift);
+}
+
+async function teacherCourseConflictsFor(payload: any, ignoreCourseId?: number) {
+  const startDate = dateOnly(payload.startDate);
+  const endDate = dateOnly(payload.endDate);
+  if (!startDate || !endDate) return [];
+  if (!payload.teacher?.id && !nameKey(payload.instructor)) return [];
+  const candidates = await AppDataSource.getRepository(Turma)
+    .createQueryBuilder("course")
+    .leftJoinAndSelect("course.teacher", "teacher")
+    .where("course.startDate <= :endDate AND course.endDate >= :startDate", { startDate, endDate })
+    .getMany();
+  return candidates.filter((other) => other.id !== ignoreCourseId && courseTeacherClash(payload, other));
+}
+
+function courseConflictInfo(course: any) {
+  const hhmm = (value: any) => String(value || "").slice(0, 5);
+  return {
+    id: course.id, code: course.code, name: course.name, shift: course.shift,
+    startDate: course.startDate, endDate: course.endDate, startTime: course.startTime, endTime: course.endTime, weekdays: course.weekdays,
+    title: `${course.code} · ${course.name} (${course.shift || "sem turno"} ${hhmm(course.startTime)}–${hhmm(course.endTime)}, ${(course.weekdays || []).join("/")})`,
+  };
 }
 
 ApiRoutes.get("/buildings", asyncRoute(async (_req: any, res: any) => {
@@ -238,6 +310,10 @@ ApiRoutes.post("/courses", requireAdmin, asyncRoute(async (req: any, res: any) =
   if (item.startDate && item.endDate && !dateIsValidRange(item.startDate,item.endDate)) return res.status(400).json({ message: "A data inicial deve ser anterior ou igual à data final" });
   if (item.startTime && item.endTime && !timeIsValidRange(item.startTime,item.endTime)) return res.status(400).json({ message: "O horário inicial deve ser anterior ao horário final" });
   if (!Number.isFinite(item.students) || item.students < 0 || !Number.isFinite(item.workload) || item.workload < 0) return res.status(400).json({ message: "Alunos e carga horária inválidos" });
+  if ((teacher || item.instructor) && courseIsActive(item.status)) {
+    const teacherConflicts = await teacherCourseConflictsFor({ teacher, instructor: item.instructor, status: item.status, startDate: item.startDate, endDate: item.endDate, startTime: item.startTime, endTime: item.endTime, shift: item.shift, weekdays: item.weekdays });
+    if (teacherConflicts.length) return res.status(409).json({ message: "O instrutor já possui outra turma nesse período, dias e horário", conflicts: teacherConflicts.map(courseConflictInfo) });
+  }
   res.status(201).json(await repo.save(item));
 }));
 
@@ -267,6 +343,10 @@ ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any
   // agora aceita turmas com datas de anos anteriores.
   if (item.startDate && item.endDate && !dateIsValidRange(item.startDate,item.endDate)) return res.status(400).json({ message: "A data inicial deve ser anterior ou igual à data final" });
   if (item.startTime && item.endTime && !timeIsValidRange(item.startTime,item.endTime)) return res.status(400).json({ message: "O horário inicial deve ser anterior ao horário final" });
+  if ((item.teacher || item.instructor) && courseIsActive(item.status)) {
+    const teacherConflicts = await teacherCourseConflictsFor({ teacher: item.teacher, instructor: item.instructor, status: item.status, startDate: item.startDate, endDate: item.endDate, startTime: item.startTime, endTime: item.endTime, shift: item.shift, weekdays: item.weekdays }, item.id);
+    if (teacherConflicts.length) return res.status(409).json({ message: "O instrutor já possui outra turma nesse período, dias e horário", conflicts: teacherConflicts.map(courseConflictInfo) });
+  }
   res.json(await repo.save(item));
 }));
 
@@ -307,6 +387,8 @@ ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: an
   if (instructor) {
     const instructorConflicts = await instructorConflictsFor({ ...payload, instructorId: instructor.id });
     if (instructorConflicts.length) return res.status(409).json({ message: "O instrutor já está ocupado nesse período", conflicts: instructorConflicts });
+    const instructorCourseConflicts = await teacherCourseConflictsFor({ teacher: instructor, startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, shift: payload.shift, weekdays: payload.weekdays }, course?.id);
+    if (instructorCourseConflicts.length) return res.status(409).json({ message: "O instrutor já está em outra turma nesse período, dias e turno", conflicts: instructorCourseConflicts.map(courseConflictInfo) });
   }
   const item = repo.create({ title: normalizeText(payload.title || course?.name || "RESERVA"), kind: normalizeText(payload.kind || (course ? "TURMA" : "RESERVA")), status: normalizeText(payload.status || "ATIVA"), shift: payload.shift, startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, weekdays: payload.weekdays, notes: payload.notes ? normalizeText(payload.notes) : null, classroom, course, instructor });
   res.status(201).json(await repo.save(item));
@@ -337,6 +419,10 @@ ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res:
   if (effectiveInstructorId) {
     const instructorConflicts = await instructorConflictsFor({ ...payload, instructorId: effectiveInstructorId }, item.id);
     if (instructorConflicts.length) return res.status(409).json({ message: "O instrutor já está ocupado nesse período", conflicts: instructorConflicts });
+    const effectiveInstructor = await AppDataSource.getRepository(Professor).findOneBy({ id: effectiveInstructorId });
+    const ownCourseId = req.body.courseId !== undefined ? Number(req.body.courseId) || undefined : item.course?.id;
+    const instructorCourseConflicts = await teacherCourseConflictsFor({ teacher: effectiveInstructor, startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, shift: payload.shift, weekdays: payload.weekdays }, ownCourseId);
+    if (instructorCourseConflicts.length) return res.status(409).json({ message: "O instrutor já está em outra turma nesse período, dias e turno", conflicts: instructorCourseConflicts.map(courseConflictInfo) });
   }
   if (req.body.classroomId) item.classroom = await AppDataSource.getRepository(Sala).findOneByOrFail({ id: Number(req.body.classroomId) });
   if (req.body.courseId !== undefined) item.course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } }) : null;
@@ -516,6 +602,9 @@ ApiRoutes.post("/substitutions", requireAdmin, asyncRoute(async (req: any, res: 
       return res.status(409).json({ message: "O professor substituto já está ocupado nesse dia e horário", conflicts });
     }
   }
+
+  const substituteCourseConflicts = await teacherCourseConflictsFor({ teacher: substituteTeacher, startDate: date, endDate: date, startTime: course.startTime, endTime: course.endTime, shift: course.shift, weekdays: [weekday] });
+  if (substituteCourseConflicts.length) return res.status(409).json({ message: "O professor substituto já tem outra turma nesse dia e horário", conflicts: substituteCourseConflicts.map(courseConflictInfo) });
 
   const duplicate = await AppDataSource.getRepository(Substituicao).findOne({ where: { course: { id: course.id }, date }, relations: { course: true } });
   if (duplicate) return res.status(409).json({ message: "Já existe uma substituição registrada para esta turma nesta data" });
