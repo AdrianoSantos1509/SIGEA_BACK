@@ -161,6 +161,25 @@ function courseConflictInfo(course: any) {
   };
 }
 
+// O titular de uma turma é um só. Ele fica guardado na turma (teacher + texto instructor)
+// e também em cada alocação dessa turma (instructor). Sempre que um dos lados muda, esta
+// função iguala o outro lado, para as telas e as regras de conflito nunca divergirem.
+async function setCourseTitular(course: Turma, teacher: Professor | null) {
+  course.teacher = teacher;
+  course.instructor = teacher ? normalizePersonName(teacher.name) : null;
+  await AppDataSource.getRepository(Turma).save(course);
+  await syncCourseOccupancies(course.id, teacher);
+}
+
+// Alocações da turma passam a ter o mesmo instrutor do titular da turma.
+async function syncCourseOccupancies(courseId: number, teacher: Professor | null) {
+  const occRepo = AppDataSource.getRepository(Alocacao);
+  const occupancies = await occRepo.find({ where: { course: { id: courseId } }, relations: { instructor: true } });
+  const changed = occupancies.filter((occ) => (occ.instructor?.id || null) !== (teacher?.id || null));
+  changed.forEach((occ) => { occ.instructor = teacher; });
+  if (changed.length) await occRepo.save(changed);
+}
+
 ApiRoutes.get("/buildings", asyncRoute(async (_req: any, res: any) => {
   const items = await AppDataSource.getRepository(Unidade).find({ order: { name: "ASC" } });
   res.json(items);
@@ -321,6 +340,7 @@ ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any
   const repo = AppDataSource.getRepository(Turma);
   const item = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { building: true, teacher: true } });
   if (!item) return res.status(404).json({ message: "Turma não encontrada" });
+  const previousTeacherId = item.teacher?.id || null;
   if (req.body.buildingId !== undefined) {
     const building = req.body.buildingId ? await AppDataSource.getRepository(Unidade).findOneBy({ id: Number(req.body.buildingId) }) : null;
     if (req.body.buildingId && !building) return res.status(400).json({ message: "Unidade inválida" });
@@ -347,7 +367,18 @@ ApiRoutes.put("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any
     const teacherConflicts = await teacherCourseConflictsFor({ teacher: item.teacher, instructor: item.instructor, status: item.status, startDate: item.startDate, endDate: item.endDate, startTime: item.startTime, endTime: item.endTime, shift: item.shift, weekdays: item.weekdays }, item.id);
     if (teacherConflicts.length) return res.status(409).json({ message: "O instrutor já possui outra turma nesse período, dias e horário", conflicts: teacherConflicts.map(courseConflictInfo) });
   }
-  res.json(await repo.save(item));
+  // trocou o titular da turma -> as alocações dela acompanham; antes, confere se o novo titular está livre
+  const teacherChanged = req.body.teacherId !== undefined && (item.teacher?.id || null) !== previousTeacherId;
+  if (teacherChanged && item.teacher) {
+    const ownOccupancies = await AppDataSource.getRepository(Alocacao).find({ where: { course: { id: item.id } } });
+    for (const occ of ownOccupancies) {
+      const clash = await instructorConflictsFor({ instructorId: item.teacher.id, startDate: occ.startDate, endDate: occ.endDate, startTime: occ.startTime, endTime: occ.endTime, weekdays: occ.weekdays, shift: occ.shift }, occ.id);
+      if (clash.length) return res.status(409).json({ message: "O novo instrutor já está ocupado em uma alocação desta turma", conflicts: clash });
+    }
+  }
+  const savedCourse = await repo.save(item);
+  if (teacherChanged) await syncCourseOccupancies(savedCourse.id, savedCourse.teacher);
+  res.json(savedCourse);
 }));
 
 ApiRoutes.delete("/courses/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
@@ -390,17 +421,11 @@ ApiRoutes.post("/occupancies", requireAdmin, asyncRoute(async (req: any, res: an
     const instructorCourseConflicts = await teacherCourseConflictsFor({ teacher: instructor, startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, shift: payload.shift, weekdays: payload.weekdays }, course?.id);
     if (instructorCourseConflicts.length) return res.status(409).json({ message: "O instrutor já está em outra turma nesse período, dias e turno", conflicts: instructorCourseConflicts.map(courseConflictInfo) });
   }
-  // O instrutor da alocação é o vínculo oficial da turma (Turma.teacher). Quando o
-  // instrutor é escolhido explicitamente aqui (diferente do padrão herdado da turma),
-  // sincroniza a turma para que o antigo titular fique livre e o novo apareça
-  // corretamente como titular em outras telas (ex.: Substituições).
-  if (req.body.instructorId !== undefined && course) {
-    course.teacher = instructor || null;
-    course.instructor = instructor ? normalizePersonName(instructor.name) : null;
-    await AppDataSource.getRepository(Turma).save(course);
-  }
   const item = repo.create({ title: normalizeText(payload.title || course?.name || "RESERVA"), kind: normalizeText(payload.kind || (course ? "TURMA" : "RESERVA")), status: normalizeText(payload.status || "ATIVA"), shift: payload.shift, startDate: payload.startDate, endDate: payload.endDate, startTime: payload.startTime, endTime: payload.endTime, weekdays: payload.weekdays, notes: payload.notes ? normalizeText(payload.notes) : null, classroom, course, instructor });
-  res.status(201).json(await repo.save(item));
+  const savedOccupancy = await repo.save(item);
+  // alterou o instrutor na alocação -> ele passa a ser o titular da turma (o anterior fica livre)
+  if (course && instructor && course.teacher?.id !== instructor.id) await setCourseTitular(course, instructor);
+  res.status(201).json(savedOccupancy);
 }));
 
 ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
@@ -437,18 +462,13 @@ ApiRoutes.put("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res:
   if (req.body.courseId !== undefined) item.course = req.body.courseId ? await AppDataSource.getRepository(Turma).findOne({ where: { id: Number(req.body.courseId) }, relations: { teacher: true } }) : null;
   if (req.body.instructorId !== undefined) item.instructor = req.body.instructorId ? await AppDataSource.getRepository(Professor).findOneBy({ id: Number(req.body.instructorId) }) : null;
   else if (!item.instructor && item.course?.teacher) item.instructor = item.course.teacher;
-  // O instrutor da alocação é o vínculo oficial da turma (Turma.teacher). Quando o
-  // instrutor desta alocação é alterado explicitamente aqui, sincroniza a turma para
-  // que o antigo titular fique livre e o novo passe a ser reconhecido corretamente
-  // como titular em outras telas (ex.: Substituições), evitando dados divergentes.
-  if (req.body.instructorId !== undefined && item.course) {
-    item.course.teacher = item.instructor || null;
-    item.course.instructor = item.instructor ? normalizePersonName(item.instructor.name) : null;
-    await AppDataSource.getRepository(Turma).save(item.course);
-  }
   for (const key of ["title", "kind", "status", "shift", "startDate", "endDate", "startTime", "endTime", "weekdays", "notes"]) if (req.body[key] !== undefined) (item as any)[key] = key === "weekdays" ? normalizeDays(req.body[key]) : ["title", "kind", "status", "shift", "notes"].includes(key) ? (req.body[key] ? normalizeText(req.body[key]) : null) : req.body[key];
   item.shift = payload.shift; item.startTime = payload.startTime; item.endTime = payload.endTime;
-  res.json(await repo.save(item));
+  const savedOccupancy = await repo.save(item);
+  // trocou o instrutor na alocação -> ele passa a ser o titular da turma (o anterior fica livre)
+  const occupancyTitular = savedOccupancy.instructor || savedOccupancy.course?.teacher || null;
+  if (savedOccupancy.course && occupancyTitular && savedOccupancy.course.teacher?.id !== occupancyTitular.id) await setCourseTitular(savedOccupancy.course, occupancyTitular);
+  res.json(savedOccupancy);
 }));
 
 ApiRoutes.delete("/occupancies/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
@@ -601,9 +621,13 @@ ApiRoutes.post("/substitutions", requireAdmin, asyncRoute(async (req: any, res: 
   if (!substituteTeacher) return res.status(400).json({ message: "Professor substituto inválido" });
   if (!substituteTeacher.active) return res.status(400).json({ message: "O professor substituto selecionado está inativo" });
 
-  const originalTeacherId = req.body.originalTeacherId ? Number(req.body.originalTeacherId) : course.teacher?.id || null;
+  // Titular que realmente leciona nesse dia: o da alocação da turma (se houver); senão, o cadastrado na turma.
+  const courseOccupancies = await AppDataSource.getRepository(Alocacao).find({ where: { course: { id: course.id } }, relations: { instructor: true } });
+  const dayOccupancy = courseOccupancies.find((occ) => occ.status !== "CANCELADA" && occ.startDate <= date && occ.endDate >= date && normalizeDays(occ.weekdays).includes(weekday));
+  const titular = dayOccupancy?.instructor || course.teacher || null;
+  const originalTeacherId = titular?.id || (req.body.originalTeacherId ? Number(req.body.originalTeacherId) : null);
   if (originalTeacherId && originalTeacherId === substituteTeacher.id) {
-    return res.status(400).json({ message: "O substituto não pode ser o mesmo professor titular" });
+    return res.status(400).json({ message: `${normalizePersonName(substituteTeacher.name)} já é o professor titular desta turma. Escolha outro professor para substituir.` });
   }
 
   // Verifica se o substituto já não está ocupado nesse dia e horário em outra turma/alocação
@@ -627,7 +651,7 @@ ApiRoutes.post("/substitutions", requireAdmin, asyncRoute(async (req: any, res: 
   const duplicate = await AppDataSource.getRepository(Substituicao).findOne({ where: { course: { id: course.id }, date }, relations: { course: true } });
   if (duplicate) return res.status(409).json({ message: "Já existe uma substituição registrada para esta turma nesta data" });
 
-  const originalTeacher = originalTeacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: originalTeacherId }) : null;
+  const originalTeacher = titular || (originalTeacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: originalTeacherId }) : null);
 
   const repo = AppDataSource.getRepository(Substituicao);
   const item = repo.create({
@@ -639,70 +663,6 @@ ApiRoutes.post("/substitutions", requireAdmin, asyncRoute(async (req: any, res: 
     notes: req.body.notes ? normalizeText(req.body.notes) : null,
   });
   res.status(201).json(await repo.save(item));
-}));
-
-ApiRoutes.put("/substitutions/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
-  const repo = AppDataSource.getRepository(Substituicao);
-  const existing = await repo.findOne({ where: { id: Number(req.params.id) }, relations: { course: true } });
-  if (!existing) return res.status(404).json({ message: "Substituição não encontrada" });
-
-  const courseId = req.body.courseId !== undefined ? Number(req.body.courseId) : existing.course.id;
-  const course = await AppDataSource.getRepository(Turma).findOne({ where: { id: courseId }, relations: { teacher: true } });
-  if (!course) return res.status(400).json({ message: "Turma inválida" });
-
-  const date = req.body.date !== undefined ? dateOnly(req.body.date) : existing.date;
-  if (!date) return res.status(400).json({ message: "Informe a data da substituição" });
-  if (course.startDate && date < course.startDate) return res.status(400).json({ message: "A data da substituição é anterior ao início da turma" });
-  if (course.endDate && date > course.endDate) return res.status(400).json({ message: "A data da substituição é posterior ao término da turma" });
-
-  const weekday = weekdayLabels[new Date(`${date}T12:00:00`).getDay()];
-  if (course.weekdays?.length && !course.weekdays.includes(weekday)) {
-    return res.status(400).json({ message: `A turma não tem aula nesse dia da semana (${weekday})` });
-  }
-
-  const substituteTeacherId = req.body.substituteTeacherId !== undefined ? Number(req.body.substituteTeacherId) : null;
-  const substituteTeacher = substituteTeacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: substituteTeacherId }) : null;
-  if (!substituteTeacher) return res.status(400).json({ message: "Professor substituto inválido" });
-  if (!substituteTeacher.active) return res.status(400).json({ message: "O professor substituto selecionado está inativo" });
-
-  const originalTeacherId = req.body.originalTeacherId ? Number(req.body.originalTeacherId) : course.teacher?.id || null;
-  if (originalTeacherId && originalTeacherId === substituteTeacher.id) {
-    return res.status(400).json({ message: "O substituto não pode ser o mesmo professor titular" });
-  }
-
-  // Verifica se o substituto já não está ocupado nesse dia e horário em outra turma/alocação
-  if (course.startTime && course.endTime) {
-    const conflicts = await instructorConflictsFor({
-      instructorId: substituteTeacher.id,
-      startDate: date,
-      endDate: date,
-      startTime: course.startTime,
-      endTime: course.endTime,
-      weekdays: [weekday],
-    });
-    if (conflicts.length) {
-      return res.status(409).json({ message: "O professor substituto já está ocupado nesse dia e horário", conflicts });
-    }
-  }
-
-  const substituteCourseConflicts = await teacherCourseConflictsFor({ teacher: substituteTeacher, startDate: date, endDate: date, startTime: course.startTime, endTime: course.endTime, shift: course.shift, weekdays: [weekday] });
-  if (substituteCourseConflicts.length) return res.status(409).json({ message: "O professor substituto já tem outra turma nesse dia e horário", conflicts: substituteCourseConflicts.map(courseConflictInfo) });
-
-  // Mesma regra de "uma substituição por turma/data" do cadastro, mas ignorando o
-  // próprio registro — permite editar/trocar o substituto sem precisar excluir antes.
-  const duplicate = await AppDataSource.getRepository(Substituicao).findOne({ where: { course: { id: course.id }, date }, relations: { course: true } });
-  if (duplicate && duplicate.id !== existing.id) return res.status(409).json({ message: "Já existe uma substituição registrada para esta turma nesta data" });
-
-  const originalTeacher = originalTeacherId ? await AppDataSource.getRepository(Professor).findOneBy({ id: originalTeacherId }) : null;
-
-  existing.course = course;
-  existing.date = date;
-  existing.originalTeacher = originalTeacher;
-  existing.substituteTeacher = substituteTeacher;
-  if (req.body.reason !== undefined) existing.reason = req.body.reason ? normalizeText(req.body.reason) : null;
-  if (req.body.notes !== undefined) existing.notes = req.body.notes ? normalizeText(req.body.notes) : null;
-
-  res.json(await repo.save(existing));
 }));
 
 ApiRoutes.delete("/substitutions/:id", requireAdmin, asyncRoute(async (req: any, res: any) => {
