@@ -104,6 +104,10 @@ function effectiveCourseTimes(shift: any, startTime: any, endTime: any) {
 // Nome sem acento, maiúsculo e sem espaços repetidos, para comparar instrutores.
 const nameKey = (value: any) => String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
 
+// Segmento comparável: sem acento, maiúsculo e sem espaços repetidos ("Economia  criativa" = "ECONOMIA CRIATIVA").
+// Turma.segment e Professor.area guardam o mesmo tipo de informação (segmento de atuação).
+const segmentKey = nameKey;
+
 function sameShift(a: any, b: any) {
   const x = String(a || "").trim().toUpperCase();
   return Boolean(x) && x === String(b || "").trim().toUpperCase();
@@ -502,6 +506,17 @@ ApiRoutes.get("/teachers/availability", asyncRoute(async (req: any, res: any) =>
   if ((requestedStart && !requestedEnd) || (!requestedStart && requestedEnd) || (requestedStart && requestedEnd && !timeIsValidRange(requestedStart, requestedEnd))) return res.status(400).json({ message: "Horário inválido" });
   if (!dateIsValidRange(startDate, endDate)) return res.status(400).json({ message: "Período inválido" });
   const dayLabels = requestedDays.length ? requestedDays : [weekdayLabels[new Date(`${startDate}T12:00:00`).getDay()]];
+  // Filtro opcional por segmento: courseId (o segmento vem da turma) ou segment (texto direto).
+  // Sem nenhum dos dois, o comportamento é o de sempre (instrutores de todos os segmentos).
+  let segmentLabel: string | null = null;
+  if (req.query.courseId) {
+    const course = await AppDataSource.getRepository(Turma).findOneBy({ id: Number(req.query.courseId) });
+    if (!course) return res.status(404).json({ message: "Turma não encontrada" });
+    segmentLabel = course.segment || null;
+  } else if (req.query.segment) {
+    segmentLabel = String(req.query.segment);
+  }
+  const wantedSegment = segmentLabel && segmentKey(segmentLabel) ? segmentKey(segmentLabel) : null;
   const teachers = await AppDataSource.getRepository(Professor).find({ order: { name: "ASC" } });
   const occupancyQb = AppDataSource.getRepository(Alocacao).createQueryBuilder("occupancy")
     .leftJoinAndSelect("occupancy.course", "course")
@@ -532,14 +547,20 @@ ApiRoutes.get("/teachers/availability", asyncRoute(async (req: any, res: any) =>
     set.add(String(course.shift));
     shiftsByTeacher.set(course.teacher.id, set);
   }
-  const items = teachers.filter((teacher) => teacher.active).map((teacher) => ({
+  const activeTeachers = teachers.filter((teacher) => teacher.active && (!wantedSegment || segmentKey(teacher.area) === wantedSegment));
+  const items = activeTeachers.map((teacher) => ({
     id: teacher.id, registration: teacher.registration, name: teacher.name,
     segment: teacher.area || "Não informado", specialty: teacher.specialty || null,
     shifts: Array.from(shiftsByTeacher.get(teacher.id) || []), available: !(byTeacher.get(teacher.id) || []).length,
     date: startDate, endDate, day: dayLabels.join(" / "), startTime: requestedStart, endTime: requestedEnd,
     scheduleLabel: requestedStart && requestedEnd ? `${requestedStart.slice(0, 5)} – ${requestedEnd.slice(0, 5)}` : "DIA TODO",
   }));
-  res.json(items.filter((item) => item.available));
+  const availableItems = items.filter((item) => item.available);
+  // includeMeta=1 devolve também quantos instrutores ativos existem no segmento, para o front
+  // diferenciar "ninguém cadastrado no segmento" de "todos ocupados". Sem o parâmetro, a resposta
+  // continua sendo a lista simples de antes.
+  if (String(req.query.includeMeta || "") === "1") return res.json({ items: availableItems, meta: { segment: segmentLabel, filteredBySegment: Boolean(wantedSegment), totalInSegment: activeTeachers.length, available: availableItems.length } });
+  res.json(availableItems);
 }));
 
 ApiRoutes.get("/dashboard", asyncRoute(async (req: any, res: any) => {
